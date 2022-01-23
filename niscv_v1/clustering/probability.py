@@ -1,6 +1,6 @@
 import numpy as np
-from niscv.clustering.kde2 import KDE2
-from niscv.basic.expectation import Expectation
+from niscv_v1.clustering.kde2 import KDE2
+from niscv_v1.basic.expectation import Expectation
 
 import scipy.stats as st
 

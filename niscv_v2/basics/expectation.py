@@ -1,7 +1,7 @@
 import numpy as np
 from matplotlib import pyplot as plt
 from particles import resampling as rs
-from niscv_v1.basic.kde import KDE
+from niscv_v2.basics.kde2 import KDE2
 import sklearn.linear_model as lm
 from datetime import datetime as dt
 import scipy.optimize as opt

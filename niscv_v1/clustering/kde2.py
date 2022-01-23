@@ -4,7 +4,7 @@ import scipy.stats as st
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
 from particles import resampling as rs
-from niscv.basic.kde import KDE
+from niscv_v1.basic.kde import KDE
 
 
 class KDE2:
