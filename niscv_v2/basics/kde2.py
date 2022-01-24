@@ -30,7 +30,7 @@ class KDE2:
 
         return density
 
-    def rvs(self, size, stratify=True):
+    def rvs(self, size, stratify=False):
         if stratify:
             index, sizes = np.unique(rs.stratified(self.prop, M=size), return_counts=True)
         else:

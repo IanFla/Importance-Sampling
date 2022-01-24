@@ -3,6 +3,7 @@ import scipy.stats as st
 from scipy.linalg import sqrtm
 from scipy.spatial import distance_matrix
 from particles import resampling as rs
+from niscv_v2.basics import utils
 
 from matplotlib import pyplot as plt
 from datetime import datetime as dt
@@ -13,7 +14,6 @@ class KDE:
         self.centers = centers
         self.weights = weights / weights.sum()
         self.m, self.d = centers.shape
-        self.ESS = 1 / np.sum(self.weights ** 2)
         self.local = local
         if self.local:
             centers_ = centers.dot(sqrtm(np.linalg.inv(np.cov(self.centers.T, aweights=weights))))
@@ -26,7 +26,8 @@ class KDE:
         else:
             covs = np.cov(centers.T, aweights=weights)
 
-        self.factor = bdwth * (self.ESS ** (-1 / (self.d + 4))) * (gamma ** (-1 / self.d) if self.local else 1.0)
+        self.factor = bdwth * (utils.ess(weights) ** (-1 / (self.d + 4))) \
+                      * (gamma ** (-1 / self.d) if self.local else 1.0)
         self.covs = (self.factor ** 2) * np.array(covs)
 
     def pdf(self, samples):
@@ -37,7 +38,7 @@ class KDE:
 
         return density
 
-    def rvs(self, size, stratify=True):
+    def rvs(self, size, stratify=False):
         if stratify:
             index, sizes = np.unique(rs.stratified(self.weights, M=size), return_counts=True)
         else:
