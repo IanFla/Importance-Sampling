@@ -5,12 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0e490570-a654-48ca-854e-837d17eec778" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/niscv_v2/data/test/tmp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/niscv_v2/analysis/test/test1.py" beforeDir="false" afterPath="$PROJECT_DIR$/niscv_v2/analysis/test/test_exp.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/niscv_v2/basics/exp.py" beforeDir="false" afterPath="$PROJECT_DIR$/niscv_v2/basics/exp.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/niscv_v2/basics/qtl.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/niscv_v2/data/test/test1" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -185,7 +180,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1642905624078</updated>
-      <workItem from="1642905630043" duration="54554000" />
+      <workItem from="1642905630043" duration="55521000" />
     </task>
     <servers />
   </component>
