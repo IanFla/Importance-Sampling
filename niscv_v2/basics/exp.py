@@ -6,10 +6,6 @@ from niscv_v2.basics import utils
 import sklearn.linear_model as lm
 
 import scipy.stats as st
-import multiprocessing
-import os
-from functools import partial
-from datetime import datetime as dt
 import pickle
 import warnings
 warnings.filterwarnings("ignore")
@@ -279,25 +275,21 @@ def run(it, dim):
     results = []
     for setting in settings:
         np.random.seed(1997 * it + 1107)
-        result = experiment(dim=dim, size_est=20000, sn=setting[0], show=False,
-                            size_kn=500, ratio=20, bootstrap=setting[1])
+        result = experiment(dim=dim, size_est=10000, sn=setting[0], show=False,
+                            size_kn=100, ratio=10, bootstrap=setting[1])
         results.append(result)
 
     return results
 
 
 def main(dim):
-    os.environ['OMP_NUM_THREADS'] = '2'
-    with multiprocessing.Pool(processes=16) as pool:
-        begin = dt.now()
-        its = np.arange(100)
-        R = pool.map(partial(run, dim=dim), its)
-        end = dt.now()
-        print((end - begin).seconds)
+    R = []
+    for it in np.arange(100):
+        R.append(run(it, dim))
 
     with open('../data/test/test_exp', 'wb') as file:
         pickle.dump(R, file)
 
 
 if __name__ == '__main__':
-    main(dim=5)
+    main(dim=3)
