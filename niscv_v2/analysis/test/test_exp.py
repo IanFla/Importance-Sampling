@@ -3,7 +3,7 @@ import pickle
 
 
 def read():
-    file = open('../../data/test/test1', 'rb')
+    file = open('../../data/test/test_exp', 'rb')
     data = pickle.load(file)
     return np.array(data)
 
