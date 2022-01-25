@@ -1,6 +1,6 @@
 import numpy as np
 import scipy.stats as st
-from niscv.clustering.probability import Probability
+from niscv_v1.clustering.probability import Probability
 from matplotlib import pyplot as plt
 
 

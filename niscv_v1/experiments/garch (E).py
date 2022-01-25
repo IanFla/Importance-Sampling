@@ -1,7 +1,7 @@
 import numpy as np
 from matplotlib import pyplot as plt
-from niscv.clustering.quantile import Quantile
-from niscv.real.garch import GARCH
+from niscv_v1.clustering.quantile import Quantile
+from niscv_v1.real.garch import GARCH
 import pandas as pd
 import seaborn as sb
 import multiprocessing

@@ -5,6 +5,10 @@ from niscv_v2.basics import utils
 import sklearn.linear_model as lm
 
 import scipy.stats as st
+import multiprocessing
+import os
+from functools import partial
+from datetime import datetime as dt
 import pickle
 import warnings
 warnings.filterwarnings("ignore")
@@ -284,9 +288,13 @@ def run(it, dim):
 
 
 def main(dim):
-    R = []
-    for it in np.arange(100):
-        R.append(run(it, dim))
+    os.environ['OMP_NUM_THREADS'] = '2'
+    with multiprocessing.Pool(processes=16) as pool:
+        begin = dt.now()
+        its = np.arange(100)
+        R = pool.map(partial(run, dim=dim), its)
+        end = dt.now()
+        print((end - begin).seconds)
 
     with open('../data/test/data_exp', 'wb') as file:
         pickle.dump(R, file)
