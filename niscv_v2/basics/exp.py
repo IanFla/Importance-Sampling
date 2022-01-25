@@ -287,7 +287,7 @@ def main(dim):
     for it in np.arange(100):
         R.append(run(it, dim))
 
-    with open('../data/test/test_exp', 'wb') as file:
+    with open('../data/test/data_exp', 'wb') as file:
         pickle.dump(R, file)
 
 
