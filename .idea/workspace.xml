@@ -49,7 +49,7 @@
       <recent name="$PROJECT_DIR$/niscv_v2/others" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.exp">
+  <component name="RunManager" selected="Python.utils">
     <configuration name="data_exp" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Importance-Sampling" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -138,7 +138,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="test_ex" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="utils" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Importance-Sampling" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -146,12 +146,12 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/niscv_v2/analysis/test" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/niscv_v2/basics" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/niscv_v2/analysis/test/test_ex.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/niscv_v2/basics/utils.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -162,18 +162,18 @@
     </configuration>
     <list>
       <item itemvalue="Python.exp" />
-      <item itemvalue="Python.test_ex" />
       <item itemvalue="Python.data_exp" />
       <item itemvalue="Python.kde" />
       <item itemvalue="Python.kde2" />
+      <item itemvalue="Python.utils" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.exp" />
+        <item itemvalue="Python.utils" />
         <item itemvalue="Python.kde2" />
+        <item itemvalue="Python.exp" />
         <item itemvalue="Python.kde" />
         <item itemvalue="Python.data_exp" />
-        <item itemvalue="Python.test_ex" />
       </list>
     </recent_temporary>
   </component>
