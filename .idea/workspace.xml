@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0e490570-a654-48ca-854e-837d17eec778" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/niscv_v2/basics/exp.py" beforeDir="false" afterPath="$PROJECT_DIR$/niscv_v2/basics/exp.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/niscv_v2/basics/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/niscv_v2/basics/utils.py" afterDir="false" />
-    </list>
+    <list default="true" id="0e490570-a654-48ca-854e-837d17eec778" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -190,7 +186,7 @@
       <option name="presentableId" value="Default" />
       <updated>1642905624078</updated>
       <workItem from="1642905630043" duration="56099000" />
-      <workItem from="1643025023061" duration="12314000" />
+      <workItem from="1643025023061" duration="12594000" />
     </task>
     <servers />
   </component>
