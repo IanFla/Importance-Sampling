@@ -208,6 +208,7 @@ class Exp:
         X = (self.__divi(self.controls_, self.proposal_)).T
         zeta0 = np.linalg.solve(np.cov(X.T, bias=True), X.mean(axis=0))
 
+        zeta0 = np.zeros(self.controls_.shape[0])
         zetas = utils.newton(gradient, hessian, zeta0, lim=lim, sep=sep)
         self.disp('Dist/Norm (zeta(Opt),zeta(The)): {:.4f}/({:.4f},{:.4f})'
                   .format(np.sqrt(np.sum((zetas[-1] - zeta0) ** 2)),
@@ -296,7 +297,7 @@ def main(dim):
         end = dt.now()
         print((end - begin).seconds)
 
-    with open('../data/test/data_exp', 'wb') as file:
+    with open('../data/test/data_exp_zeta', 'wb') as file:
         pickle.dump(R, file)
 
 
