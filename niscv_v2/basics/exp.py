@@ -281,8 +281,8 @@ def run(it, dim):
     results = []
     for setting in settings:
         np.random.seed(1997 * it + 1107)
-        results.append(experiment(dim=dim, size_est=40000, sn=setting[0], show=False,
-                                  size_kn=300, ratio=20, bootstrap=setting[1]))
+        results.append(experiment(dim=dim, size_est=10000, sn=setting[0], show=False,
+                                  size_kn=500, ratio=20, bootstrap=setting[1]))
 
     return results
 
