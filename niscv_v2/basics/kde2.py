@@ -1,8 +1,8 @@
 import numpy as np
 from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import KMeans
-from particles import resampling as rs
 from niscv_v2.basics.kde import KDE
+from niscv_v2.basics import utils
 
 from matplotlib import pyplot as plt
 import scipy.stats as st
@@ -19,23 +19,19 @@ class KDE2:
 
         self.labels = labels
         num = labels.max(initial=0).astype(np.int32) + 1
-        freq = np.array([weights[labels == i].sum() for i in range(num)])
-        self.prop = freq / freq.sum()
+        freqs = np.array([weights[labels == i].sum() for i in range(num)])
+        self.props = freqs / freqs.sum()
         self.kdes = [KDE(centers[labels == i], weights[labels == i], local, gamma, bdwth) for i in range(num)]
 
     def pdf(self, samples):
         density = np.zeros(samples.shape[0])
         for l, kde in enumerate(self.kdes):
-            density += self.prop[l] * kde.pdf(samples)
+            density += self.props[l] * kde.pdf(samples)
 
         return density
 
     def rvs(self, size, stratify=False):
-        if stratify:
-            index, sizes = np.unique(rs.stratified(self.prop, M=size), return_counts=True)
-        else:
-            index, sizes = np.unique(rs.multinomial(self.prop, M=size), return_counts=True)
-
+        index, sizes = utils.resampler(self.props, size, stratify)
         return np.vstack([self.kdes[index[j]].rvs(sizes[j], stratify) for j in range(index.size)])
 
     def kns(self, samples):
@@ -44,7 +40,7 @@ class KDE2:
 
 def main(mode, local, gamma, bdwth, seed=19971107):
     np.random.seed(seed)
-    target = lambda x: 0.7 * st.multivariate_normal(mean=[-1, 0], cov=0.4).pdf(x) + \
+    target = lambda x: 0.7 * st.multivariate_normal(mean=[-1, 0], cov=[0.4, 1]).pdf(x) + \
                        0.3 * st.multivariate_normal(mean=[2, 0], cov=0.2).pdf(x)
     proposal = st.multivariate_normal(mean=[0, 0], cov=4).pdf
     centers = st.multivariate_normal(mean=[0, 0], cov=4).rvs(size=1000)
@@ -95,4 +91,7 @@ def main(mode, local, gamma, bdwth, seed=19971107):
 
 
 if __name__ == '__main__':
+    main(mode=1, local=False, gamma=0.3, bdwth=1.0)
     main(mode=2, local=False, gamma=0.3, bdwth=1.0)
+    main(mode=1, local=True, gamma=0.3, bdwth=1.0)
+    main(mode=2, local=True, gamma=0.3, bdwth=1.0)

@@ -1,4 +1,5 @@
 import numpy as np
+from particles import resampling as rs
 import rpy2.robjects as robj
 
 
@@ -6,6 +7,15 @@ def ess(weights):
     weights = 1.0 * np.array(weights)
     weights /= weights.sum()
     return 1 / np.sum(weights ** 2)
+
+
+def resampler(weights, size, stratify):
+    if stratify:
+        index, sizes = np.unique(rs.stratified(weights, M=size), return_counts=True)
+    else:
+        index, sizes = np.unique(rs.multinomial(weights, M=size), return_counts=True)
+
+    return index, sizes
 
 
 def support(samples, weights, size_kn):

@@ -2,7 +2,6 @@ import numpy as np
 import scipy.stats as st
 from scipy.linalg import sqrtm
 from scipy.spatial import distance_matrix
-from particles import resampling as rs
 from niscv_v2.basics import utils
 
 from matplotlib import pyplot as plt
@@ -39,11 +38,7 @@ class KDE:
         return density
 
     def rvs(self, size, stratify=False):
-        if stratify:
-            index, sizes = np.unique(rs.stratified(self.weights, M=size), return_counts=True)
-        else:
-            index, sizes = np.unique(rs.multinomial(self.weights, M=size), return_counts=True)
-
+        index, sizes = utils.resampler(self.weights, size, stratify)
         cum_sizes = np.append(0, np.cumsum(sizes))
         samples = np.zeros([size, self.d])
         for j, center in enumerate(self.centers[index]):
@@ -104,7 +99,22 @@ def main(local, gamma, bdwth, stratify, seed=19971107):
 
 if __name__ == '__main__':
     start = dt.now()
+    res = main(local=False, gamma=0.3, bdwth=1.0, stratify=False)
+    end = dt.now()
+    print(end - start)
+    print(res)
+    start = dt.now()
+    res = main(local=True, gamma=0.3, bdwth=1.0, stratify=False)
+    end = dt.now()
+    print(end - start)
+    print(res)
+    start = dt.now()
     res = main(local=False, gamma=0.3, bdwth=1.0, stratify=True)
+    end = dt.now()
+    print(end - start)
+    print(res)
+    start = dt.now()
+    res = main(local=True, gamma=0.3, bdwth=1.0, stratify=True)
     end = dt.now()
     print(end - start)
     print(res)
