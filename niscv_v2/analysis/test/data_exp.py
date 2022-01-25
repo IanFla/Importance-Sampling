@@ -16,13 +16,16 @@ def main():
     nMSE = 40000 * np.mean((data - 1.0) ** 2, axis=0)
     settings = ['IS-bt', 'SIS-bt', 'IS-sp', 'SIS-sp']
     colors = ['y', 'c', 'r', 'm']
-    estimators = ['IIS', 'NIS', 'MIS*', 'MIS', 'RIS*', 'RIS',
-                  'MLE*$_{0}$', 'MLE*$_{5}$', 'MLE*$_{10}$', 'MLE*$_{15}$', 'MLE*$_{20}$',
+    estimators = ['IIS', 'NIS', 'MIS$^*$', 'MIS', 'RIS$^*$', 'RIS',
+                  'MLE$^*_{0}$', 'MLE$^*_{5}$', 'MLE$^*_{10}$', 'MLE$^*_{15}$', 'MLE$^*_{20}$',
                   'MLE$_{0}$', 'MLE$_{5}$', 'MLE$_{10}$', 'MLE$_{15}$', 'MLE$_{20}$']
+    ests = ['IIS', 'NIS', 'MIS$^*$', 'MIS', 'RIS$^*$', 'RIS',
+            'MLE$^*_{10}$', 'MLE$^*_{20}$', 'MLE$_{10}$', 'MLE$_{20}$']
+    index = [estimators.index(est) for est in ests]
     fig, ax = plt.subplots(figsize=[8, 6])
     for i, setting in enumerate(settings):
-        ax.semilogy(estimators, nMSE[i], colors[i]+'-', label='nMSE({})'.format(setting))
-        ax.semilogy(estimators, nVar[i], colors[i] + '--', label='nVar({})'.format(setting))
+        ax.semilogy(ests, nMSE[i, index], colors[i]+'-', label='nMSE({})'.format(setting))
+        ax.semilogy(ests, nVar[i, index], colors[i] + '--', label='nVar({})'.format(setting))
 
     ax.legend()
     fig.tight_layout()
