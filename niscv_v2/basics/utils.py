@@ -26,7 +26,7 @@ def support(samples, weights, size_kn):
         supp <- function(data, dim, weights, size_kn){
             samples <- matrix(data, byrow=T, ncol=dim)
             sp(n=size_kn, p=dim, dist.samp=samples, scale.flg=T, 
-            wts=weights, iter.max=1000, iter.min=100, tol=1e-5)$sp
+            wts=weights, iter.max=1000, iter.min=100, tol=1e-5, par.flg=F)$sp
         }
         ''')
     centers = robj.r['supp'](data=data_r, dim=samples.shape[1], weights=weights_r, size_kn=size_kn)
