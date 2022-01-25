@@ -6,8 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="0e490570-a654-48ca-854e-837d17eec778" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/niscv_v2/basics/kde.py" beforeDir="false" afterPath="$PROJECT_DIR$/niscv_v2/basics/kde.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/niscv_v2/basics/kde2.py" beforeDir="false" afterPath="$PROJECT_DIR$/niscv_v2/basics/kde2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/niscv_v2/basics/exp.py" beforeDir="false" afterPath="$PROJECT_DIR$/niscv_v2/basics/exp.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/niscv_v2/basics/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/niscv_v2/basics/utils.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -54,7 +53,7 @@
       <recent name="$PROJECT_DIR$/niscv_v2/others" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.kde2">
+  <component name="RunManager" selected="Python.exp">
     <configuration name="data_exp" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Importance-Sampling" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -174,10 +173,10 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.exp" />
         <item itemvalue="Python.kde2" />
         <item itemvalue="Python.kde" />
         <item itemvalue="Python.data_exp" />
-        <item itemvalue="Python.exp" />
         <item itemvalue="Python.test_ex" />
       </list>
     </recent_temporary>
@@ -191,7 +190,7 @@
       <option name="presentableId" value="Default" />
       <updated>1642905624078</updated>
       <workItem from="1642905630043" duration="56099000" />
-      <workItem from="1643025023061" duration="6020000" />
+      <workItem from="1643025023061" duration="12314000" />
     </task>
     <servers />
   </component>
@@ -216,7 +215,7 @@
     <SUITE FILE_PATH="coverage/Importance_Sampling$test1.coverage" NAME="test1 Coverage Results" MODIFIED="1642996111251" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/analysis/test" />
     <SUITE FILE_PATH="coverage/Importance_Sampling$.coverage" NAME=" Coverage Results" MODIFIED="1643024801096" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/analysis/test" />
     <SUITE FILE_PATH="coverage/Importance_Sampling$kernel.coverage" NAME="kernel Coverage Results" MODIFIED="1642910680603" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/basic" />
-    <SUITE FILE_PATH="coverage/Importance_Sampling$exp.coverage" NAME="exp Coverage Results" MODIFIED="1643025217029" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/basics" />
+    <SUITE FILE_PATH="coverage/Importance_Sampling$exp.coverage" NAME="exp Coverage Results" MODIFIED="1643083319926" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/basics" />
     <SUITE FILE_PATH="coverage/Importance_Sampling$nmb.coverage" NAME="nmb Coverage Results" MODIFIED="1643025044893" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/analysis/test" />
     <SUITE FILE_PATH="coverage/Importance_Sampling$fun.coverage" NAME="fun Coverage Results" MODIFIED="1642986286165" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/basics" />
     <SUITE FILE_PATH="coverage/Importance_Sampling$kde2__1_.coverage" NAME="kde2 (1) Coverage Results" MODIFIED="1642924862158" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/basic" />

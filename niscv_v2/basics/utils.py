@@ -11,9 +11,9 @@ def ess(weights):
 
 def resampler(weights, size, stratify):
     if stratify:
-        index, sizes = np.unique(rs.stratified(weights, M=size), return_counts=True)
+        index, sizes = np.unique(rs.stratified(weights / weights.sum(), M=size), return_counts=True)
     else:
-        index, sizes = np.unique(rs.multinomial(weights, M=size), return_counts=True)
+        index, sizes = np.unique(rs.multinomial(weights / weights.sum(), M=size), return_counts=True)
 
     return index, sizes
 
@@ -33,12 +33,12 @@ def support(samples, weights, size_kn):
     return np.array(centers)
 
 
-def newton(gradient, hessian, x0, lim=20, sp=5):
+def newton(gradient, hessian, x0, lim=20, sep=5):
     xs = [x0]
     for i in range(lim):
         xs.append(xs[-1] - np.linalg.solve(hessian(xs[-1]), gradient(xs[-1])))
 
-    return np.array(xs)[::sp]
+    return np.array(xs)[::sep]
 
 
 def main():
