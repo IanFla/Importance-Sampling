@@ -41,8 +41,8 @@ def experiment(dim, fun, size_est, sn, show, size_kn, ratio, bootstrap):
 
 
 def run(it, dim, bootstrap):
-    settings = [[0, 0, False], [1, 1, False], [1, 0, False], [1, 0, True], [2, 0, False], [2, 0, True],
-                [-1, 1, False], [-1, 1, True], [-1, 2, False], [-1, 2, True]]
+    settings = [[0, 0, False], [1, 1, False], [1, 0, False], [1, 0, True],
+                [2, 0, False], [2, 0, True], [-1, 1, False], [-1, 1, True]]
     size_kns = [50, 100, 150, 200, 250, 300, 350, 400]
     Results = []
     Params = []
