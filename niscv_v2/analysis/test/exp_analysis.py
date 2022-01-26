@@ -4,7 +4,7 @@ import pickle
 
 
 def read():
-    file = open('../../data/test/data_exp_zeta', 'rb')
+    file = open('../../data/test/exp_data', 'rb')
     data = pickle.load(file)
     data = [[da[0] for da in dat] for dat in data]
     return np.array(data)

@@ -306,7 +306,7 @@ def main(dim):
         end = dt.now()
         print((end - begin).seconds)
 
-    with open('../data/test/data_exp_zeta', 'wb') as file:
+    with open('../data/test/exp_data', 'wb') as file:
         pickle.dump(R, file)
 
 

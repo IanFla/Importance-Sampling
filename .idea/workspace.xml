@@ -5,8 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0e490570-a654-48ca-854e-837d17eec778" name="Changes" comment="nmb">
+      <change afterPath="$PROJECT_DIR$/niscv_v2/experiments/simulation/kernel_number.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/niscv_v2/analysis/test/data_exp.py" beforeDir="false" afterPath="$PROJECT_DIR$/niscv_v2/analysis/test/data_exp.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/niscv_v1/experiments/garch 2 (E).py" beforeDir="false" afterPath="$PROJECT_DIR$/niscv_v1/experiments/garch 2 (E).py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/niscv_v1/experiments/normal case (E).py" beforeDir="false" afterPath="$PROJECT_DIR$/niscv_v1/experiments/normal case (E).py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/niscv_v1/experiments/rare event (E).py" beforeDir="false" afterPath="$PROJECT_DIR$/niscv_v1/experiments/rare event (E).py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/niscv_v1/experiments/time consuming (E).py" beforeDir="false" afterPath="$PROJECT_DIR$/niscv_v1/experiments/time consuming (E).py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/niscv_v1/experiments/time consuming 2 (E).py" beforeDir="false" afterPath="$PROJECT_DIR$/niscv_v1/experiments/time consuming 2 (E).py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/niscv_v2/analysis/test/data_exp.py" beforeDir="false" afterPath="$PROJECT_DIR$/niscv_v2/analysis/test/exp_analysis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/niscv_v2/basics/exp.py" beforeDir="false" afterPath="$PROJECT_DIR$/niscv_v2/basics/exp.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/niscv_v2/basics/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/niscv_v2/basics/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/niscv_v2/data/test/data_exp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/niscv_v2/data/test/data_exp_zeta" beforeDir="false" afterPath="$PROJECT_DIR$/niscv_v2/data/test/exp_data" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,29 +62,7 @@
       <recent name="$PROJECT_DIR$/niscv_v2/others" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.data_exp">
-    <configuration name="data_exp" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Importance-Sampling" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/niscv_v2/analysis/test" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/niscv_v2/analysis/test/data_exp.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Python.exp_analysis">
     <configuration name="exp" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Importance-Sampling" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -89,6 +77,28 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/niscv_v2/basics/exp.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="exp_analysis" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Importance-Sampling" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/niscv_v2/analysis/test" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/niscv_v2/analysis/test/exp_analysis.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -164,15 +174,15 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.data_exp" />
       <item itemvalue="Python.exp" />
       <item itemvalue="Python.kde2" />
       <item itemvalue="Python.kde" />
       <item itemvalue="Python.utils" />
+      <item itemvalue="Python.exp_analysis" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.data_exp" />
+        <item itemvalue="Python.exp_analysis" />
         <item itemvalue="Python.exp" />
         <item itemvalue="Python.utils" />
         <item itemvalue="Python.kde2" />

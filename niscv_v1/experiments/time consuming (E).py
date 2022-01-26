@@ -1,6 +1,6 @@
 import numpy as np
 import scipy.stats as st
-from niscv.basic.expectation import Expectation
+from niscv_v1.basic.expectation import Expectation
 from datetime import datetime as dt
 import pickle
 # import os
