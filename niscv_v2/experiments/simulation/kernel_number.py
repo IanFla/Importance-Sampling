@@ -44,7 +44,7 @@ def run(it, dim, bootstrap):
     print(it, end=' ')
     settings = [[0, 0, False], [1, 1, False], [1, 0, False], [1, 0, True], [2, 0, False], [2, 0, True],
                 [-1, 1, False], [-1, 1, True], [-1, 2, False], [-1, 2, True], [-1, 3, False], [-1, 3, True]]
-    size_kns = [50, 100, 150, 200, 250, 300, 350, 400]
+    size_kns = [50, 100, 150, 200, 250, 300]
     Results = []
     Params = []
     for setting in settings:
@@ -52,8 +52,8 @@ def run(it, dim, bootstrap):
         params = []
         for size_kn in size_kns:
             np.random.seed(1997 * it + 1107)
-            res, par = experiment(dim=dim, fun=utils.integrand(setting[0], setting[1]), size_est=3000,
-                                  sn=setting[2], show=False, size_kn=size_kn, ratio=20, bootstrap=bootstrap)
+            res, par = experiment(dim=dim, fun=utils.integrand(setting[0], setting[1]), size_est=2000,
+                                  sn=setting[2], show=False, size_kn=size_kn, ratio=30, bootstrap=bootstrap)
             results.append(res)
             params.append(par)
 
@@ -77,9 +77,9 @@ def main(dim, bootstrap):
 
 
 if __name__ == '__main__':
-    main(2, True)
-    main(2, False)
-    main(4, True)
-    main(4, False)
+    main(3, True)
+    main(3, False)
     main(6, True)
     main(6, False)
+    main(9, True)
+    main(9, False)
