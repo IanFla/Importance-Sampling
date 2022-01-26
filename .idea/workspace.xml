@@ -226,7 +226,14 @@
       <option name="project" value="LOCAL" />
       <updated>1643182040457</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="nmb">
+      <created>1643193264818</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1643193264818</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -256,7 +263,7 @@
     <SUITE FILE_PATH="coverage/Importance_Sampling$nmb.coverage" NAME="nmb Coverage Results" MODIFIED="1643025044893" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/analysis/test" />
     <SUITE FILE_PATH="coverage/Importance_Sampling$fun.coverage" NAME="fun Coverage Results" MODIFIED="1642986286165" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/basics" />
     <SUITE FILE_PATH="coverage/Importance_Sampling$kde2__1_.coverage" NAME="kde2 (1) Coverage Results" MODIFIED="1642924862158" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/basic" />
-    <SUITE FILE_PATH="coverage/Importance_Sampling$kernel_number.coverage" NAME="kernel_number Coverage Results" MODIFIED="1643181635728" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/experiments/simulation" />
+    <SUITE FILE_PATH="coverage/Importance_Sampling$kernel_number.coverage" NAME="kernel_number Coverage Results" MODIFIED="1643204523509" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/experiments/simulation" />
     <SUITE FILE_PATH="coverage/Importance_Sampling$kde.coverage" NAME="kde Coverage Results" MODIFIED="1643075717245" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/basics" />
     <SUITE FILE_PATH="coverage/Importance_Sampling$kde2.coverage" NAME="kde2 Coverage Results" MODIFIED="1643076527566" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/basics" />
     <SUITE FILE_PATH="coverage/Importance_Sampling$data_exp.coverage" NAME="data_exp Coverage Results" MODIFIED="1643095753338" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/analysis/test" />
