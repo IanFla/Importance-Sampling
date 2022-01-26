@@ -5,18 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0e490570-a654-48ca-854e-837d17eec778" name="Changes" comment="nmb">
-      <change afterPath="$PROJECT_DIR$/niscv_v2/experiments/simulation/kernel_number.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/niscv_v1/experiments/garch 2 (E).py" beforeDir="false" afterPath="$PROJECT_DIR$/niscv_v1/experiments/garch 2 (E).py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/niscv_v1/experiments/normal case (E).py" beforeDir="false" afterPath="$PROJECT_DIR$/niscv_v1/experiments/normal case (E).py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/niscv_v1/experiments/rare event (E).py" beforeDir="false" afterPath="$PROJECT_DIR$/niscv_v1/experiments/rare event (E).py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/niscv_v1/experiments/time consuming (E).py" beforeDir="false" afterPath="$PROJECT_DIR$/niscv_v1/experiments/time consuming (E).py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/niscv_v1/experiments/time consuming 2 (E).py" beforeDir="false" afterPath="$PROJECT_DIR$/niscv_v1/experiments/time consuming 2 (E).py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/niscv_v2/analysis/test/data_exp.py" beforeDir="false" afterPath="$PROJECT_DIR$/niscv_v2/analysis/test/exp_analysis.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/niscv_v2/basics/exp.py" beforeDir="false" afterPath="$PROJECT_DIR$/niscv_v2/basics/exp.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/niscv_v2/basics/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/niscv_v2/basics/utils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/niscv_v2/data/test/data_exp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/niscv_v2/data/test/data_exp_zeta" beforeDir="false" afterPath="$PROJECT_DIR$/niscv_v2/data/test/exp_data" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/niscv_v2/experiments/simulation/kernel_number.py" beforeDir="false" afterPath="$PROJECT_DIR$/niscv_v2/experiments/simulation/kernel_number.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

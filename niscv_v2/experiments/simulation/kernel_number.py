@@ -64,10 +64,10 @@ def run(it, dim, bootstrap):
 
 
 def main(dim, bootstrap):
-    os.environ['OMP_NUM_THREADS'] = '1'
-    with multiprocessing.Pool(processes=32) as pool:
+    os.environ['OMP_NUM_THREADS'] = '3'
+    with multiprocessing.Pool(processes=10) as pool:
         begin = dt.now()
-        its = np.arange(100)
+        its = np.arange(10)
         R = pool.map(partial(run, dim=dim, bootstrap=bootstrap), its)
         end = dt.now()
         print((end - begin).seconds)
