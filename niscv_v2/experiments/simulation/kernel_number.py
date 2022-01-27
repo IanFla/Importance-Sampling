@@ -50,7 +50,7 @@ def run(it, dim, bootstrap):
         results = []
         params = []
         for size_kn in size_kns:
-            np.random.seed(1997 + it + 1107)
+            np.random.seed(1997 * it + 1107)
             print(it, setting, size_kn)
             res, par = experiment(dim=dim, fun=utils.integrand(setting[0], setting[1]), size_est=2000,
                                   sn=setting[2], show=False, size_kn=size_kn, ratio=50, bootstrap=bootstrap)
