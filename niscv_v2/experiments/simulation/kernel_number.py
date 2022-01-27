@@ -77,12 +77,9 @@ def main(dim, bootstrap):
 
 
 if __name__ == '__main__':
-    # main(2, True)
-    # main(2, False)
-    # main(4, True)
-    # main(4, False)
-    # main(6, True)
-    # main(6, False)
-    np.random.seed(1997 * 195 + 1107)
-    res, par = experiment(dim=2, fun=utils.integrand(-1, 1), size_est=2000,
-                          sn=True, show=True, size_kn=400, ratio=50, bootstrap=False)
+    main(3, True)
+    main(3, False)
+    main(5, True)
+    main(5, False)
+    main(7, True)
+    main(7, False)
