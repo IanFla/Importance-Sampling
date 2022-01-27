@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0e490570-a654-48ca-854e-837d17eec778" name="Changes" comment="nmb">
-      <change afterPath="$PROJECT_DIR$/niscv_v2/analysis/simulation/kernel_number (A).py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/niscv_v2/figures/simulation/kernel_number_3D.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/niscv_v2/figures/simulation/kernel_number_5D.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/niscv_v2/analysis/test/exp_analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/niscv_v2/analysis/test/exp (A).py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/niscv_v2/experiments/simulation/kernel_number.py" beforeDir="false" afterPath="$PROJECT_DIR$/niscv_v2/experiments/simulation/kernel_number (E).py" afterDir="false" />
-    </list>
+    <list default="true" id="0e490570-a654-48ca-854e-837d17eec778" name="Changes" comment="nmb" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
