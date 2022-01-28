@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0e490570-a654-48ca-854e-837d17eec778" name="Changes" comment="nmb" />
+    <list default="true" id="0e490570-a654-48ca-854e-837d17eec778" name="Changes" comment="nmb">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/niscv_v2/experiments/simulation/kernel_number (E).py" beforeDir="false" afterPath="$PROJECT_DIR$/niscv_v2/experiments/simulation/kernel_number (E).py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -53,7 +56,7 @@
       <recent name="$PROJECT_DIR$/niscv_v2/others" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.kernel_number (A)">
+  <component name="RunManager" selected="Python.kernel_number (E)">
     <configuration name="exp (A)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Importance-Sampling" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -173,8 +176,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.kernel_number (A)" />
         <item itemvalue="Python.kernel_number (E)" />
+        <item itemvalue="Python.kernel_number (A)" />
         <item itemvalue="Python.exp (A)" />
         <item itemvalue="Python.exp" />
         <item itemvalue="Python.utils" />

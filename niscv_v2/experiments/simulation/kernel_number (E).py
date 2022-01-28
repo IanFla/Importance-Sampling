@@ -40,10 +40,10 @@ def experiment(dim, fun, size_est, sn, show, size_kn, ratio, bootstrap):
     return exp.result, exp.params
 
 
-def run(it, dim, bootstrap):
+def run(it, dim):
     settings = [[0, 0, False], [1, 1, False], [1, 0, False], [1, 0, True],
                 [2, 0, False], [2, 0, True], [-1, 1, False], [-1, 1, True]]
-    size_kns = [50, 100, 150, 200, 250, 300, 350, 400]
+    size_kns = [50, 100, 150, 200, 250, 300, 400, 500, 600, 800, 1000]
     Results = []
     Params = []
     for setting in settings:
@@ -52,8 +52,8 @@ def run(it, dim, bootstrap):
         for size_kn in size_kns:
             np.random.seed(1997 * it + 1107)
             print(it, setting, size_kn)
-            res, par = experiment(dim=dim, fun=utils.integrand(setting[0], setting[1]), size_est=2000,
-                                  sn=setting[2], show=False, size_kn=size_kn, ratio=50, bootstrap=bootstrap)
+            res, par = experiment(dim=dim, fun=utils.integrand(setting[0], setting[1]), size_est=5000,
+                                  sn=setting[2], show=False, size_kn=size_kn, ratio=1000, bootstrap=True)
             results.append(res)
             params.append(par)
 
@@ -63,21 +63,20 @@ def run(it, dim, bootstrap):
     return [Results, Params]
 
 
-def main(dim, bootstrap):
+def main(dim):
     os.environ['OMP_NUM_THREADS'] = '1'
     with multiprocessing.Pool(processes=60) as pool:
         begin = dt.now()
-        its = np.arange(200)
-        R = pool.map(partial(run, dim=dim, bootstrap=bootstrap), its)
+        its = np.arange(1000)
+        R = pool.map(partial(run, dim=dim), its)
         end = dt.now()
         print((end - begin).seconds)
 
-    with open('../../data/simulation/kernel_number_{}D_{}BS'.format(dim, bootstrap), 'wb') as file:
+    with open('../../data/simulation/kernel_number_{}D'.format(dim), 'wb') as file:
         pickle.dump(R, file)
 
 
 if __name__ == '__main__':
-    main(3, False)
-    main(3, True)
-    main(5, False)
-    main(5, True)
+    main(3)
+    main(6)
+    main(9)
