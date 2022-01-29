@@ -3,6 +3,7 @@ from matplotlib import pyplot as plt
 from niscv_v2.basics.kde2 import KDE2
 from niscv_v2.basics import utils
 import sklearn.linear_model as lm
+import scipy.optimize as opt
 
 import scipy.stats as st
 import multiprocessing
@@ -201,28 +202,29 @@ class Exp:
             self.result.append((mu1 + mu2) / 2)
             self.disp('RIS* est: {:.4f}'.format((mu1 + mu2) / 2))
 
-    def likelihood_setup(self, lim=20, sep=5):
-        self.params.update({'lim': lim, 'sep': sep})
-        self.gradient = lambda zeta: np.mean(self.__divi(self.controls_, self.proposal_ +
-                                                         zeta.dot(self.controls_)), axis=1)
-        self.hessian = lambda zeta: -self.__divi(self.controls_, (self.proposal_ + zeta.dot(self.controls_)) ** 2)\
-            .dot(self.controls_.T) / self.controls_.shape[1]
+    def likelihood_setup(self, lim=20):
+        self.params.update({'lim': lim})
+        self.gradient = lambda zeta: -np.mean(self.__divi(self.controls_, self.proposal_ +
+                                                          zeta.dot(self.controls_)), axis=1)
+        self.hessian = lambda zeta: self.__divi(self.controls_, (self.proposal_ + zeta.dot(self.controls_)) ** 2)\
+                                        .dot(self.controls_.T) / self.controls_.shape[1]
 
     def likelihood_estimation(self, mode=0):
+        loglikelihood = lambda zeta: -np.mean(np.log(self.proposal_ + zeta.dot(self.controls_)))
+        X = (self.__divi(self.controls_, self.proposal_)).T
+        zeta0 = np.linalg.solve(np.cov(X.T, bias=True), X.mean(axis=0))
+        zeta0 = np.zeros(self.controls_.shape[0]) if np.isnan(loglikelihood(zeta0)) else zeta0
         if mode == 0:
-            zeta0 = np.zeros(self.controls_.shape[0])
+            zeta1 = utils.newton(self.gradient, self.hessian, zeta0, lim=self.params['lim'])
         else:
-            X = (self.__divi(self.controls_, self.proposal_)).T
-            zeta0 = np.linalg.solve(np.cov(X.T, bias=True), X.mean(axis=0))
+            res = opt.root(lambda zeta: (self.gradient(zeta), self.hessian(zeta)), zeta0, method='lm', jac=True)
+            zeta1 = res['x']
 
-        zetas = utils.newton(self.gradient, self.hessian, zeta0, lim=self.params['lim'], sep=self.params['sep'])
         self.disp('Dist/Norm (zeta(Opt),zeta(Ini)): {:.4f}/({:.4f},{:.4f})'
-                  .format(np.sqrt(np.sum((zetas[-1] - zeta0) ** 2)),
-                          np.sqrt(np.sum(zetas[-1] ** 2)), np.sqrt(np.sum(zeta0 ** 2))))
-        name = 'MLE' if mode == 0 else 'MLE*'
-        for i, zetai in enumerate(zetas):
-            weights = self.__divi(self.target_, self.proposal_ + zetai.dot(self.controls_))
-            self.__estimate(weights, self.funs_, '{}({})'.format(name, self.params['sep'] * i))
+                  .format(np.sqrt(np.sum((zeta1 - zeta0) ** 2)),
+                          np.sqrt(np.sum(zeta1 ** 2)), np.sqrt(np.sum(zeta0 ** 2))))
+        weights = self.__divi(self.target_, self.proposal_ + zeta1.dot(self.controls_))
+        self.__estimate(weights, self.funs_, 'MLE*' if mode == 0 else 'MLE')
 
     def draw(self, grid_x, name, d=0):
         grid_X = np.zeros([grid_x.size, self.params['dim']])
@@ -279,9 +281,9 @@ def experiment(dim, size_est, sn, show, size_kn, ratio, bootstrap):
     if exp.show:
         exp.draw(grid_x, name='regression')
 
-    exp.likelihood_setup(lim=20, sep=5)
-    exp.likelihood_estimation(mode=1)
+    exp.likelihood_setup(lim=20)
     exp.likelihood_estimation(mode=0)
+    exp.likelihood_estimation(mode=1)
     return exp.result, exp.params
 
 
@@ -311,4 +313,6 @@ def main(dim):
 
 
 if __name__ == '__main__':
-    main(dim=5)
+    # main(dim=5)
+    experiment(dim=4, size_est=5000, sn=True, show=True,
+               size_kn=600, ratio=20, bootstrap=True)
