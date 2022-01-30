@@ -48,10 +48,6 @@ class Exp:
 
         self.reg_y = None
         self.reg_w = None
-        self.mu = None
-
-        self.gradient = None
-        self.hessian = None
 
     def disp(self, text):
         if self.show:
@@ -64,20 +60,20 @@ class Exp:
         q[q == 0] = 1
         return p / q
 
-    def __estimate(self, weights=None, funs=None, name=None, mode=None, reg=None):
-        if mode != 'regress':
+    def __estimate(self, weights=None, funs=None, name=None, reg=None):
+        if name != 'RIS':
             mu = np.sum(weights * funs) / np.sum(weights) if self.params['sn'] else np.mean(weights * funs)
-            if mode != 'resample':
-                self.result.append(mu)
-                self.disp('{} est: {:.4f}'.format(name, mu))
-            else:
+            if name == 'SIR':
                 return mu
         else:
             X = reg[0]
             w = reg[1]
             y = reg[2]
-            self.mu = np.sum(y - X.dot(reg[3])) / np.sum(w - X.dot(reg[4])) \
-                if self.params['sn'] else np.mean(y - X.dot(reg[3]))
+            mu = np.sum(y - X.dot(self.reg_y.coef_)) / np.sum(w - X.dot(self.reg_w.coef_)) \
+                if self.params['sn'] else np.mean(y - X.dot(self.reg_y.coef_))
+
+        self.result.append(mu)
+        self.disp('{} est: {:.4f}'.format(name, mu))
 
     def initial_estimation(self):
         samples = self.ini_rvs(self.params['size est'])
@@ -91,7 +87,7 @@ class Exp:
         samples = self.ini_rvs(size_est)
         weights = self.__divi(self.target(samples), self.ini_pdf(samples))
         funs = self.fun(samples)
-        mu = self.__estimate(weights, funs, mode='resample')
+        mu = self.__estimate(weights, funs, 'SIR')
         self.opt_pdf = (lambda x: self.target(x) * np.abs(self.fun(x) - mu)) \
             if self.params['sn'] else (lambda x: self.target(x) * np.abs(self.fun(x)))
 
@@ -156,75 +152,36 @@ class Exp:
     def control_calculation(self):
         self.controls_ = self.controls(self.samples_)
 
-    def regression_estimation(self, mode):
+    def regression_estimation(self):
         X = (self.__divi(self.controls_, self.proposal_)).T
         w = self.weights_
         y = w * self.funs_
-        if mode == 1:
-            self.reg_y = lm.LinearRegression().fit(X, y)
-            if self.params['sn']:
-                self.reg_w = lm.LinearRegression().fit(X, w)
-                self.disp('Regression R2: {:.4f} / {:.4f}'.format(self.reg_y.score(X, y), self.reg_w.score(X, w)))
-                self.params['R2'] = [self.reg_y.score(X, y), self.reg_w.score(X, w)]
-                self.__estimate(mode='regress', reg=[X, w, y, self.reg_y.coef_, self.reg_w.coef_])
-            else:
-                self.disp('Regression R2: {:.4f}'.format(self.reg_y.score(X, y)))
-                self.params['R2'] = self.reg_y.score(X, y)
-                self.__estimate(mode='regress', reg=[X, w, y, self.reg_y.coef_])
-
-            self.result.append(self.mu)
-            self.disp('RIS est: {:.4f}'.format(self.mu))
+        self.reg_y = lm.LinearRegression().fit(X, y)
+        if self.params['sn']:
+            self.reg_w = lm.LinearRegression().fit(X, w)
+            self.disp('Regression R2: {:.4f} / {:.4f}'.format(self.reg_y.score(X, y), self.reg_w.score(X, w)))
+            self.params['R2'] = [self.reg_y.score(X, y), self.reg_w.score(X, w)]
         else:
-            mid = self.params['size est'] // 2
-            flags = (np.random.permutation(np.append(np.ones(mid), np.zeros(self.params['size est'] - mid))) == 1)
-            X1, X2 = X[flags], X[~flags]
-            w1, w2 = w[flags], w[~flags]
-            y1, y2 = y[flags], y[~flags]
-            reg1_y = lm.LinearRegression().fit(X1, y1)
-            reg2_y = lm.LinearRegression().fit(X2, y2)
-            if self.params['sn']:
-                reg1_w = lm.LinearRegression().fit(X1, w1)
-                reg2_w = lm.LinearRegression().fit(X2, w2)
-                self.disp('Regression 1 R2: {:.4f} / {:.4f}'.format(reg1_y.score(X2, y2), reg1_w.score(X2, w2)))
-                self.disp('Regression 2 R2: {:.4f} / {:.4f}'.format(reg2_y.score(X1, y1), reg2_w.score(X1, w1)))
-                self.__estimate(mode='regress', reg=[X2, w2, y2, reg1_y.coef_, reg1_w.coef_])
-                mu1 = self.mu.copy()
-                self.__estimate(mode='regress', reg=[X1, w1, y1, reg2_y.coef_, reg2_w.coef_])
-                mu2 = self.mu.copy()
-            else:
-                self.disp('Regression 1 R2: {:.4f}'.format(reg1_y.score(X2, y2)))
-                self.disp('Regression 2 R2: {:.4f}'.format(reg2_y.score(X1, y1)))
-                self.__estimate(mode='regress', reg=[X2, w2, y2, reg1_y.coef_])
-                mu1 = self.mu.copy()
-                self.__estimate(mode='regress', reg=[X1, w1, y1, reg2_y.coef_])
-                mu2 = self.mu.copy()
+            self.disp('Regression R2: {:.4f}'.format(self.reg_y.score(X, y)))
+            self.params['R2'] = self.reg_y.score(X, y)
 
-            self.result.append((mu1 + mu2) / 2)
-            self.disp('RIS* est: {:.4f}'.format((mu1 + mu2) / 2))
+        self.__estimate(name='RIS', reg=[X, w, y])
 
-    def likelihood_setup(self, lim=20):
-        self.params.update({'lim': lim})
-        self.gradient = lambda zeta: -np.mean(self.__divi(self.controls_, self.proposal_ +
-                                                          zeta.dot(self.controls_)), axis=1)
-        self.hessian = lambda zeta: self.__divi(self.controls_, (self.proposal_ + zeta.dot(self.controls_)) ** 2)\
-                                        .dot(self.controls_.T) / self.controls_.shape[1]
-
-    def likelihood_estimation(self, mode=0):
+    def likelihood_estimation(self):
         loglikelihood = lambda zeta: -np.mean(np.log(self.proposal_ + zeta.dot(self.controls_)))
+        gradient = lambda zeta: -np.mean(self.__divi(self.controls_, self.proposal_ + zeta.dot(self.controls_)), axis=1)
+        hessian = lambda zeta: self.__divi(self.controls_, (self.proposal_ + zeta.dot(self.controls_)) ** 2)\
+                                   .dot(self.controls_.T) / self.controls_.shape[1]
         X = (self.__divi(self.controls_, self.proposal_)).T
         zeta0 = np.linalg.solve(np.cov(X.T, bias=True), X.mean(axis=0))
         zeta0 = np.zeros(self.controls_.shape[0]) if np.isnan(loglikelihood(zeta0)) else zeta0
-        if mode == 0:
-            zeta1 = utils.newton(self.gradient, self.hessian, zeta0, lim=self.params['lim'])
-        else:
-            res = opt.root(lambda zeta: (self.gradient(zeta), self.hessian(zeta)), zeta0, method='lm', jac=True)
-            zeta1 = res['x']
-
+        res = opt.root(lambda zeta: (gradient(zeta), hessian(zeta)), zeta0, method='lm', jac=True)
+        zeta1 = res['x']
         self.disp('Dist/Norm (zeta(Opt),zeta(Ini)): {:.4f}/({:.4f},{:.4f})'
                   .format(np.sqrt(np.sum((zeta1 - zeta0) ** 2)),
                           np.sqrt(np.sum(zeta1 ** 2)), np.sqrt(np.sum(zeta0 ** 2))))
         weights = self.__divi(self.target_, self.proposal_ + zeta1.dot(self.controls_))
-        self.__estimate(weights, self.funs_, 'MLE*' if mode == 0 else 'MLE')
+        self.__estimate(weights, self.funs_, 'MLE')
 
     def draw(self, grid_x, name, d=0):
         grid_X = np.zeros([grid_x.size, self.params['dim']])
@@ -244,8 +201,9 @@ class Exp:
             ax.plot(grid_x, opt_pdf.max() * mix_pdf / mix_pdf.max())
             ax.legend(['optimal proposal', 'nonparametric proposal', 'mixture proposal'])
         elif name == 'regression':
-            reg_pdf = (self.reg_y.coef_ - self.mu * self.reg_w.coef_).dot(self.controls(grid_X)) \
-                if self.params['sn'] else self.reg_y.coef_.dot(self.controls(grid_X)) + self.mu * self.mix_pdf(grid_X)
+            reg_pdf = (self.reg_y.coef_ - self.result[-1] * self.reg_w.coef_)\
+                .dot(self.controls(grid_X)) if self.params['sn'] else \
+                self.reg_y.coef_.dot(self.controls(grid_X)) + self.result[-1] * self.mix_pdf(grid_X)
             ax.plot(grid_x, np.abs(reg_pdf))
             ax.legend(['optimal proposal', 'regression proposal'])
         else:
@@ -276,14 +234,11 @@ def experiment(dim, size_est, sn, show, size_kn, ratio, bootstrap):
         exp.draw(grid_x, name='nonparametric')
 
     exp.control_calculation()
-    exp.regression_estimation(mode=0)
-    exp.regression_estimation(mode=1)
+    exp.regression_estimation()
     if exp.show:
         exp.draw(grid_x, name='regression')
 
-    exp.likelihood_setup(lim=20)
-    exp.likelihood_estimation(mode=0)
-    exp.likelihood_estimation(mode=1)
+    exp.likelihood_estimation()
     return exp.result, exp.params
 
 
@@ -315,4 +270,4 @@ def main(dim):
 if __name__ == '__main__':
     # main(dim=5)
     experiment(dim=4, size_est=5000, sn=True, show=True,
-               size_kn=600, ratio=20, bootstrap=True)
+               size_kn=300, ratio=20, bootstrap=True)

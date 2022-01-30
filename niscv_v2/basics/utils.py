@@ -34,14 +34,6 @@ def support(samples, weights, size_kn):
     return np.array(centers)
 
 
-def newton(gradient, hessian, x0, lim=10):
-    xs = [x0]
-    for i in range(lim):
-        xs.append(xs[-1] - np.linalg.solve(hessian(xs[-1]), gradient(xs[-1])))
-
-    return np.array(xs)
-
-
 def integrand(m, c):
     if m >= 0:
         return lambda x: x[:, 0] ** m + c

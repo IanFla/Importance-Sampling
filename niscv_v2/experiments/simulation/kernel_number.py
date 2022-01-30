@@ -29,20 +29,17 @@ def experiment(dim, fun, size_est, sn, show, size_kn, ratio, bootstrap):
         exp.draw(grid_x, name='nonparametric')
 
     exp.control_calculation()
-    exp.regression_estimation(mode=0)
-    exp.regression_estimation(mode=1)
+    exp.regression_estimation()
     if exp.show:
         exp.draw(grid_x, name='regression')
 
-    exp.likelihood_setup(lim=20)
-    exp.likelihood_estimation(mode=0)
-    exp.likelihood_estimation(mode=1)
+    exp.likelihood_estimation()
     return exp.result, exp.params
 
 
 def run(it, dim):
-    settings = [[0, 0, False], [1, 1, False], [1, 0, False], [1, 0, True],
-                [2, 0, False], [2, 0, True], [-1, 1, False], [-1, 1, True]]
+    settings = [[0, 0, False], [1, 0, False], [1, 1, False], [1, 1, True], [2, 0, False],
+                [2, 0, True], [-1, 1, False], [-1, 1, True], [-1, 2, False], [-1, 2, True]]
     size_kns = [50, 100, 150, 200, 250, 300, 400, 450, 500, 550, 600]
     Results = []
     Params = []
