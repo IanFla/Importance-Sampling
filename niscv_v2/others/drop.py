@@ -56,3 +56,19 @@ def newton(gradient, hessian, x0, lim=10):
             self.result.append((mu1 + mu2) / 2)
             self.disp('RIS* est: {:.4f}'.format((mu1 + mu2) / 2))
 
+    def likelihood_estimation(self):
+        # loglikelihood = lambda zeta: -np.mean(np.log(self.proposal_ + zeta.dot(self.controls_)))
+        gradient = lambda zeta: -np.mean(self.__divi(self.controls_, self.proposal_ + zeta.dot(self.controls_)), axis=1)
+        hessian = lambda zeta: self.__divi(self.controls_, (self.proposal_ + zeta.dot(self.controls_)) ** 2)\
+                                   .dot(self.controls_.T) / self.controls_.shape[1]
+        # X = (self.__divi(self.controls_, self.proposal_)).T
+        # zeta0 = np.linalg.solve(np.cov(X.T, bias=True), X.mean(axis=0))
+        # zeta0 = np.zeros(self.controls_.shape[0]) if np.isnan(loglikelihood(zeta0)) else zeta0
+        zeta0 = np.zeros(self.controls_.shape[0])
+        res = opt.root(lambda zeta: (gradient(zeta), hessian(zeta)), zeta0, method='lm', jac=True)
+        zeta1 = res['x']
+        self.disp('Dist/Norm (zeta(Opt),zeta(Ini)): {:.4f}/({:.4f},{:.4f})'
+                  .format(np.sqrt(np.sum((zeta1 - zeta0) ** 2)),
+                          np.sqrt(np.sum(zeta1 ** 2)), np.sqrt(np.sum(zeta0 ** 2))))
+        weights = self.__divi(self.target_, self.proposal_ + zeta1.dot(self.controls_))
+        self.__estimate(weights, self.funs_, 'MLE')

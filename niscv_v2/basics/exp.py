@@ -136,7 +136,6 @@ class Exp:
             return np.vstack([self.ini_rvs(size0), self.kde_rvs(size - size0)])
 
         self.mix0_rvs = mix0_rvs
-        self.controls = lambda x: self.kde.kns(x) - self.mix_pdf(x)
 
     def nonparametric_estimation(self, mode):
         if mode == 0:
@@ -157,7 +156,12 @@ class Exp:
             self.weights_ = self.__divi(self.target_, self.proposal_)
             self.__estimate(self.weights_, self.funs_, 'MIS')
 
-    def control_calculation(self):
+    def control_calculation(self, control=True):
+        if control:
+            self.controls = lambda x: self.kde.kns(x) - self.mix_pdf(x)
+        else:
+            self.controls = lambda x: np.array([self.kde_pdf(x) - self.mix_pdf(x)])
+
         self.controls_ = self.controls(self.samples_)
 
     def regression_estimation(self):
@@ -176,13 +180,10 @@ class Exp:
         self.__estimate(name='RIS', reg=[X, w, y])
 
     def likelihood_estimation(self):
-        loglikelihood = lambda zeta: -np.mean(np.log(self.proposal_ + zeta.dot(self.controls_)))
         gradient = lambda zeta: -np.mean(self.__divi(self.controls_, self.proposal_ + zeta.dot(self.controls_)), axis=1)
         hessian = lambda zeta: self.__divi(self.controls_, (self.proposal_ + zeta.dot(self.controls_)) ** 2)\
                                    .dot(self.controls_.T) / self.controls_.shape[1]
-        X = (self.__divi(self.controls_, self.proposal_)).T
-        zeta0 = np.linalg.solve(np.cov(X.T, bias=True), X.mean(axis=0))
-        zeta0 = np.zeros(self.controls_.shape[0]) if np.isnan(loglikelihood(zeta0)) else zeta0
+        zeta0 = np.zeros(self.controls_.shape[0])
         res = opt.root(lambda zeta: (gradient(zeta), hessian(zeta)), zeta0, method='lm', jac=True)
         zeta1 = res['x']
         self.disp('Dist/Norm (zeta(Opt),zeta(Ini)): {:.4f}/({:.4f},{:.4f})'
@@ -241,7 +242,13 @@ def experiment(dim, size_est, sn, adjust, show, size_kn, ratio, bootstrap):
     if exp.show:
         exp.draw(grid_x, name='nonparametric')
 
-    exp.control_calculation()
+    exp.control_calculation(control=False)
+    exp.regression_estimation()
+    if exp.show:
+        exp.draw(grid_x, name='regression')
+
+    exp.likelihood_estimation()
+    exp.control_calculation(control=True)
     exp.regression_estimation()
     if exp.show:
         exp.draw(grid_x, name='regression')
