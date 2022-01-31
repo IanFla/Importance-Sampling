@@ -9,12 +9,12 @@ from datetime import datetime as dt
 import pickle
 
 
-def experiment(dim, fun, size_est, sn, show, size_kn, ratio, bootstrap):
+def experiment(dim, fun, size_est, sn, adjust, show, size_kn, ratio, bootstrap):
     mean = np.zeros(dim)
     target = lambda x: st.multivariate_normal(mean=mean).pdf(x)
     proposal = st.multivariate_normal(mean=mean + 0.5, cov=4)
     grid_x = np.linspace(-5, 5, 200)
-    exp = Exp(dim, target, fun, proposal, size_est, sn=sn, show=show)
+    exp = Exp(dim, target, fun, proposal, size_est, sn=sn, adjust=adjust, show=show)
 
     exp.initial_estimation()
     exp.resampling(size_kn, ratio, resample=True, bootstrap=bootstrap)
@@ -38,8 +38,9 @@ def experiment(dim, fun, size_est, sn, show, size_kn, ratio, bootstrap):
 
 
 def run(it, dim):
-    settings = [[0, 0, False], [1, 0, False], [1, 1, False], [1, 1, True], [2, 0, False],
-                [2, 0, True], [-1, 1, False], [-1, 1, True], [-1, 2, False], [-1, 2, True]]
+    settings = [[1, 1, False, False], [1, 1, False, True], [1, 1, True, False],
+                [2, 1, False, False], [2, 1, False, True], [2, 1, True, False],
+                [-1, 1, False, False], [-1, 1, False, True], [-1, 1, True, False]]
     size_kns = [50, 100, 150, 200, 250, 300, 400, 450, 500, 550, 600]
     Results = []
     Params = []
@@ -49,8 +50,8 @@ def run(it, dim):
         for size_kn in size_kns:
             np.random.seed(1997 * it + 1107)
             print(it, setting, size_kn)
-            res, par = experiment(dim=dim, fun=utils.integrand(setting[0], setting[1]), size_est=5000,
-                                  sn=setting[2], show=False, size_kn=size_kn, ratio=1000, bootstrap=True)
+            res, par = experiment(dim=dim, fun=utils.integrand(setting[0], setting[1]), size_est=5000, sn=setting[2],
+                                  adjust=setting[3], show=False, size_kn=size_kn, ratio=1000, bootstrap=True)
             results.append(res)
             params.append(par)
 
@@ -69,7 +70,7 @@ def main(dim):
         end = dt.now()
         print((end - begin).seconds)
 
-    with open('../../data/simulation/kernel_number_{}D'.format(dim), 'wb') as file:
+    with open('../../data/simulation/kernel_number_adjust_{}D'.format(dim), 'wb') as file:
         pickle.dump(R, file)
 
 

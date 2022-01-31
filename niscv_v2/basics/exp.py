@@ -16,8 +16,8 @@ warnings.filterwarnings("ignore")
 
 
 class Exp:
-    def __init__(self, dim, target, fun, proposal, size_est, sn=False, show=True):
-        self.params = {'dim': dim, 'size est': size_est, 'sn': sn}
+    def __init__(self, dim, target, fun, proposal, size_est, sn=False, adjust=True, show=True):
+        self.params = {'dim': dim, 'size est': size_est, 'sn': sn, 'adjust': adjust}
         self.show = show
         self.cache = []
         self.result = []
@@ -72,6 +72,9 @@ class Exp:
             mu = np.sum(y - X.dot(self.reg_y.coef_)) / np.sum(w - X.dot(self.reg_w.coef_)) \
                 if self.params['sn'] else np.mean(y - X.dot(self.reg_y.coef_))
 
+        if name != 'IIS' and not self.params['sn'] and self.params['adjust']:
+            mu = mu + self.params['mu']
+
         self.result.append(mu)
         self.disp('{} est: {:.4f}'.format(name, mu))
 
@@ -88,6 +91,11 @@ class Exp:
         weights = self.__divi(self.target(samples), self.ini_pdf(samples))
         funs = self.fun(samples)
         mu = self.__estimate(weights, funs, 'SIR')
+        if not self.params['sn'] and self.params['adjust']:
+            self.params['mu'] = mu
+            fun = self.fun
+            self.fun = lambda x: fun(x) - mu
+
         self.opt_pdf = (lambda x: self.target(x) * np.abs(self.fun(x) - mu)) \
             if self.params['sn'] else (lambda x: self.target(x) * np.abs(self.fun(x)))
 
@@ -201,9 +209,9 @@ class Exp:
             ax.plot(grid_x, opt_pdf.max() * mix_pdf / mix_pdf.max())
             ax.legend(['optimal proposal', 'nonparametric proposal', 'mixture proposal'])
         elif name == 'regression':
-            reg_pdf = (self.reg_y.coef_ - self.result[-1] * self.reg_w.coef_)\
-                .dot(self.controls(grid_X)) if self.params['sn'] else \
-                self.reg_y.coef_.dot(self.controls(grid_X)) + self.result[-1] * self.mix_pdf(grid_X)
+            mu = self.result[-1] if 'mu' not in self.params.keys() else self.result[-1] - self.params['mu']
+            reg_pdf = (self.reg_y.coef_ - mu * self.reg_w.coef_).dot(self.controls(grid_X)) if self.params['sn'] else \
+                self.reg_y.coef_.dot(self.controls(grid_X)) + mu * self.mix_pdf(grid_X)
             ax.plot(grid_x, np.abs(reg_pdf))
             ax.legend(['optimal proposal', 'regression proposal'])
         else:
@@ -213,13 +221,13 @@ class Exp:
         plt.show()
 
 
-def experiment(dim, size_est, sn, show, size_kn, ratio, bootstrap):
+def experiment(dim, size_est, sn, adjust, show, size_kn, ratio, bootstrap):
     mean = np.zeros(dim)
     target = lambda x: st.multivariate_normal(mean=mean).pdf(x)
     fun = lambda x: x[:, 0] ** 2
     proposal = st.multivariate_normal(mean=mean, cov=4)
     grid_x = np.linspace(-5, 5, 200)
-    exp = Exp(dim, target, fun, proposal, size_est, sn=sn, show=show)
+    exp = Exp(dim, target, fun, proposal, size_est, sn=sn, adjust=adjust, show=show)
 
     exp.initial_estimation()
     exp.resampling(size_kn, ratio, resample=True, bootstrap=bootstrap)
@@ -248,7 +256,7 @@ def run(it, dim):
     results = []
     for setting in settings:
         np.random.seed(1997 * it + 1107)
-        results.append(experiment(dim=dim, size_est=10000, sn=setting[0], show=False,
+        results.append(experiment(dim=dim, size_est=10000, sn=setting[0], adjust=False, show=False,
                                   size_kn=500, ratio=20, bootstrap=setting[1]))
 
     return results
@@ -269,5 +277,7 @@ def main(dim):
 
 if __name__ == '__main__':
     # main(dim=5)
-    experiment(dim=4, size_est=5000, sn=True, show=True,
+    experiment(dim=4, size_est=5000, sn=False, adjust=False, show=True,
+               size_kn=300, ratio=20, bootstrap=True)
+    experiment(dim=4, size_est=5000, sn=False, adjust=True, show=True,
                size_kn=300, ratio=20, bootstrap=True)
