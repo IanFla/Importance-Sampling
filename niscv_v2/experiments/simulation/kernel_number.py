@@ -25,6 +25,7 @@ def experiment(dim, fun, size_est, sn, adjust, show, size_kn, ratio, bootstrap):
     exp.nonparametric_estimation(mode=0)
     exp.nonparametric_estimation(mode=1)
     exp.nonparametric_estimation(mode=2)
+    exp.nonparametric_estimation(mode=3)
     if exp.show:
         exp.draw(grid_x, name='nonparametric')
 

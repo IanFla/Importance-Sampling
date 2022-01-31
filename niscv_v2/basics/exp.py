@@ -148,6 +148,11 @@ class Exp:
             weights = self.__divi(self.target(samples), self.mix_pdf(samples))
             funs = self.fun(samples)
             self.__estimate(weights, funs, 'MIS*')
+        elif mode == 2:
+            samples = self.kde_rvs(self.params['size est'], stratify=True)
+            weights = self.__divi(self.target(samples), self.kde_pdf(samples))
+            funs = self.fun(samples)
+            self.__estimate(weights, funs, 'NIS*')
         else:
             self.samples_ = self.mix_rvs(self.params['size est'])
             self.target_ = self.target(self.samples_)
@@ -239,6 +244,7 @@ def experiment(dim, size_est, sn, adjust, show, size_kn, ratio, bootstrap):
     exp.nonparametric_estimation(mode=0)
     exp.nonparametric_estimation(mode=1)
     exp.nonparametric_estimation(mode=2)
+    exp.nonparametric_estimation(mode=3)
     if exp.show:
         exp.draw(grid_x, name='nonparametric')
 
