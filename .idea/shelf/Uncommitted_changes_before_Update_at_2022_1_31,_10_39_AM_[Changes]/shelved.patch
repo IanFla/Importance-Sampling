@@ -1,0 +1,284 @@
+Index: niscv_v2/analysis/simulation/kernel_number_D.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import numpy as np\nfrom matplotlib import pyplot as plt\nimport pickle\nfrom niscv_v2.basics import utils\n\n\ndef read(dim):\n    file = open('../../data/simulation/kernel_number_{}D'.format(dim), 'rb')\n    data = pickle.load(file)\n    data = [dat[0] for dat in data]\n    return np.array(data)\n\n\ndef draw(dim, ax):\n    settings = [[0, 0, False], [1, 1, False], [1, 0, False], [1, 0, True],\n                [2, 0, False], [2, 0, True], [-1, 1, False], [-1, 1, True]]\n    truth = np.array([utils.truth(setting[0], setting[1]) for setting in settings]).reshape([1, 8, 1, 1])\n    estimators = ['IIS', 'NIS', 'MIS$^*$', 'MIS', 'RIS$^*$', 'RIS', 'MLE$^*$', 'MLE']\n    ests = ['IIS', 'NIS', 'MIS$^*$', 'MIS', 'RIS', 'MLE']\n    index = [estimators.index(est) for est in ests]\n    colors = ['k', 'g', 'c', 'b', 'y', 'orange', 'r', 'm']\n    size_kns = [50, 100, 150, 200, 250, 300, 400, 450, 500, 550, 600]\n\n    data = read(dim)\n    nVar = 5000 * np.var(data, axis=0)\n    nMSE = 5000 * np.mean((data - truth) ** 2, axis=0)\n    for i, setting in enumerate(settings):\n        for j, est in enumerate(ests):\n            ax[i].loglog(size_kns, nMSE[i, :, index[j]], c=colors[j], label='{}'.format(est))\n            ax[i].loglog(size_kns, nVar[i, :, index[j]], '.', c=colors[j])\n\n        ax[i].set_title(setting)\n\n    groups = [[1, 2, 3], [4, 5], [6, 7]]\n    for group in groups:\n        optimal = nMSE[group, :, :][:, :, index].min(axis=0).min(axis=1)\n        for i in group:\n            ax[i].loglog(size_kns, optimal, 'rx')\n\n\ndef main(dim):\n    plt.style.use('ggplot')\n    fig, ax = plt.subplots(4, 2, figsize=[10, 15])\n    ax = ax.flatten()\n    draw(dim, ax)\n    for a in ax:\n        a.legend(loc=2)\n\n    fig.tight_layout()\n    fig.show()\n\n\nif __name__ == '__main__':\n    main(4)\n    main(6)\n    main(8)\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/niscv_v2/analysis/simulation/kernel_number_D.py b/niscv_v2/analysis/simulation/kernel_number_D.py
+--- a/niscv_v2/analysis/simulation/kernel_number_D.py	(revision 7a7792a729115e7380f7f0f77982734ce2d41ecf)
++++ b/niscv_v2/analysis/simulation/kernel_number_D.py	(date 1643596744855)
+@@ -12,35 +12,33 @@
+ 
+ 
+ def draw(dim, ax):
+-    settings = [[0, 0, False], [1, 1, False], [1, 0, False], [1, 0, True],
+-                [2, 0, False], [2, 0, True], [-1, 1, False], [-1, 1, True]]
+-    truth = np.array([utils.truth(setting[0], setting[1]) for setting in settings]).reshape([1, 8, 1, 1])
+-    estimators = ['IIS', 'NIS', 'MIS$^*$', 'MIS', 'RIS$^*$', 'RIS', 'MLE$^*$', 'MLE']
+-    ests = ['IIS', 'NIS', 'MIS$^*$', 'MIS', 'RIS', 'MLE']
+-    index = [estimators.index(est) for est in ests]
+-    colors = ['k', 'g', 'c', 'b', 'y', 'orange', 'r', 'm']
++    settings = [[0, 0, False], [1, 0, False], [1, 1, False], [1, 1, True], [2, 0, False],
++                [2, 0, True], [-1, 1, False], [-1, 1, True], [-1, 2, False], [-1, 2, True]]
++    truth = np.array([utils.truth(setting[0], setting[1]) for setting in settings]).reshape([1, 10, 1, 1])
++    estimators = ['IIS', 'NIS', 'MIS$^*$', 'MIS', 'RIS', 'MLE']
++    colors = ['k', 'b', 'y', 'g', 'r', 'm']
+     size_kns = [50, 100, 150, 200, 250, 300, 400, 450, 500, 550, 600]
+ 
+     data = read(dim)
+     nVar = 5000 * np.var(data, axis=0)
+     nMSE = 5000 * np.mean((data - truth) ** 2, axis=0)
+     for i, setting in enumerate(settings):
+-        for j, est in enumerate(ests):
+-            ax[i].loglog(size_kns, nMSE[i, :, index[j]], c=colors[j], label='{}'.format(est))
+-            ax[i].loglog(size_kns, nVar[i, :, index[j]], '.', c=colors[j])
++        for j, estimator in enumerate(estimators):
++            ax[i].loglog(size_kns, nMSE[i, :, j], c=colors[j], label='{}'.format(estimator))
++            ax[i].loglog(size_kns, nVar[i, :, j], '.', c=colors[j])
+ 
+         ax[i].set_title(setting)
+ 
+-    groups = [[1, 2, 3], [4, 5], [6, 7]]
+-    for group in groups:
+-        optimal = nMSE[group, :, :][:, :, index].min(axis=0).min(axis=1)
+-        for i in group:
+-            ax[i].loglog(size_kns, optimal, 'rx')
++    # groups = [[1, 2, 3], [4, 5], [6, 7]]
++    # for group in groups:
++    #     optimal = nMSE[group, :, :].min(axis=0).min(axis=1)
++    #     for i in group:
++    #         ax[i].loglog(size_kns, optimal, 'rx')
+ 
+ 
+ def main(dim):
+     plt.style.use('ggplot')
+-    fig, ax = plt.subplots(4, 2, figsize=[10, 15])
++    fig, ax = plt.subplots(5, 2, figsize=[10, 15])
+     ax = ax.flatten()
+     draw(dim, ax)
+     for a in ax:
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"AutoImportSettings\">\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\n  </component>\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"0e490570-a654-48ca-854e-837d17eec778\" name=\"Changes\" comment=\"nmb\">\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/niscv_v2/experiments/simulation/kernel_number (E).py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/niscv_v2/experiments/simulation/kernel_number (E).py\" afterDir=\"false\" />\n    </list>\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"FileTemplateManagerImpl\">\n    <option name=\"RECENT_TEMPLATES\">\n      <list>\n        <option value=\"Python Script\" />\n      </list>\n    </option>\n  </component>\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\n  </component>\n  <component name=\"MarkdownSettingsMigration\">\n    <option name=\"stateVersion\" value=\"1\" />\n  </component>\n  <component name=\"ProjectId\" id=\"2451QzYyetmYBKZNyTZ9THNZp0E\" />\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\">\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\n  </component>\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\">\n    <property name=\"ASKED_ADD_EXTERNAL_FILES\" value=\"true\" />\n    <property name=\"ASKED_SHARE_PROJECT_CONFIGURATION_FILES\" value=\"true\" />\n    <property name=\"RunOnceActivity.OpenProjectViewOnStart\" value=\"true\" />\n    <property name=\"RunOnceActivity.ShowReadmeOnStart\" value=\"true\" />\n    <property name=\"SHARE_PROJECT_CONFIGURATION_FILES\" value=\"true\" />\n    <property name=\"WebServerToolWindowFactoryState\" value=\"false\" />\n    <property name=\"last_opened_file_path\" value=\"$PROJECT_DIR$/niscv_v2/figures/simulation\" />\n    <property name=\"node.js.detected.package.eslint\" value=\"true\" />\n    <property name=\"node.js.detected.package.tslint\" value=\"true\" />\n    <property name=\"node.js.selected.package.eslint\" value=\"(autodetect)\" />\n    <property name=\"node.js.selected.package.tslint\" value=\"(autodetect)\" />\n    <property name=\"settings.editor.selected.configurable\" value=\"com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable\" />\n  </component>\n  <component name=\"RecentsManager\">\n    <key name=\"CopyFile.RECENT_KEYS\">\n      <recent name=\"$PROJECT_DIR$/niscv_v2/figures/simulation\" />\n    </key>\n    <key name=\"MoveFile.RECENT_KEYS\">\n      <recent name=\"$PROJECT_DIR$/niscv_v2/others\" />\n    </key>\n  </component>\n  <component name=\"RunManager\" selected=\"Python.kernel_number (E)\">\n    <configuration name=\"exp (A)\" type=\"PythonConfigurationType\" factoryName=\"Python\" temporary=\"true\" nameIsGenerated=\"true\">\n      <module name=\"Importance-Sampling\" />\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\n      <option name=\"PARENT_ENVS\" value=\"true\" />\n      <envs>\n        <env name=\"PYTHONUNBUFFERED\" value=\"1\" />\n      </envs>\n      <option name=\"SDK_HOME\" value=\"\" />\n      <option name=\"WORKING_DIRECTORY\" value=\"$PROJECT_DIR$/niscv_v2/analysis/test\" />\n      <option name=\"IS_MODULE_SDK\" value=\"true\" />\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\n      <EXTENSION ID=\"PythonCoverageRunConfigurationExtension\" runner=\"coverage.py\" />\n      <option name=\"SCRIPT_NAME\" value=\"$PROJECT_DIR$/niscv_v2/analysis/test/exp (A).py\" />\n      <option name=\"PARAMETERS\" value=\"\" />\n      <option name=\"SHOW_COMMAND_LINE\" value=\"false\" />\n      <option name=\"EMULATE_TERMINAL\" value=\"false\" />\n      <option name=\"MODULE_MODE\" value=\"false\" />\n      <option name=\"REDIRECT_INPUT\" value=\"false\" />\n      <option name=\"INPUT_FILE\" value=\"\" />\n      <method v=\"2\" />\n    </configuration>\n    <configuration name=\"exp\" type=\"PythonConfigurationType\" factoryName=\"Python\" temporary=\"true\" nameIsGenerated=\"true\">\n      <module name=\"Importance-Sampling\" />\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\n      <option name=\"PARENT_ENVS\" value=\"true\" />\n      <envs>\n        <env name=\"PYTHONUNBUFFERED\" value=\"1\" />\n      </envs>\n      <option name=\"SDK_HOME\" value=\"\" />\n      <option name=\"WORKING_DIRECTORY\" value=\"$PROJECT_DIR$/niscv_v2/basics\" />\n      <option name=\"IS_MODULE_SDK\" value=\"true\" />\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\n      <EXTENSION ID=\"PythonCoverageRunConfigurationExtension\" runner=\"coverage.py\" />\n      <option name=\"SCRIPT_NAME\" value=\"$PROJECT_DIR$/niscv_v2/basics/exp.py\" />\n      <option name=\"PARAMETERS\" value=\"\" />\n      <option name=\"SHOW_COMMAND_LINE\" value=\"false\" />\n      <option name=\"EMULATE_TERMINAL\" value=\"false\" />\n      <option name=\"MODULE_MODE\" value=\"false\" />\n      <option name=\"REDIRECT_INPUT\" value=\"false\" />\n      <option name=\"INPUT_FILE\" value=\"\" />\n      <method v=\"2\" />\n    </configuration>\n    <configuration name=\"kernel_number (A)\" type=\"PythonConfigurationType\" factoryName=\"Python\" temporary=\"true\" nameIsGenerated=\"true\">\n      <module name=\"Importance-Sampling\" />\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\n      <option name=\"PARENT_ENVS\" value=\"true\" />\n      <envs>\n        <env name=\"PYTHONUNBUFFERED\" value=\"1\" />\n      </envs>\n      <option name=\"SDK_HOME\" value=\"\" />\n      <option name=\"WORKING_DIRECTORY\" value=\"$PROJECT_DIR$/niscv_v2/analysis/simulation\" />\n      <option name=\"IS_MODULE_SDK\" value=\"true\" />\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\n      <EXTENSION ID=\"PythonCoverageRunConfigurationExtension\" runner=\"coverage.py\" />\n      <option name=\"SCRIPT_NAME\" value=\"$PROJECT_DIR$/niscv_v2/analysis/simulation/kernel_number (A).py\" />\n      <option name=\"PARAMETERS\" value=\"\" />\n      <option name=\"SHOW_COMMAND_LINE\" value=\"false\" />\n      <option name=\"EMULATE_TERMINAL\" value=\"false\" />\n      <option name=\"MODULE_MODE\" value=\"false\" />\n      <option name=\"REDIRECT_INPUT\" value=\"false\" />\n      <option name=\"INPUT_FILE\" value=\"\" />\n      <method v=\"2\" />\n    </configuration>\n    <configuration name=\"kernel_number (E)\" type=\"PythonConfigurationType\" factoryName=\"Python\" temporary=\"true\" nameIsGenerated=\"true\">\n      <module name=\"Importance-Sampling\" />\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\n      <option name=\"PARENT_ENVS\" value=\"true\" />\n      <envs>\n        <env name=\"PYTHONUNBUFFERED\" value=\"1\" />\n      </envs>\n      <option name=\"SDK_HOME\" value=\"\" />\n      <option name=\"WORKING_DIRECTORY\" value=\"$PROJECT_DIR$/niscv_v2/experiments/simulation\" />\n      <option name=\"IS_MODULE_SDK\" value=\"true\" />\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\n      <EXTENSION ID=\"PythonCoverageRunConfigurationExtension\" runner=\"coverage.py\" />\n      <option name=\"SCRIPT_NAME\" value=\"$PROJECT_DIR$/niscv_v2/experiments/simulation/kernel_number (E).py\" />\n      <option name=\"PARAMETERS\" value=\"\" />\n      <option name=\"SHOW_COMMAND_LINE\" value=\"false\" />\n      <option name=\"EMULATE_TERMINAL\" value=\"false\" />\n      <option name=\"MODULE_MODE\" value=\"false\" />\n      <option name=\"REDIRECT_INPUT\" value=\"false\" />\n      <option name=\"INPUT_FILE\" value=\"\" />\n      <method v=\"2\" />\n    </configuration>\n    <configuration name=\"utils\" type=\"PythonConfigurationType\" factoryName=\"Python\" temporary=\"true\" nameIsGenerated=\"true\">\n      <module name=\"Importance-Sampling\" />\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\n      <option name=\"PARENT_ENVS\" value=\"true\" />\n      <envs>\n        <env name=\"PYTHONUNBUFFERED\" value=\"1\" />\n      </envs>\n      <option name=\"SDK_HOME\" value=\"\" />\n      <option name=\"WORKING_DIRECTORY\" value=\"$PROJECT_DIR$/niscv_v2/basics\" />\n      <option name=\"IS_MODULE_SDK\" value=\"true\" />\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\n      <EXTENSION ID=\"PythonCoverageRunConfigurationExtension\" runner=\"coverage.py\" />\n      <option name=\"SCRIPT_NAME\" value=\"$PROJECT_DIR$/niscv_v2/basics/utils.py\" />\n      <option name=\"PARAMETERS\" value=\"\" />\n      <option name=\"SHOW_COMMAND_LINE\" value=\"false\" />\n      <option name=\"EMULATE_TERMINAL\" value=\"false\" />\n      <option name=\"MODULE_MODE\" value=\"false\" />\n      <option name=\"REDIRECT_INPUT\" value=\"false\" />\n      <option name=\"INPUT_FILE\" value=\"\" />\n      <method v=\"2\" />\n    </configuration>\n    <list>\n      <item itemvalue=\"Python.exp\" />\n      <item itemvalue=\"Python.utils\" />\n      <item itemvalue=\"Python.kernel_number (E)\" />\n      <item itemvalue=\"Python.exp (A)\" />\n      <item itemvalue=\"Python.kernel_number (A)\" />\n    </list>\n    <recent_temporary>\n      <list>\n        <item itemvalue=\"Python.kernel_number (E)\" />\n        <item itemvalue=\"Python.kernel_number (A)\" />\n        <item itemvalue=\"Python.exp (A)\" />\n        <item itemvalue=\"Python.exp\" />\n        <item itemvalue=\"Python.utils\" />\n      </list>\n    </recent_temporary>\n  </component>\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"0e490570-a654-48ca-854e-837d17eec778\" name=\"Changes\" comment=\"\" />\n      <created>1642905624078</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1642905624078</updated>\n      <workItem from=\"1642905630043\" duration=\"56099000\" />\n      <workItem from=\"1643025023061\" duration=\"13171000\" />\n    </task>\n    <task id=\"LOCAL-00001\" summary=\"nmb\">\n      <created>1643084908503</created>\n      <option name=\"number\" value=\"00001\" />\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1643084908503</updated>\n    </task>\n    <task id=\"LOCAL-00002\" summary=\"nmb\">\n      <created>1643084999923</created>\n      <option name=\"number\" value=\"00002\" />\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1643084999923</updated>\n    </task>\n    <task id=\"LOCAL-00003\" summary=\"nmb\">\n      <created>1643087186384</created>\n      <option name=\"number\" value=\"00003\" />\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1643087186384</updated>\n    </task>\n    <task id=\"LOCAL-00004\" summary=\"nmb\">\n      <created>1643089660610</created>\n      <option name=\"number\" value=\"00004\" />\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1643089660610</updated>\n    </task>\n    <task id=\"LOCAL-00005\" summary=\"nmb\">\n      <created>1643182040457</created>\n      <option name=\"number\" value=\"00005\" />\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1643182040457</updated>\n    </task>\n    <task id=\"LOCAL-00006\" summary=\"nmb\">\n      <created>1643193264818</created>\n      <option name=\"number\" value=\"00006\" />\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1643193264818</updated>\n    </task>\n    <task id=\"LOCAL-00007\" summary=\"nmb\">\n      <created>1643213290792</created>\n      <option name=\"number\" value=\"00007\" />\n      <option name=\"presentableId\" value=\"LOCAL-00007\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1643213290792</updated>\n    </task>\n    <task id=\"LOCAL-00008\" summary=\"nmb\">\n      <created>1643213334340</created>\n      <option name=\"number\" value=\"00008\" />\n      <option name=\"presentableId\" value=\"LOCAL-00008\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1643213334340</updated>\n    </task>\n    <task id=\"LOCAL-00009\" summary=\"nmb\">\n      <created>1643245847428</created>\n      <option name=\"number\" value=\"00009\" />\n      <option name=\"presentableId\" value=\"LOCAL-00009\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1643245847428</updated>\n    </task>\n    <task id=\"LOCAL-00010\" summary=\"nmb\">\n      <created>1643245981920</created>\n      <option name=\"number\" value=\"00010\" />\n      <option name=\"presentableId\" value=\"LOCAL-00010\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1643245981920</updated>\n    </task>\n    <task id=\"LOCAL-00011\" summary=\"nmb\">\n      <created>1643246034815</created>\n      <option name=\"number\" value=\"00011\" />\n      <option name=\"presentableId\" value=\"LOCAL-00011\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1643246034815</updated>\n    </task>\n    <task id=\"LOCAL-00012\" summary=\"nmb\">\n      <created>1643285392790</created>\n      <option name=\"number\" value=\"00012\" />\n      <option name=\"presentableId\" value=\"LOCAL-00012\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1643285392790</updated>\n    </task>\n    <option name=\"localTasksCounter\" value=\"13\" />\n    <servers />\n  </component>\n  <component name=\"TypeScriptGeneratedFilesManager\">\n    <option name=\"version\" value=\"3\" />\n  </component>\n  <component name=\"Vcs.Log.Tabs.Properties\">\n    <option name=\"TAB_STATES\">\n      <map>\n        <entry key=\"MAIN\">\n          <value>\n            <State />\n          </value>\n        </entry>\n      </map>\n    </option>\n  </component>\n  <component name=\"VcsManagerConfiguration\">\n    <option name=\"ADD_EXTERNAL_FILES_SILENTLY\" value=\"true\" />\n    <MESSAGE value=\"nmb\" />\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"nmb\" />\n  </component>\n  <component name=\"com.intellij.coverage.CoverageDataManagerImpl\">\n    <SUITE FILE_PATH=\"coverage/Importance_Sampling$test1.coverage\" NAME=\"test1 Coverage Results\" MODIFIED=\"1642996111251\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"coverage.py\" COVERAGE_BY_TEST_ENABLED=\"true\" COVERAGE_TRACING_ENABLED=\"false\" WORKING_DIRECTORY=\"$PROJECT_DIR$/niscv_v2/analysis/test\" />\n    <SUITE FILE_PATH=\"coverage/Importance_Sampling$kernel.coverage\" NAME=\"kernel Coverage Results\" MODIFIED=\"1642910680603\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"coverage.py\" COVERAGE_BY_TEST_ENABLED=\"true\" COVERAGE_TRACING_ENABLED=\"false\" WORKING_DIRECTORY=\"$PROJECT_DIR$/niscv_v2/basic\" />\n    <SUITE FILE_PATH=\"coverage/Importance_Sampling$exp.coverage\" NAME=\"exp Coverage Results\" MODIFIED=\"1643089523189\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"coverage.py\" COVERAGE_BY_TEST_ENABLED=\"true\" COVERAGE_TRACING_ENABLED=\"false\" WORKING_DIRECTORY=\"$PROJECT_DIR$/niscv_v2/basics\" />\n    <SUITE FILE_PATH=\"coverage/Importance_Sampling$kernel_number.coverage\" NAME=\"kernel_number (E) Coverage Results\" MODIFIED=\"1643292481578\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"coverage.py\" COVERAGE_BY_TEST_ENABLED=\"true\" COVERAGE_TRACING_ENABLED=\"false\" WORKING_DIRECTORY=\"$PROJECT_DIR$/niscv_v2/experiments/simulation\" />\n    <SUITE FILE_PATH=\"coverage/Importance_Sampling$test.coverage\" NAME=\"test Coverage Results\" MODIFIED=\"1643024734867\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"coverage.py\" COVERAGE_BY_TEST_ENABLED=\"true\" COVERAGE_TRACING_ENABLED=\"false\" WORKING_DIRECTORY=\"$PROJECT_DIR$/niscv_v2/others\" />\n    <SUITE FILE_PATH=\"coverage/Importance_Sampling$.coverage\" NAME=\" Coverage Results\" MODIFIED=\"1643024801096\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"coverage.py\" COVERAGE_BY_TEST_ENABLED=\"true\" COVERAGE_TRACING_ENABLED=\"false\" WORKING_DIRECTORY=\"$PROJECT_DIR$/niscv_v2/analysis/test\" />\n    <SUITE FILE_PATH=\"coverage/Importance_Sampling$nmb.coverage\" NAME=\"nmb Coverage Results\" MODIFIED=\"1643025044893\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"coverage.py\" COVERAGE_BY_TEST_ENABLED=\"true\" COVERAGE_TRACING_ENABLED=\"false\" WORKING_DIRECTORY=\"$PROJECT_DIR$/niscv_v2/analysis/test\" />\n    <SUITE FILE_PATH=\"coverage/Importance_Sampling$fun.coverage\" NAME=\"fun Coverage Results\" MODIFIED=\"1642986286165\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"coverage.py\" COVERAGE_BY_TEST_ENABLED=\"true\" COVERAGE_TRACING_ENABLED=\"false\" WORKING_DIRECTORY=\"$PROJECT_DIR$/niscv_v2/basics\" />\n    <SUITE FILE_PATH=\"coverage/Importance_Sampling$kde2__1_.coverage\" NAME=\"kde2 (1) Coverage Results\" MODIFIED=\"1642924862158\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"coverage.py\" COVERAGE_BY_TEST_ENABLED=\"true\" COVERAGE_TRACING_ENABLED=\"false\" WORKING_DIRECTORY=\"$PROJECT_DIR$/niscv_v2/basic\" />\n    <SUITE FILE_PATH=\"coverage/Importance_Sampling$kde.coverage\" NAME=\"kde Coverage Results\" MODIFIED=\"1643075717245\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"coverage.py\" COVERAGE_BY_TEST_ENABLED=\"true\" COVERAGE_TRACING_ENABLED=\"false\" WORKING_DIRECTORY=\"$PROJECT_DIR$/niscv_v2/basics\" />\n    <SUITE FILE_PATH=\"coverage/Importance_Sampling$kde2.coverage\" NAME=\"kde2 Coverage Results\" MODIFIED=\"1643076527566\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"coverage.py\" COVERAGE_BY_TEST_ENABLED=\"true\" COVERAGE_TRACING_ENABLED=\"false\" WORKING_DIRECTORY=\"$PROJECT_DIR$/niscv_v2/basics\" />\n    <SUITE FILE_PATH=\"coverage/Importance_Sampling$data_exp.coverage\" NAME=\"data_exp Coverage Results\" MODIFIED=\"1643095753338\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"coverage.py\" COVERAGE_BY_TEST_ENABLED=\"true\" COVERAGE_TRACING_ENABLED=\"false\" WORKING_DIRECTORY=\"$PROJECT_DIR$/niscv_v2/analysis/test\" />\n    <SUITE FILE_PATH=\"coverage/Importance_Sampling$kernel_number__A_.coverage\" NAME=\"kernel_number (A) Coverage Results\" MODIFIED=\"1643293684121\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"coverage.py\" COVERAGE_BY_TEST_ENABLED=\"true\" COVERAGE_TRACING_ENABLED=\"false\" WORKING_DIRECTORY=\"$PROJECT_DIR$/niscv_v2/analysis/simulation\" />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 7a7792a729115e7380f7f0f77982734ce2d41ecf)
++++ b/.idea/workspace.xml	(date 1643596753240)
+@@ -5,8 +5,9 @@
+   </component>
+   <component name="ChangeListManager">
+     <list default="true" id="0e490570-a654-48ca-854e-837d17eec778" name="Changes" comment="nmb">
++      <change afterPath="$PROJECT_DIR$/niscv_v2/others/leverage.py" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/niscv_v2/experiments/simulation/kernel_number (E).py" beforeDir="false" afterPath="$PROJECT_DIR$/niscv_v2/experiments/simulation/kernel_number (E).py" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/niscv_v2/analysis/simulation/kernel_number_D.py" beforeDir="false" afterPath="$PROJECT_DIR$/niscv_v2/analysis/simulation/kernel_number_D.py" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -56,7 +57,7 @@
+       <recent name="$PROJECT_DIR$/niscv_v2/others" />
+     </key>
+   </component>
+-  <component name="RunManager" selected="Python.kernel_number (E)">
++  <component name="RunManager" selected="Python.kernel_number_D">
+     <configuration name="exp (A)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+       <module name="Importance-Sampling" />
+       <option name="INTERPRETER_OPTIONS" value="" />
+@@ -79,7 +80,7 @@
+       <option name="INPUT_FILE" value="" />
+       <method v="2" />
+     </configuration>
+-    <configuration name="exp" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
++    <configuration name="kernel_number (A)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+       <module name="Importance-Sampling" />
+       <option name="INTERPRETER_OPTIONS" value="" />
+       <option name="PARENT_ENVS" value="true" />
+@@ -87,12 +88,12 @@
+         <env name="PYTHONUNBUFFERED" value="1" />
+       </envs>
+       <option name="SDK_HOME" value="" />
+-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/niscv_v2/basics" />
++      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/niscv_v2/analysis/simulation" />
+       <option name="IS_MODULE_SDK" value="true" />
+       <option name="ADD_CONTENT_ROOTS" value="true" />
+       <option name="ADD_SOURCE_ROOTS" value="true" />
+       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/niscv_v2/basics/exp.py" />
++      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/niscv_v2/analysis/simulation/kernel_number (A).py" />
+       <option name="PARAMETERS" value="" />
+       <option name="SHOW_COMMAND_LINE" value="false" />
+       <option name="EMULATE_TERMINAL" value="false" />
+@@ -101,7 +102,7 @@
+       <option name="INPUT_FILE" value="" />
+       <method v="2" />
+     </configuration>
+-    <configuration name="kernel_number (A)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
++    <configuration name="kernel_number (E)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+       <module name="Importance-Sampling" />
+       <option name="INTERPRETER_OPTIONS" value="" />
+       <option name="PARENT_ENVS" value="true" />
+@@ -109,12 +110,12 @@
+         <env name="PYTHONUNBUFFERED" value="1" />
+       </envs>
+       <option name="SDK_HOME" value="" />
+-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/niscv_v2/analysis/simulation" />
++      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/niscv_v2/experiments/simulation" />
+       <option name="IS_MODULE_SDK" value="true" />
+       <option name="ADD_CONTENT_ROOTS" value="true" />
+       <option name="ADD_SOURCE_ROOTS" value="true" />
+       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/niscv_v2/analysis/simulation/kernel_number (A).py" />
++      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/niscv_v2/experiments/simulation/kernel_number (E).py" />
+       <option name="PARAMETERS" value="" />
+       <option name="SHOW_COMMAND_LINE" value="false" />
+       <option name="EMULATE_TERMINAL" value="false" />
+@@ -123,7 +124,7 @@
+       <option name="INPUT_FILE" value="" />
+       <method v="2" />
+     </configuration>
+-    <configuration name="kernel_number (E)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
++    <configuration name="kernel_number_D" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+       <module name="Importance-Sampling" />
+       <option name="INTERPRETER_OPTIONS" value="" />
+       <option name="PARENT_ENVS" value="true" />
+@@ -131,12 +132,12 @@
+         <env name="PYTHONUNBUFFERED" value="1" />
+       </envs>
+       <option name="SDK_HOME" value="" />
+-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/niscv_v2/experiments/simulation" />
++      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/niscv_v2/analysis/simulation" />
+       <option name="IS_MODULE_SDK" value="true" />
+       <option name="ADD_CONTENT_ROOTS" value="true" />
+       <option name="ADD_SOURCE_ROOTS" value="true" />
+       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/niscv_v2/experiments/simulation/kernel_number (E).py" />
++      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/niscv_v2/analysis/simulation/kernel_number_D.py" />
+       <option name="PARAMETERS" value="" />
+       <option name="SHOW_COMMAND_LINE" value="false" />
+       <option name="EMULATE_TERMINAL" value="false" />
+@@ -145,7 +146,7 @@
+       <option name="INPUT_FILE" value="" />
+       <method v="2" />
+     </configuration>
+-    <configuration name="utils" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
++    <configuration name="leverage" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+       <module name="Importance-Sampling" />
+       <option name="INTERPRETER_OPTIONS" value="" />
+       <option name="PARENT_ENVS" value="true" />
+@@ -153,12 +154,12 @@
+         <env name="PYTHONUNBUFFERED" value="1" />
+       </envs>
+       <option name="SDK_HOME" value="" />
+-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/niscv_v2/basics" />
++      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/niscv_v2/others" />
+       <option name="IS_MODULE_SDK" value="true" />
+       <option name="ADD_CONTENT_ROOTS" value="true" />
+       <option name="ADD_SOURCE_ROOTS" value="true" />
+       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/niscv_v2/basics/utils.py" />
++      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/niscv_v2/others/leverage.py" />
+       <option name="PARAMETERS" value="" />
+       <option name="SHOW_COMMAND_LINE" value="false" />
+       <option name="EMULATE_TERMINAL" value="false" />
+@@ -168,19 +169,19 @@
+       <method v="2" />
+     </configuration>
+     <list>
+-      <item itemvalue="Python.exp" />
+-      <item itemvalue="Python.utils" />
+       <item itemvalue="Python.kernel_number (E)" />
+       <item itemvalue="Python.exp (A)" />
+       <item itemvalue="Python.kernel_number (A)" />
++      <item itemvalue="Python.leverage" />
++      <item itemvalue="Python.kernel_number_D" />
+     </list>
+     <recent_temporary>
+       <list>
++        <item itemvalue="Python.kernel_number_D" />
++        <item itemvalue="Python.leverage" />
+         <item itemvalue="Python.kernel_number (E)" />
+         <item itemvalue="Python.kernel_number (A)" />
+         <item itemvalue="Python.exp (A)" />
+-        <item itemvalue="Python.exp" />
+-        <item itemvalue="Python.utils" />
+       </list>
+     </recent_temporary>
+   </component>
+@@ -194,6 +195,7 @@
+       <updated>1642905624078</updated>
+       <workItem from="1642905630043" duration="56099000" />
+       <workItem from="1643025023061" duration="13171000" />
++      <workItem from="1643526815649" duration="4675000" />
+     </task>
+     <task id="LOCAL-00001" summary="nmb">
+       <created>1643084908503</created>
+@@ -306,6 +308,7 @@
+     <SUITE FILE_PATH="coverage/Importance_Sampling$kernel.coverage" NAME="kernel Coverage Results" MODIFIED="1642910680603" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/basic" />
+     <SUITE FILE_PATH="coverage/Importance_Sampling$exp.coverage" NAME="exp Coverage Results" MODIFIED="1643089523189" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/basics" />
+     <SUITE FILE_PATH="coverage/Importance_Sampling$kernel_number.coverage" NAME="kernel_number (E) Coverage Results" MODIFIED="1643292481578" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/experiments/simulation" />
++    <SUITE FILE_PATH="coverage/Importance_Sampling$leverage.coverage" NAME="leverage Coverage Results" MODIFIED="1643531256413" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/others" />
+     <SUITE FILE_PATH="coverage/Importance_Sampling$test.coverage" NAME="test Coverage Results" MODIFIED="1643024734867" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/others" />
+     <SUITE FILE_PATH="coverage/Importance_Sampling$.coverage" NAME=" Coverage Results" MODIFIED="1643024801096" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/analysis/test" />
+     <SUITE FILE_PATH="coverage/Importance_Sampling$nmb.coverage" NAME="nmb Coverage Results" MODIFIED="1643025044893" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/analysis/test" />
+Index: niscv_v2/others/leverage.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/niscv_v2/others/leverage.py b/niscv_v2/others/leverage.py
+new file mode 100644
+--- /dev/null	(date 1643531256402)
++++ b/niscv_v2/others/leverage.py	(date 1643531256402)
+@@ -0,0 +1,48 @@
++import numpy as np
++from niscv_v2.basics.kde import KDE
++from scipy.linalg import sqrtm
++
++from matplotlib import pyplot as plt
++import scipy.stats as st
++
++
++def leverage(target, proposal, size_kn, alpha0, size_est):
++    centers = target(size_kn)
++    kde = KDE(centers, np.ones(centers.shape[0]), local=False, gamma=1.0, bdwth=1.0)
++    mix_pdf = lambda x: alpha0 * proposal.pdf(x) + (1 - alpha0) * kde.pdf(x)
++    mix_rvs = lambda size: np.vstack([proposal.rvs(round(alpha0 * size)),
++                                      kde.rvs(size - round(alpha0 * size), stratify=True)])
++    samples = mix_rvs(size_est)
++    controls = kde.kns(samples) / mix_pdf(samples) - 1
++    controls_ = controls.T.dot(sqrtm(np.linalg.inv(np.cov(controls))))
++
++    leverages = (controls_ ** 2).sum(axis=1)
++    return leverages.max()
++
++
++def main(dim, mode):
++    mean = np.zeros(dim)
++    modes = st.multivariate_normal(mean=mean).rvs(size=mode).reshape([mode, -1])
++
++    def target(size):
++        samples = []
++        for m in modes:
++            samples.append(st.multivariate_normal(mean=m).rvs(int(size / mode)))
++
++        return np.vstack(samples)
++
++    proposal = st.multivariate_normal(mean=mean, cov=9)
++    size_kns = [10, 20, 50, 100, 150, 200, 250, 300, 400, 500, 600, 800, 1000]
++    leverages = []
++    for size_kn in size_kns:
++        print(dim, mode, size_kn)
++        leverages.append(leverage(target, proposal, size_kn=size_kn, alpha0=0.1, size_est=100 * size_kn))
++
++    plt.loglog(size_kns, leverages)
++    plt.show()
++    print(np.array(leverages) / np.array(size_kns))
++
++
++if __name__ == '__main__':
++    np.random.seed(19971107)
++    main(dim=4, mode=1)
