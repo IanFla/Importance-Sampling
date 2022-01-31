@@ -9,7 +9,7 @@ from datetime import datetime as dt
 import pickle
 
 
-def experiment(dim, fun, size_est, sn, adjust, show, size_kn, ratio, bootstrap, control):
+def experiment(dim, fun, size_est, sn, adjust, show, size_kn, ratio, bootstrap):
     mean = np.zeros(dim)
     target = lambda x: st.multivariate_normal(mean=mean).pdf(x)
     proposal = st.multivariate_normal(mean=mean + 0.5, cov=4)
