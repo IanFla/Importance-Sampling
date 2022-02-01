@@ -25,17 +25,10 @@ def experiment(dim, fun, size_est, sn, adjust, show, size_kn, ratio, bootstrap):
     exp.nonparametric_estimation(mode=0)
     exp.nonparametric_estimation(mode=1)
     exp.nonparametric_estimation(mode=2)
-    exp.nonparametric_estimation(mode=3)
     if exp.show:
         exp.draw(grid_x, name='nonparametric')
 
-    exp.control_calculation(control=False)
-    exp.regression_estimation()
-    if exp.show:
-        exp.draw(grid_x, name='regression')
-
-    exp.likelihood_estimation()
-    exp.control_calculation(control=True)
+    exp.control_calculation()
     exp.regression_estimation()
     if exp.show:
         exp.draw(grid_x, name='regression')
@@ -47,17 +40,20 @@ def experiment(dim, fun, size_est, sn, adjust, show, size_kn, ratio, bootstrap):
 def run(it, dim):
     settings = [[1, 1, False, False], [1, 1, False, True], [1, 1, True, False],
                 [2, 1, False, False], [2, 1, False, True], [2, 1, True, False],
-                [-1, 1, False, False], [-1, 1, False, True], [-1, 1, True, False]]
-    size_kns = [50, 100, 150, 200, 250, 300, 400, 450, 500, 550, 600]
+                [3, 1, False, False], [3, 1, False, True], [3, 1, True, False],
+                [4, 1, False, False], [4, 1, False, True], [4, 1, True, False],
+                [-1, 1, False, False], [-1, 1, False, True], [-1, 1, True, False],
+                [-1, 2, False, False], [-1, 2, False, True], [-1, 2, True, False]]
+    size_kns = [50, 100, 150, 200, 250, 300, 350, 400, 450, 500]
     Results = []
     Params = []
     for setting in settings:
         results = []
         params = []
         for size_kn in size_kns:
-            np.random.seed(1997 * it + 1107)
-            print(it, setting, size_kn)
-            res, par = experiment(dim=dim, fun=utils.integrand(setting[0], setting[1]), size_est=5000, sn=setting[2],
+            np.random.seed(19971107 + it)
+            print(dim, it, setting, size_kn)
+            res, par = experiment(dim=dim, fun=utils.integrand(setting[0], setting[1]), size_est=4000, sn=setting[2],
                                   adjust=setting[3], show=False, size_kn=size_kn, ratio=1000, bootstrap=True)
             results.append(res)
             params.append(par)
@@ -72,12 +68,12 @@ def main(dim):
     os.environ['OMP_NUM_THREADS'] = '1'
     with multiprocessing.Pool(processes=60) as pool:
         begin = dt.now()
-        its = np.arange(200)
+        its = np.arange(1000)
         R = pool.map(partial(run, dim=dim), its)
         end = dt.now()
         print((end - begin).seconds)
 
-    with open('../../data/simulation/kernel_number_adjust_{}D'.format(dim), 'wb') as file:
+    with open('../../data/simulation/kernel_number_{}D'.format(dim), 'wb') as file:
         pickle.dump(R, file)
 
 

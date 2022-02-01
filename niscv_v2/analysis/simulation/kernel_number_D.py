@@ -5,18 +5,21 @@ from niscv_v2.basics import utils
 
 
 def read(dim):
-    file = open('../../data/simulation/kernel_number_{}D'.format(dim), 'rb')
+    file = open('../../data/simulation/kernel_number_adjust_{}D'.format(dim), 'rb')
     data = pickle.load(file)
     data = [dat[0] for dat in data]
     return np.array(data)
 
 
 def draw(dim, ax):
-    settings = [[0, 0, False], [1, 0, False], [1, 1, False], [1, 1, True], [2, 0, False],
-                [2, 0, True], [-1, 1, False], [-1, 1, True], [-1, 2, False], [-1, 2, True]]
-    truth = np.array([utils.truth(setting[0], setting[1]) for setting in settings]).reshape([1, 10, 1, 1])
-    estimators = ['IIS', 'NIS', 'MIS$^*$', 'MIS', 'RIS', 'MLE']
-    colors = ['k', 'b', 'y', 'g', 'r', 'm']
+    settings = [[1, 1, False, False], [1, 1, False, True], [1, 1, True, False],
+                [2, 1, False, False], [2, 1, False, True], [2, 1, True, False],
+                [-1, 1, False, False], [-1, 1, False, True], [-1, 1, True, False]]
+    truth = np.array([utils.truth(setting[0], setting[1]) for setting in settings]).reshape([1, 9, 1, 1])
+    # estimators = ['IIS', 'NIS', 'MIS$^*$', 'MIS', 'RIS', 'MLE']
+    estimators = ['IIS', 'NIS', 'MIS$^*$', 'NIS$^*$', 'MIS', 'RIS*', 'MLE*', 'RIS', 'MLE']
+    # colors = ['k', 'b', 'y', 'g', 'r', 'm']
+    colors = ['k', 'b', 'y', 'orange', 'g', 'lime', 'violet', 'r', 'm']
     size_kns = [50, 100, 150, 200, 250, 300, 400, 450, 500, 550, 600]
 
     data = read(dim)
@@ -38,7 +41,7 @@ def draw(dim, ax):
 
 def main(dim):
     plt.style.use('ggplot')
-    fig, ax = plt.subplots(5, 2, figsize=[10, 15])
+    fig, ax = plt.subplots(3, 3, figsize=[20, 15])
     ax = ax.flatten()
     draw(dim, ax)
     for a in ax:

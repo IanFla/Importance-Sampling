@@ -72,8 +72,8 @@ class Exp:
             mu = np.sum(y - X.dot(self.reg_y.coef_)) / np.sum(w - X.dot(self.reg_w.coef_)) \
                 if self.params['sn'] else np.mean(y - X.dot(self.reg_y.coef_))
 
-        if name != 'IIS' and not self.params['sn'] and self.params['adjust']:
-            mu = mu + self.params['mu']
+        if 'mu' in self.params.keys():
+            mu += self.params['mu']
 
         self.result.append(mu)
         self.disp('{} est: {:.4f}'.format(name, mu))
@@ -91,13 +91,14 @@ class Exp:
         weights = self.__divi(self.target(samples), self.ini_pdf(samples))
         funs = self.fun(samples)
         mu = self.__estimate(weights, funs, 'SIR')
-        if not self.params['sn'] and self.params['adjust']:
+        if self.params['adjust']:
             self.params['mu'] = mu
             fun = self.fun
             self.fun = lambda x: fun(x) - mu
-
-        self.opt_pdf = (lambda x: self.target(x) * np.abs(self.fun(x) - mu)) \
-            if self.params['sn'] else (lambda x: self.target(x) * np.abs(self.fun(x)))
+            self.opt_pdf = lambda x: self.target(x) * np.abs(self.fun(x))
+        else:
+            self.opt_pdf = (lambda x: self.target(x) * np.abs(self.fun(x) - mu)) \
+                if self.params['sn'] else (lambda x: self.target(x) * np.abs(self.fun(x)))
 
         if resample:
             weights_kn = self.__divi(self.opt_pdf(samples), self.ini_pdf(samples))
@@ -109,22 +110,18 @@ class Exp:
                 self.centers = samples[index]
                 self.weights_kn = sizes
                 self.disp('Resampling rate: {}/{}'.format(self.weights_kn.size, size_kn))
-                self.params['size* kn'] = self.weights_kn.size
+                self.params['size kn*'] = self.weights_kn.size
             else:
                 self.centers = utils.support(samples, weights_kn / weights_kn.sum(), size_kn)
                 self.weights_kn = np.ones(size_kn)
-
-            return ESS
-
         else:
             self.centers = self.ini_rvs(size_kn)
             self.weights_kn = self.__divi(self.opt_pdf(self.centers), self.ini_pdf(self.centers))
 
     def density_estimation(self, mode=1, local=False, gamma=0.3, bdwth=1.0, alpha0=0.1):
-        self.params.update({'cluster': mode, 'local': local, 'gamma': gamma, 'alpha0': alpha0})
+        self.params.update({'cluster': mode, 'local': local, 'gamma': gamma, 'bdwth': bdwth, 'alpha0': alpha0})
         labels = 1.0 * (self.fun(self.centers) > 0)
         self.kde = KDE2(self.centers, self.weights_kn, mode=mode, labels=labels, local=local, gamma=gamma, bdwth=bdwth)
-
         self.kde_pdf = self.kde.pdf
         self.kde_rvs = self.kde.rvs
         self.mix_pdf = lambda x: alpha0 * self.ini_pdf(x) + (1 - alpha0) * self.kde_pdf(x)
@@ -148,11 +145,6 @@ class Exp:
             weights = self.__divi(self.target(samples), self.mix_pdf(samples))
             funs = self.fun(samples)
             self.__estimate(weights, funs, 'MIS*')
-        elif mode == 2:
-            samples = self.kde_rvs(self.params['size est'], stratify=True)
-            weights = self.__divi(self.target(samples), self.kde_pdf(samples))
-            funs = self.fun(samples)
-            self.__estimate(weights, funs, 'NIS*')
         else:
             self.samples_ = self.mix_rvs(self.params['size est'])
             self.target_ = self.target(self.samples_)
@@ -161,12 +153,8 @@ class Exp:
             self.weights_ = self.__divi(self.target_, self.proposal_)
             self.__estimate(self.weights_, self.funs_, 'MIS')
 
-    def control_calculation(self, control=True):
-        if control:
-            self.controls = lambda x: self.kde.kns(x) - self.mix_pdf(x)
-        else:
-            self.controls = lambda x: np.array([self.kde_pdf(x) - self.mix_pdf(x)])
-
+    def control_calculation(self):
+        self.controls = lambda x: self.kde.kns(x) - self.mix_pdf(x)
         self.controls_ = self.controls(self.samples_)
 
     def regression_estimation(self):
@@ -185,15 +173,12 @@ class Exp:
         self.__estimate(name='RIS', reg=[X, w, y])
 
     def likelihood_estimation(self):
-        gradient = lambda zeta: -np.mean(self.__divi(self.controls_, self.proposal_ + zeta.dot(self.controls_)), axis=1)
-        hessian = lambda zeta: self.__divi(self.controls_, (self.proposal_ + zeta.dot(self.controls_)) ** 2)\
-                                   .dot(self.controls_.T) / self.controls_.shape[1]
+        gradient = lambda zeta: np.mean(self.__divi(self.controls_, self.proposal_ + zeta.dot(self.controls_)), axis=1)
+        hessian = lambda zeta: -self.__divi(self.controls_, (self.proposal_ + zeta.dot(self.controls_)) ** 2)\
+            .dot(self.controls_.T) / self.controls_.shape[1]
         zeta0 = np.zeros(self.controls_.shape[0])
         res = opt.root(lambda zeta: (gradient(zeta), hessian(zeta)), zeta0, method='lm', jac=True)
         zeta1 = res['x']
-        self.disp('Dist/Norm (zeta(Opt),zeta(Ini)): {:.4f}/({:.4f},{:.4f})'
-                  .format(np.sqrt(np.sum((zeta1 - zeta0) ** 2)),
-                          np.sqrt(np.sum(zeta1 ** 2)), np.sqrt(np.sum(zeta0 ** 2))))
         weights = self.__divi(self.target_, self.proposal_ + zeta1.dot(self.controls_))
         self.__estimate(weights, self.funs_, 'MLE')
 
@@ -244,17 +229,10 @@ def experiment(dim, size_est, sn, adjust, show, size_kn, ratio, bootstrap):
     exp.nonparametric_estimation(mode=0)
     exp.nonparametric_estimation(mode=1)
     exp.nonparametric_estimation(mode=2)
-    exp.nonparametric_estimation(mode=3)
     if exp.show:
         exp.draw(grid_x, name='nonparametric')
 
-    exp.control_calculation(control=False)
-    exp.regression_estimation()
-    if exp.show:
-        exp.draw(grid_x, name='regression')
-
-    exp.likelihood_estimation()
-    exp.control_calculation(control=True)
+    exp.control_calculation()
     exp.regression_estimation()
     if exp.show:
         exp.draw(grid_x, name='regression')
@@ -290,7 +268,9 @@ def main(dim):
 
 if __name__ == '__main__':
     # main(dim=5)
-    experiment(dim=4, size_est=5000, sn=False, adjust=False, show=True,
+    np.random.seed(1234)
+    experiment(dim=4, size_est=5000, sn=True, adjust=False, show=True,
                size_kn=300, ratio=20, bootstrap=True)
-    experiment(dim=4, size_est=5000, sn=False, adjust=True, show=True,
+    np.random.seed(1234)
+    experiment(dim=4, size_est=5000, sn=True, adjust=True, show=True,
                size_kn=300, ratio=20, bootstrap=True)
