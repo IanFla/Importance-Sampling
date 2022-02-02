@@ -5,7 +5,7 @@ from niscv_v2.basics import utils
 
 
 def read(dim):
-    file = open('../../data/simulation/kernel_number_adjust_{}D'.format(dim), 'rb')
+    file = open('../../data/simulation/kernel_number_{}D'.format(dim), 'rb')
     data = pickle.load(file)
     data = [dat[0] for dat in data]
     return np.array(data)
@@ -14,17 +14,18 @@ def read(dim):
 def draw(dim, ax):
     settings = [[1, 1, False, False], [1, 1, False, True], [1, 1, True, False],
                 [2, 1, False, False], [2, 1, False, True], [2, 1, True, False],
-                [-1, 1, False, False], [-1, 1, False, True], [-1, 1, True, False]]
-    truth = np.array([utils.truth(setting[0], setting[1]) for setting in settings]).reshape([1, 9, 1, 1])
-    # estimators = ['IIS', 'NIS', 'MIS$^*$', 'MIS', 'RIS', 'MLE']
-    estimators = ['IIS', 'NIS', 'MIS$^*$', 'NIS$^*$', 'MIS', 'RIS*', 'MLE*', 'RIS', 'MLE']
-    # colors = ['k', 'b', 'y', 'g', 'r', 'm']
-    colors = ['k', 'b', 'y', 'orange', 'g', 'lime', 'violet', 'r', 'm']
-    size_kns = [50, 100, 150, 200, 250, 300, 400, 450, 500, 550, 600]
+                [3, 1, False, False], [3, 1, False, True], [3, 1, True, False],
+                [4, 1, False, False], [4, 1, False, True], [4, 1, True, False],
+                [-1, 1, False, False], [-1, 1, False, True], [-1, 1, True, False],
+                [-1, 2, False, False], [-1, 2, False, True], [-1, 2, True, False]]
+    truth = np.array([utils.truth(setting[0], setting[1]) for setting in settings]).reshape([1, ax.size, 1, 1])
+    estimators = ['IIS', 'NIS', 'MIS$^*$', 'MIS', 'RIS', 'MLE']
+    colors = ['k', 'b', 'y', 'g', 'r', 'm']
+    size_kns = [50, 100, 150, 200, 250, 300, 350, 400, 450, 500]
 
     data = read(dim)
-    nVar = 5000 * np.var(data, axis=0)
-    nMSE = 5000 * np.mean((data - truth) ** 2, axis=0)
+    nVar = 4000 * np.var(data, axis=0)
+    nMSE = 4000 * np.mean((data - truth) ** 2, axis=0)
     for i, setting in enumerate(settings):
         for j, estimator in enumerate(estimators):
             ax[i].loglog(size_kns, nMSE[i, :, j], c=colors[j], label='{}'.format(estimator))
@@ -32,16 +33,16 @@ def draw(dim, ax):
 
         ax[i].set_title(setting)
 
-    # groups = [[1, 2, 3], [4, 5], [6, 7]]
-    # for group in groups:
-    #     optimal = nMSE[group, :, :].min(axis=0).min(axis=1)
-    #     for i in group:
-    #         ax[i].loglog(size_kns, optimal, 'rx')
+    groups = np.arange(ax.size).reshape([-1, 3])
+    for group in groups:
+        optimal = nMSE[group, :, :].min(axis=2).min(axis=0)
+        for i in group:
+            ax[i].loglog(size_kns, optimal, 'cx', label='OPT')
 
 
 def main(dim):
     plt.style.use('ggplot')
-    fig, ax = plt.subplots(3, 3, figsize=[20, 15])
+    fig, ax = plt.subplots(6, 3, figsize=[15, 20])
     ax = ax.flatten()
     draw(dim, ax)
     for a in ax:

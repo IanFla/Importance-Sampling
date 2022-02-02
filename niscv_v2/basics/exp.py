@@ -84,8 +84,8 @@ class Exp:
         funs = self.fun(samples)
         self.__estimate(weights, funs, 'IIS')
 
-    def resampling(self, size_kn, ratio, resample=True, bootstrap=True):
-        self.params.update({'size kn': size_kn, 'ratio': ratio, 'resample': resample, 'bootstrap': bootstrap})
+    def resampling(self, size_kn, ratio, bootstrap='st'):
+        self.params.update({'size kn': size_kn, 'ratio': ratio, 'bootstrap': bootstrap})
         size_est = np.round(ratio * size_kn).astype(np.int64)
         samples = self.ini_rvs(size_est)
         weights = self.__divi(self.target(samples), self.ini_pdf(samples))
@@ -100,13 +100,13 @@ class Exp:
             self.opt_pdf = (lambda x: self.target(x) * np.abs(self.fun(x) - mu)) \
                 if self.params['sn'] else (lambda x: self.target(x) * np.abs(self.fun(x)))
 
-        if resample:
+        if ratio > 0:
             weights_kn = self.__divi(self.opt_pdf(samples), self.ini_pdf(samples))
             ESS = utils.ess(weights_kn)
             self.disp('Resampling ratio reference: {:.0f} ({:.0f})'.format(size_est / ESS, ratio))
             self.params['ESS'] = ESS
-            if bootstrap:
-                index, sizes = utils.resampler(weights_kn, size_kn, True)
+            if bootstrap == 'mt' or bootstrap == 'st':
+                index, sizes = utils.resampler(weights_kn, size_kn, True if bootstrap == 'st' else False)
                 self.centers = samples[index]
                 self.weights_kn = sizes
                 self.disp('Resampling rate: {}/{}'.format(self.weights_kn.size, size_kn))
@@ -221,7 +221,7 @@ def experiment(dim, size_est, sn, adjust, show, size_kn, ratio, bootstrap):
     exp = Exp(dim, target, fun, proposal, size_est, sn=sn, adjust=adjust, show=show)
 
     exp.initial_estimation()
-    exp.resampling(size_kn, ratio, resample=True, bootstrap=bootstrap)
+    exp.resampling(size_kn, ratio, bootstrap=bootstrap)
     if exp.show:
         exp.draw(grid_x, name='initial')
 
@@ -243,7 +243,7 @@ def experiment(dim, size_est, sn, adjust, show, size_kn, ratio, bootstrap):
 
 def run(it, dim):
     print(it, end=' ')
-    settings = [[False, True], [True, True], [False, False], [True, False]]
+    settings = [[False, 'st'], [True, 'sp'], [False, 'st'], [True, 'sp']]
     results = []
     for setting in settings:
         np.random.seed(1997 * it + 1107)
@@ -270,7 +270,10 @@ if __name__ == '__main__':
     # main(dim=5)
     np.random.seed(1234)
     experiment(dim=4, size_est=5000, sn=True, adjust=False, show=True,
-               size_kn=300, ratio=20, bootstrap=True)
+               size_kn=300, ratio=20, bootstrap='mt')
+    np.random.seed(1234)
+    experiment(dim=4, size_est=5000, sn=True, adjust=False, show=True,
+               size_kn=300, ratio=20, bootstrap='st')
     np.random.seed(1234)
     experiment(dim=4, size_est=5000, sn=True, adjust=True, show=True,
-               size_kn=300, ratio=20, bootstrap=True)
+               size_kn=300, ratio=20, bootstrap='sp')

@@ -34,29 +34,33 @@ def experiment(dim, fun, size_est, sn, adjust, show, size_kn, ratio, bootstrap):
         exp.draw(grid_x, name='regression')
 
     exp.likelihood_estimation()
+    exp.result.extend([exp.params['ESS'], exp.params['size kn*']])
     return exp.result, exp.params
 
 
 def run(it, dim):
-    settings = [[1, 1, False, False], [1, 1, False, True], [1, 1, True, False],
-                [2, 1, False, False], [2, 1, False, True], [2, 1, True, False],
-                [3, 1, False, False], [3, 1, False, True], [3, 1, True, False],
-                [4, 1, False, False], [4, 1, False, True], [4, 1, True, False],
-                [-1, 1, False, False], [-1, 1, False, True], [-1, 1, True, False],
-                [-1, 2, False, False], [-1, 2, False, True], [-1, 2, True, False]]
-    size_kns = [50, 100, 150, 200, 250, 300, 350, 400, 450, 500]
+    settings = [[1, 1, False], [1, 1, True],
+                [2, 1, False], [2, 1, True],
+                [3, 1, False], [3, 1, True],
+                [4, 1, False], [4, 1, True],
+                [-1, 1, False], [-1, 1, True],
+                [-1, 2, False], [-1, 2, True]]
+    bootstraps = ['mt', 'st']
+    ratios = [2, 4, 8, 16, 32, 64, 128, 256, 512, 1028]
     Results = []
     Params = []
     for setting in settings:
         results = []
         params = []
-        for size_kn in size_kns:
-            np.random.seed(19971107 + it)
-            print(dim, it, setting, size_kn)
-            res, par = experiment(dim=dim, fun=utils.integrand(setting[0], setting[1]), size_est=4000, sn=setting[2],
-                                  adjust=setting[3], show=False, size_kn=size_kn, ratio=1000, bootstrap='st')
-            results.append(res)
-            params.append(par)
+        for bootstrap in bootstraps:
+            for ratio in ratios:
+                np.random.seed(19971107 + it)
+                print(dim, it, setting, bootstrap, ratio)
+                res, par = experiment(dim=dim, fun=utils.integrand(setting[0], setting[1]),
+                                      size_est=10000, sn=setting[2], adjust=False, show=False,
+                                      size_kn=500, ratio=ratio, bootstrap=bootstrap)
+                results.append(res)
+                params.append(par)
 
         Results.append(results)
         Params.append(params)
@@ -73,15 +77,11 @@ def main(dim):
         end = dt.now()
         print((end - begin).seconds)
 
-    with open('../../data/simulation/kernel_number_{}D'.format(dim), 'wb') as file:
+    with open('../../data/simulation/resampling_ratio_{}D'.format(dim), 'wb') as file:
         pickle.dump(R, file)
 
 
 if __name__ == '__main__':
-    # main(4)
-    # main(6)
-    # main(8)
-    experiment(dim=4, fun=utils.integrand(2, 1), size_est=4000, sn=False,
-               adjust=False, show=True, size_kn=400, ratio=1000, bootstrap='st')
-    experiment(dim=4, fun=utils.integrand(4, 1), size_est=4000, sn=False,
-               adjust=False, show=True, size_kn=400, ratio=1000, bootstrap='st')
+    main(4)
+    main(6)
+    main(8)
