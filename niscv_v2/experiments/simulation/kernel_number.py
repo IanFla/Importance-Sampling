@@ -51,7 +51,7 @@ def run(it, dim):
         results = []
         params = []
         for size_kn in size_kns:
-            np.random.seed(19971107 + it)
+            np.random.seed(1997 + 1107 + it)
             print(dim, it, setting, size_kn)
             res, par = experiment(dim=dim, fun=utils.integrand(setting[0]), size_est=4000, sn=setting[1],
                                   show=False, size_kn=size_kn, ratio=1000)
