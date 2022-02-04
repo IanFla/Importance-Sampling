@@ -16,7 +16,7 @@ warnings.filterwarnings("ignore")
 
 
 class Exp:
-    def __init__(self, dim, target, fun, proposal, size_est, sn=False, adjust=True, show=True):
+    def __init__(self, dim, target, fun, proposal, size_est, sn=False, adjust=False, show=True):
         self.params = {'dim': dim, 'size est': size_est, 'sn': sn, 'adjust': adjust}
         self.show = show
         self.cache = []

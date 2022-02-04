@@ -34,18 +34,14 @@ def support(samples, weights, size_kn):
     return np.array(centers)
 
 
-def integrand(m, c):
-    if m >= 0:
-        return lambda x: x[:, 0] ** m + c
+def integrand(c):
+    if c >= 0:
+        if c % 2 == 1:
+            return lambda x: (x[:, 0] ** c) + 1.0
+        else:
+            return lambda x: (x[:, 0] ** c) / st.norm.moment(c)
     else:
-        return lambda x: 1 * (x[:, 0] >= c)
-
-
-def truth(m, c):
-    if m >= 0:
-        return st.norm.moment(m) + c
-    else:
-        return st.norm.cdf(-c)
+        return lambda x: (x[:, 0] <= c) / st.norm.cdf(c)
 
 
 def main():

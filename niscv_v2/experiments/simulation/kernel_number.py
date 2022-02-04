@@ -9,15 +9,15 @@ from datetime import datetime as dt
 import pickle
 
 
-def experiment(dim, fun, size_est, sn, adjust, show, size_kn, ratio, bootstrap):
+def experiment(dim, fun, size_est, sn, show, size_kn, ratio):
     mean = np.zeros(dim)
     target = lambda x: st.multivariate_normal(mean=mean).pdf(x)
     proposal = st.multivariate_normal(mean=mean + 0.5, cov=4)
     grid_x = np.linspace(-5, 5, 200)
-    exp = Exp(dim, target, fun, proposal, size_est, sn=sn, adjust=adjust, show=show)
+    exp = Exp(dim, target, fun, proposal, size_est, sn=sn, adjust=False, show=show)
 
     exp.initial_estimation()
-    exp.resampling(size_kn, ratio, bootstrap=bootstrap)
+    exp.resampling(size_kn, ratio, bootstrap='st')
     if exp.show:
         exp.draw(grid_x, name='initial')
 
@@ -38,12 +38,12 @@ def experiment(dim, fun, size_est, sn, adjust, show, size_kn, ratio, bootstrap):
 
 
 def run(it, dim):
-    settings = [[1, 1, False, False], [1, 1, False, True], [1, 1, True, False],
-                [2, 1, False, False], [2, 1, False, True], [2, 1, True, False],
-                [3, 1, False, False], [3, 1, False, True], [3, 1, True, False],
-                [4, 1, False, False], [4, 1, False, True], [4, 1, True, False],
-                [-1, 1, False, False], [-1, 1, False, True], [-1, 1, True, False],
-                [-1, 2, False, False], [-1, 2, False, True], [-1, 2, True, False]]
+    settings = [[1, False], [1, True],
+                [2, False], [2, True],
+                [3, False], [3, True],
+                [4, False], [4, True],
+                [-1, False], [-1, True],
+                [-2, False], [-2, True]]
     size_kns = [50, 100, 150, 200, 250, 300, 350, 400, 450, 500]
     Results = []
     Params = []
@@ -53,8 +53,8 @@ def run(it, dim):
         for size_kn in size_kns:
             np.random.seed(19971107 + it)
             print(dim, it, setting, size_kn)
-            res, par = experiment(dim=dim, fun=utils.integrand(setting[0], setting[1]), size_est=4000, sn=setting[2],
-                                  adjust=setting[3], show=False, size_kn=size_kn, ratio=1000, bootstrap='st')
+            res, par = experiment(dim=dim, fun=utils.integrand(setting[0]), size_est=4000, sn=setting[1],
+                                  show=False, size_kn=size_kn, ratio=1000)
             results.append(res)
             params.append(par)
 
@@ -78,10 +78,6 @@ def main(dim):
 
 
 if __name__ == '__main__':
-    # main(4)
-    # main(6)
-    # main(8)
-    experiment(dim=4, fun=utils.integrand(2, 1), size_est=4000, sn=False,
-               adjust=False, show=True, size_kn=400, ratio=1000, bootstrap='st')
-    experiment(dim=4, fun=utils.integrand(4, 1), size_est=4000, sn=False,
-               adjust=False, show=True, size_kn=400, ratio=1000, bootstrap='st')
+    main(4)
+    main(6)
+    main(8)
