@@ -37,7 +37,7 @@ def draw(dim, ax):
     for group in groups:
         optimal = nMSE[group, :, :].min(axis=2).min(axis=0)
         for i in group:
-            ax[i].loglog(size_kns, optimal, 'c--', label='Opt')
+            ax[i].loglog(size_kns, optimal, 'c-.', label='Opt')
             ax[i].set_ylim([0.8 * optimal.min(), 1.3 * nMSE[i, :, 0].max()])
 
 
