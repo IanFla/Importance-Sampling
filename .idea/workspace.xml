@@ -169,11 +169,11 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.kernel_number_D" />
       <item itemvalue="Python.exp" />
-      <item itemvalue="Python.resampling_ratio_D" />
       <item itemvalue="Python.kernel_number" />
+      <item itemvalue="Python.kernel_number_D" />
       <item itemvalue="Python.resampling_ratio" />
+      <item itemvalue="Python.resampling_ratio_D" />
     </list>
     <recent_temporary>
       <list>

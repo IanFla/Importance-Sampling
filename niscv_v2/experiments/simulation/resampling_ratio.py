@@ -52,8 +52,8 @@ def run(it, dim, bootstrap):
         for ratio in ratios:
             np.random.seed(1997 + 1107 + it)
             print(dim, bootstrap, it, setting, ratio)
-            res, par = experiment(dim=dim, fun=utils.integrand(setting[0]), size_est=10000, sn=setting[1],
-                                  show=False, size_kn=300, ratio=ratio, bootstrap=bootstrap)
+            res, par = experiment(dim=dim, fun=utils.integrand(setting[0]), size_est=20000, sn=setting[1],
+                                  show=False, size_kn=200, ratio=ratio, bootstrap=bootstrap)
             results.append(res)
             params.append(par)
 
@@ -67,7 +67,7 @@ def main(dim, bootstrap):
     os.environ['OMP_NUM_THREADS'] = '1'
     with multiprocessing.Pool(processes=60) as pool:
         begin = dt.now()
-        its = np.arange(1000)
+        its = np.arange(100)
         R = pool.map(partial(run, dim=dim, bootstrap=bootstrap), its)
         end = dt.now()
         print((end - begin).seconds)
