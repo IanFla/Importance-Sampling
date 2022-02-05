@@ -29,21 +29,21 @@ def draw(dim, ax):
             ax[i].loglog(size_kns, nMSE[i, :, j], c=colors[j], label=estimator)
             ax[i].loglog(size_kns, nVar[i, :, j], '.', c=colors[j])
 
-        ax[i].set_xlabel('log(kernel number)')
-        ax[i].set_ylabel('nMSE/nVar')
+        # ax[i].set_xlabel('log(kernel number)')
+        # ax[i].set_ylabel('nMSE/nVar')
         ax[i].set_title('$d$={}, $c$={}, sn={}'.format(dim, setting[0], setting[1]))
 
     groups = np.arange(ax.size).reshape([-1, 2])
     for group in groups:
         optimal = nMSE[group, :, :].min(axis=2).min(axis=0)
         for i in group:
-            ax[i].loglog(size_kns, optimal, 'cx', label='Opt')
+            ax[i].loglog(size_kns, optimal, 'c--', label='Opt')
             ax[i].set_ylim([0.8 * optimal.min(), 1.3 * nMSE[i, :, 0].max()])
 
 
 def main(dim):
     plt.style.use('ggplot')
-    fig, ax = plt.subplots(3, 4, figsize=[18, 9])
+    fig, ax = plt.subplots(3, 4, figsize=[18, 8])
     ax = ax.flatten()
     draw(dim, ax)
     for a in ax:
