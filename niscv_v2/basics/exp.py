@@ -86,7 +86,7 @@ class Exp:
 
     def resampling(self, size_kn, ratio, bootstrap='st'):
         self.params.update({'size kn': size_kn, 'ratio': ratio, 'bootstrap': bootstrap})
-        size_est = np.round(ratio * size_kn).astype(np.int64)
+        size_est = np.round(ratio * size_kn if ratio > 0 else 2 * size_kn).astype(np.int64)
         samples = self.ini_rvs(size_est)
         weights = self.__divi(self.target(samples), self.ini_pdf(samples))
         funs = self.fun(samples)
@@ -115,7 +115,7 @@ class Exp:
                 self.centers = utils.support(samples, weights_kn / weights_kn.sum(), size_kn)
                 self.weights_kn = np.ones(size_kn)
         else:
-            self.centers = self.ini_rvs(size_kn)
+            self.centers = samples
             self.weights_kn = self.__divi(self.opt_pdf(self.centers), self.ini_pdf(self.centers))
 
     def density_estimation(self, mode=1, local=False, gamma=0.3, bdwth=1.0, alpha0=0.1):
