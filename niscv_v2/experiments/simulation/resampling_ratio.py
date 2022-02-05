@@ -53,7 +53,7 @@ def run(it, dim, bootstrap):
             np.random.seed(1997 + 1107 + it)
             print(dim, bootstrap, it, setting, ratio)
             res, par = experiment(dim=dim, fun=utils.integrand(setting[0]), size_est=20000, sn=setting[1],
-                                  show=False, size_kn=200, ratio=ratio, bootstrap=bootstrap)
+                                  show=False, size_kn=300, ratio=ratio, bootstrap=bootstrap)
             results.append(res)
             params.append(par)
 
@@ -77,9 +77,9 @@ def main(dim, bootstrap):
 
 
 if __name__ == '__main__':
-    main(4, 'st')
-    main(6, 'st')
-    main(8, 'st')
     main(4, 'sp')
     main(6, 'sp')
     main(8, 'sp')
+    main(4, 'st')
+    main(6, 'st')
+    main(8, 'st')
