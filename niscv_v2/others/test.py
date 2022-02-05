@@ -8,9 +8,9 @@ from niscv_v2.basics.utils import support
 def main():
     target = lambda x: st.multivariate_normal(mean=[0, 0], cov=[10, 0.1]).pdf(x)
     proposal = st.multivariate_normal(mean=[0, 0], cov=[40, 0.4])
-    samples = proposal.rvs(size=100000)
+    samples = proposal.rvs(size=1000000)
     weights = target(samples) / proposal.pdf(samples)
-    centers = support(samples, weights, 100)
+    centers = support(samples, weights, 300)
     kde = KDE2(centers, np.ones(centers.shape[0]), mode=1, local=False, gamma=0.3, bdwth=1.0)
 
     grid_x = np.linspace(-10, 10, 200)
