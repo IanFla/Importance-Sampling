@@ -65,9 +65,9 @@ def run(it, dim, bootstrap):
 
 def main(dim, bootstrap):
     os.environ['OMP_NUM_THREADS'] = '1'
-    with multiprocessing.Pool(processes=60) as pool:
+    with multiprocessing.Pool(processes=90) as pool:
         begin = dt.now()
-        its = np.arange(200)
+        its = np.arange(1000)
         R = pool.map(partial(run, dim=dim, bootstrap=bootstrap), its)
         end = dt.now()
         print((end - begin).seconds)
@@ -77,9 +77,9 @@ def main(dim, bootstrap):
 
 
 if __name__ == '__main__':
-    main(4, 'sp')
-    main(6, 'sp')
-    main(8, 'sp')
+    # main(4, 'sp')
+    # main(6, 'sp')
+    # main(8, 'sp')
     main(4, 'st')
     main(6, 'st')
     main(8, 'st')
