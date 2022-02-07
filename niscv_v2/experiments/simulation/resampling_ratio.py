@@ -38,7 +38,7 @@ def experiment(dim, fun, size_est, sn, show, size_kn, ratio, bootstrap):
 
 def run(it, dim, bootstrap):
     settings = [1, 2, 3, 4, -1, -2]
-    ratios = [0, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1028]
+    ratios = [0, 1, 2, 4, 8, 16, 32, 64, 128, 256, 512]
     Results = []
     Params = []
     for setting in settings:

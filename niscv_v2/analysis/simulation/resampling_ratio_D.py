@@ -20,6 +20,9 @@ def draw(dim, ax):
     estimators = ['IIS', 'NIS', 'MIS$^*$', 'MIS', 'RIS']
     colors = ['k', 'b', 'y', 'g', 'r']
     ratios = [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1028]
+    reference = np.array(pickle.load(open('../../data/simulation/ess_ratio', 'rb')))
+    reference = reference[0] if dim == 4 else reference[1]
+    reference = np.array([reference, reference]).T.flatten()
 
     datast = read(dim, 'st')
     datasp = read(dim, 'sp')
@@ -36,6 +39,9 @@ def draw(dim, ax):
 
         ax[i].set_ylim([0.8 * min(nMSEst[i, :, -1].min(), nMSEsp[i, :, -1].min()),
                         1.3 * max(nMSEst[i, :, 0].max(), nMSEsp[i, :, 0].max())])
+        ax[i].plot([reference[i], reference[i]],
+                   [0.8 * min(nMSEst[i, :, -1].min(), nMSEsp[i, :, -1].min()),
+                    1.3 * max(nMSEst[i, :, 0].max(), nMSEsp[i, :, 0].max())], 'c-.', label='Ref')
         ax[i].set_title('$d$={}, $c$={}, sn={}'.format(dim, setting[0], setting[1]))
 
 

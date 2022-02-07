@@ -86,7 +86,7 @@ class Exp:
 
     def resampling(self, size_kn, ratio, bootstrap='st'):
         self.params.update({'size kn': size_kn, 'ratio': ratio, 'bootstrap': bootstrap})
-        size_est = np.round(ratio * size_kn if ratio > 0 else 2 * size_kn).astype(np.int64)
+        size_est = np.round(ratio * size_kn if ratio >= 1 else size_kn).astype(np.int64)
         samples = self.ini_rvs(size_est)
         weights = self.__divi(self.target(samples), self.ini_pdf(samples))
         funs = self.fun(samples)
@@ -100,7 +100,7 @@ class Exp:
             self.opt_pdf = (lambda x: self.target(x) * np.abs(self.fun(x) - mu)) \
                 if self.params['sn'] else (lambda x: self.target(x) * np.abs(self.fun(x)))
 
-        if ratio > 0:
+        if ratio >= 1:
             weights_kn = self.__divi(self.opt_pdf(samples), self.ini_pdf(samples))
             ESS = utils.ess(weights_kn)
             self.disp('Resampling ratio reference: {:.0f} ({:.0f})'.format(size_est / ESS, ratio))
