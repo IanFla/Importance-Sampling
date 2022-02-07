@@ -47,7 +47,7 @@ def run(it, dim, bootstrap):
         for ratio in ratios:
             np.random.seed(19971107 + it)
             print(dim, bootstrap, it, setting, ratio)
-            res, par = experiment(dim=dim, fun=utils.integrand(setting), size_est=10000, sn=False,
+            res, par = experiment(dim=dim, fun=utils.integrand(setting), size_est=10000, sn=True,
                                   show=False, size_kn=300, ratio=ratio, bootstrap=bootstrap)
             results.append(res)
             params.append(par)
