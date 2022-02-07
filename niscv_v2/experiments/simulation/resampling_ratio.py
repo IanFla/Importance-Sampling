@@ -37,12 +37,7 @@ def experiment(dim, fun, size_est, sn, show, size_kn, ratio, bootstrap):
 
 
 def run(it, dim, bootstrap):
-    settings = [[1, False], [1, True],
-                [2, False], [2, True],
-                [3, False], [3, True],
-                [4, False], [4, True],
-                [-1, False], [-1, True],
-                [-2, False], [-2, True]]
+    settings = [1, 2, 3, 4, -1, -2]
     ratios = [0, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1028]
     Results = []
     Params = []
@@ -50,9 +45,9 @@ def run(it, dim, bootstrap):
         results = []
         params = []
         for ratio in ratios:
-            np.random.seed(1997 + 1107 + it)
+            np.random.seed(19971107 + it)
             print(dim, bootstrap, it, setting, ratio)
-            res, par = experiment(dim=dim, fun=utils.integrand(setting[0]), size_est=20000, sn=setting[1],
+            res, par = experiment(dim=dim, fun=utils.integrand(setting), size_est=10000, sn=False,
                                   show=False, size_kn=300, ratio=ratio, bootstrap=bootstrap)
             results.append(res)
             params.append(par)
@@ -67,7 +62,7 @@ def main(dim, bootstrap):
     os.environ['OMP_NUM_THREADS'] = '1'
     with multiprocessing.Pool(processes=60) as pool:
         begin = dt.now()
-        its = np.arange(200)
+        its = np.arange(1000)
         R = pool.map(partial(run, dim=dim, bootstrap=bootstrap), its)
         end = dt.now()
         print((end - begin).seconds)
@@ -79,7 +74,5 @@ def main(dim, bootstrap):
 if __name__ == '__main__':
     main(4, 'sp')
     main(6, 'sp')
-    main(8, 'sp')
     main(4, 'st')
     main(6, 'st')
-    main(8, 'st')
