@@ -73,6 +73,6 @@ def main(dim, bootstrap):
 
 if __name__ == '__main__':
     main(4, 'st')
-    main(4, 'sp')
     main(6, 'st')
+    main(4, 'sp')
     main(6, 'sp')
