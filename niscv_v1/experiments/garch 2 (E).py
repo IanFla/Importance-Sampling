@@ -74,7 +74,7 @@ def main(num):
         end = dt.now()
         print((end - begin).seconds)
 
-    with open('../data/garch/garch' + str(num), 'wb') as file:
+    with open('../data/real/real' + str(num), 'wb') as file:
         pickle.dump(R, file)
 
 

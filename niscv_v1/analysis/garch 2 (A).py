@@ -4,7 +4,7 @@ import pickle
 
 
 def read(num):
-    file = open('/Users/ianfla/Documents/GitHub/Two-Stage/niscv/data/garch/garch' + str(num), 'rb')
+    file = open('/Users/ianfla/Documents/GitHub/Two-Stage/niscv/data/real/real' + str(num), 'rb')
     data = pickle.load(file)
     data = np.array([[da[0] for da in dat] for dat in data])
     return data
