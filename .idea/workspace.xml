@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0e490570-a654-48ca-854e-837d17eec778" name="Changes" comment="nmb" />
+    <list default="true" id="0e490570-a654-48ca-854e-837d17eec778" name="Changes" comment="nmb">
+      <change afterPath="$PROJECT_DIR$/niscv_v2/figures/simulation/rr4D.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/niscv_v2/figures/simulation/rr6D.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/niscv_v2/analysis/simulation/resampling_ratio_D.py" beforeDir="false" afterPath="$PROJECT_DIR$/niscv_v2/analysis/simulation/resampling_ratio_D.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/niscv_v2/experiments/simulation/clustering_group.py" beforeDir="false" afterPath="$PROJECT_DIR$/niscv_v2/experiments/simulation/clustering_group.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -314,7 +320,7 @@
     <SUITE FILE_PATH="coverage/Importance_Sampling$kernel_number_D.coverage" NAME="kernel_number_D Coverage Results" MODIFIED="1644061089587" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/analysis/simulation" />
     <SUITE FILE_PATH="coverage/Importance_Sampling$kernel_number.coverage" NAME="kernel_number Coverage Results" MODIFIED="1643966321125" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/experiments/simulation" />
     <SUITE FILE_PATH="coverage/Importance_Sampling$leverage.coverage" NAME="leverage Coverage Results" MODIFIED="1643531256413" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/others" />
-    <SUITE FILE_PATH="coverage/Importance_Sampling$resampling_ratio_D.coverage" NAME="resampling_ratio_D Coverage Results" MODIFIED="1644233136023" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/analysis/simulation" />
+    <SUITE FILE_PATH="coverage/Importance_Sampling$resampling_ratio_D.coverage" NAME="resampling_ratio_D Coverage Results" MODIFIED="1644284853193" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/analysis/simulation" />
     <SUITE FILE_PATH="coverage/Importance_Sampling$test.coverage" NAME="test Coverage Results" MODIFIED="1644072844789" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/others" />
     <SUITE FILE_PATH="coverage/Importance_Sampling$.coverage" NAME=" Coverage Results" MODIFIED="1643024801096" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/analysis/test" />
     <SUITE FILE_PATH="coverage/Importance_Sampling$nmb.coverage" NAME="nmb Coverage Results" MODIFIED="1643025044893" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/analysis/test" />

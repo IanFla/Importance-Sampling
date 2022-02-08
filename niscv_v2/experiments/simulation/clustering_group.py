@@ -48,7 +48,7 @@ def run(it, dim):
         for cluster in clusters:
             np.random.seed(1997 + 1107 + it)
             print(dim, it, setting, cluster)
-            res, par = experiment(dim=dim, fun=utils.integrand(setting), size_est=20000, sn=True,
+            res, par = experiment(dim=dim, fun=utils.integrand(setting), size_est=10000, sn=True,
                                   show=False, size_kn=300, ratio=1000, cluster=cluster)
             results.append(res)
             params.append(par)

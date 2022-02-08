@@ -11,25 +11,19 @@ def read(dim, bootstrap):
 
 
 def draw(dim, ax):
-    settings = [[1, False], [1, True],
-                [2, False], [2, True],
-                [3, False], [3, True],
-                [4, False], [4, True],
-                [-1, False], [-1, True],
-                [-2, False], [-2, True]]
+    settings = [1, 2, 3, 4, -1, -2]
     estimators = ['IIS', 'NIS', 'MIS$^*$', 'MIS', 'RIS']
     colors = ['k', 'b', 'y', 'g', 'r']
-    ratios = [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1028]
+    ratios = [0.5, 1, 2, 4, 8, 16, 32, 64, 128, 256, 512]
     reference = np.array(pickle.load(open('../../data/simulation/ess_ratio', 'rb')))
     reference = reference[0] if dim == 4 else reference[1]
-    reference = np.array([reference, reference]).T.flatten()
 
     datast = read(dim, 'st')
     datasp = read(dim, 'sp')
-    nMSEst = 20000 * np.mean((datast - 1) ** 2, axis=0)
-    nVarst = 20000 * np.var(datast, axis=0)
-    nMSEsp = 20000 * np.mean((datasp - 1) ** 2, axis=0)
-    nVarsp = 20000 * np.var(datasp, axis=0)
+    nMSEst = 10000 * np.mean((datast - 1) ** 2, axis=0)
+    nVarst = 10000 * np.var(datast, axis=0)
+    nMSEsp = 10000 * np.mean((datasp - 1) ** 2, axis=0)
+    nVarsp = 10000 * np.var(datasp, axis=0)
     for i, setting in enumerate(settings):
         for j, estimator in enumerate(estimators):
             ax[i].loglog(ratios, nMSEst[i, :, j], '-', c=colors[j], label=estimator)
@@ -38,16 +32,16 @@ def draw(dim, ax):
             ax[i].loglog(ratios, nVarsp[i, :, j], 'x', c=colors[j])
 
         ax[i].set_ylim([0.8 * min(nMSEst[i, :, -1].min(), nMSEsp[i, :, -1].min()),
-                        1.3 * max(nMSEst[i, :, 0].max(), nMSEsp[i, :, 0].max())])
+                        2 * max(nMSEst[i, :, 0].max(), nMSEsp[i, :, 0].max())])
         ax[i].plot([reference[i], reference[i]],
                    [0.8 * min(nMSEst[i, :, -1].min(), nMSEsp[i, :, -1].min()),
-                    1.3 * max(nMSEst[i, :, 0].max(), nMSEsp[i, :, 0].max())], 'c-.', label='Ref')
-        ax[i].set_title('$d$={}, $c$={}, sn={}'.format(dim, setting[0], setting[1]))
+                    2 * max(nMSEst[i, :, 0].max(), nMSEsp[i, :, 0].max())], 'c-.', label='Ref')
+        ax[i].set_title('$d$={}, $c$={}'.format(dim, setting))
 
 
 def main(dim):
     plt.style.use('ggplot')
-    fig, ax = plt.subplots(3, 4, figsize=[18, 8])
+    fig, ax = plt.subplots(3, 2, figsize=[9, 8])
     ax = ax.flatten()
     draw(dim, ax)
     for a in ax:
