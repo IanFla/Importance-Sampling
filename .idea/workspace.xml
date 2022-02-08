@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0e490570-a654-48ca-854e-837d17eec778" name="Changes" comment="nmb" />
+    <list default="true" id="0e490570-a654-48ca-854e-837d17eec778" name="Changes" comment="nmb">
+      <change afterPath="$PROJECT_DIR$/niscv_v2/analysis/simulation/clustering_group_D.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/niscv_v2/figures/simulation/cg4D.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/niscv_v2/figures/simulation/cg6D.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -57,7 +62,29 @@
       <recent name="$PROJECT_DIR$/niscv_v2/others" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.resampling_ratio_D">
+  <component name="RunManager" selected="Python.clustering_group_D">
+    <configuration name="clustering_group_D" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Importance-Sampling" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/niscv_v2/analysis/simulation" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/niscv_v2/analysis/simulation/clustering_group_D.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="ess_ratio" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Importance-Sampling" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -72,28 +99,6 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/niscv_v2/experiments/supplement/ess_ratio.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="kernel_number_D" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Importance-Sampling" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/niscv_v2/analysis/simulation" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/niscv_v2/analysis/simulation/kernel_number_D.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -169,19 +174,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.kernel_number_D" />
       <item itemvalue="Python.resampling_ratio" />
       <item itemvalue="Python.resampling_ratio_D" />
       <item itemvalue="Python.test" />
       <item itemvalue="Python.ess_ratio" />
+      <item itemvalue="Python.clustering_group_D" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.clustering_group_D" />
         <item itemvalue="Python.resampling_ratio_D" />
         <item itemvalue="Python.ess_ratio" />
         <item itemvalue="Python.resampling_ratio" />
         <item itemvalue="Python.test" />
-        <item itemvalue="Python.kernel_number_D" />
       </list>
     </recent_temporary>
   </component>
@@ -311,6 +316,7 @@
     <SUITE FILE_PATH="coverage/Importance_Sampling$test1.coverage" NAME="test1 Coverage Results" MODIFIED="1642996111251" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/analysis/test" />
     <SUITE FILE_PATH="coverage/Importance_Sampling$kernel.coverage" NAME="kernel Coverage Results" MODIFIED="1642910680603" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/basic" />
     <SUITE FILE_PATH="coverage/Importance_Sampling$exp.coverage" NAME="exp Coverage Results" MODIFIED="1643710536121" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/basics" />
+    <SUITE FILE_PATH="coverage/Importance_Sampling$clustering_group_D.coverage" NAME="clustering_group_D Coverage Results" MODIFIED="1644308834786" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/analysis/simulation" />
     <SUITE FILE_PATH="coverage/Importance_Sampling$kernel_number_D.coverage" NAME="kernel_number_D Coverage Results" MODIFIED="1644061089587" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/analysis/simulation" />
     <SUITE FILE_PATH="coverage/Importance_Sampling$kernel_number.coverage" NAME="kernel_number Coverage Results" MODIFIED="1643966321125" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/experiments/simulation" />
     <SUITE FILE_PATH="coverage/Importance_Sampling$leverage.coverage" NAME="leverage Coverage Results" MODIFIED="1643531256413" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/others" />
