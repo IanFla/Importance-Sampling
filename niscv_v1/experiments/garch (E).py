@@ -77,6 +77,4 @@ def main():
 
 
 if __name__ == '__main__':
-    # main()
-    garch = GARCH()
-    garch.laplace(inflate=2, df=1)
+    main()

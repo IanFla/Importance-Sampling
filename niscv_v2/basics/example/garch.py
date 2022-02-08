@@ -10,7 +10,7 @@ warnings.filterwarnings("ignore")
 
 class GARCH:
     def __init__(self):
-        df = pd.read_csv('../data/real/SP500.csv')
+        df = pd.read_csv('../../data/real/SP500.csv')
         data = df.VALUE.values[1:] - df.VALUE.values[:-1]
         ys = 100 * data[2700:2900]
         self.h0 = np.std(ys)
@@ -133,7 +133,8 @@ class GARCH:
 
 def main():
     garch = GARCH()
-    garch.laplace(inflate=2, df=1)
+    estimator = garch.laplace(inflate=2, df=1)
+    print(estimator(100000))
 
 
 if __name__ == '__main__':

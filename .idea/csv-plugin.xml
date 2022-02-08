@@ -17,6 +17,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="/niscv_v2/nmb/SP500.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
       </map>
     </option>
   </component>
