@@ -26,7 +26,7 @@ def run(bdwth):
     for i, D in enumerate(Ds):
         for alpha in alphas:
             print(bdwth, D, alpha)
-            result.append(experiment(D=D, alpha=alpha, size_est=100000, show=True,
+            result.append(experiment(D=D, alpha=alpha, size_est=100000, show=False,
                                      size_kn=2000, ratio=ratios[i], bdwth=bdwth))
 
     return result
