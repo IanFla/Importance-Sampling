@@ -30,14 +30,14 @@ def random_walk(target, x0, cov, factor, burn, size, thin):
     walk = lambda x: st.multivariate_normal(mean=x, cov=(factor ** 2) * cov).rvs()
     for b in range(burn):
         x1 = walk(x0)
-        if target(x1) / target(x0) >= st.uniform.rvs():
+        if (target(x1) / target(x0)) >= st.uniform.rvs():
             x0 = np.copy(x1)
 
     xs = []
     for s in range(size):
         for t in range(thin):
             x1 = walk(x0)
-            if target(x1) / target(x0) >= st.uniform.rvs():
+            if (target(x1) / target(x0)) >= st.uniform.rvs():
                 x0 = np.copy(x1)
 
         xs.append(x0)
@@ -62,10 +62,10 @@ def experiment(it, D, size):
 
 def run(D):
     os.environ['OMP_NUM_THREADS'] = '1'
-    with multiprocessing.Pool(processes=60) as pool:
+    with multiprocessing.Pool(processes=30) as pool:
         begin = dt.now()
-        its = np.arange(60)
-        R = pool.map(partial(experiment, D=D, size=100000000), its)
+        its = np.arange(300)
+        R = pool.map(partial(experiment, D=D, size=10000000), its)
         end = dt.now()
         print((end - begin).seconds)
 
@@ -77,9 +77,9 @@ def main():
     for D in [1, 2, 5]:
         R = np.array(run(D)).flatten()
         result = [np.quantile(R, 0.05), np.quantile(R, 0.01)]
+        print(result)
         results.append(result)
 
-    print(results)
     with open('../data/real/truth', 'wb') as file:
         pickle.dump(R, file)
 
