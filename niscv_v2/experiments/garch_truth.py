@@ -35,6 +35,7 @@ def random_walk(target, x0, cov, factor, burn, size, thin):
 
     xs = []
     for s in range(size):
+        print(s)
         for t in range(thin):
             x1 = walk(x0)
             if (target(x1) / target(x0)) >= st.uniform.rvs():
@@ -46,7 +47,7 @@ def random_walk(target, x0, cov, factor, burn, size, thin):
 
 
 def experiment(it, D, size):
-    print(it)
+    print('it:', it, D)
     target, statistic, proposal = garch_model(D)
     qtl = Qtl(D + 3, target, statistic, None, proposal, size_est=None, show=False)
     samples = qtl.ini_rvs(100000)
@@ -64,8 +65,8 @@ def run(D):
     os.environ['OMP_NUM_THREADS'] = '1'
     with multiprocessing.Pool(processes=30) as pool:
         begin = dt.now()
-        its = np.arange(300)
-        R = pool.map(partial(experiment, D=D, size=10000000), its)
+        its = np.arange(1000)
+        R = pool.map(partial(experiment, D=D, size=1000000), its)
         end = dt.now()
         print((end - begin).seconds)
 
