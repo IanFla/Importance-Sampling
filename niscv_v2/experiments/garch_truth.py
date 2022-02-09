@@ -55,7 +55,7 @@ def experiment(it, D, size):
     cov = np.cov(samples.T, aweights=weights)
     target2 = lambda x: target(x.reshape([1, -1]))[0]
     samples2 = random_walk(target=target2, x0=mean, cov=cov, factor=1.7 / np.sqrt(D + 3),
-                           burn=500, size=size, thin=5)
+                           burn=100, size=size, thin=10)
     statistics = statistic(samples2)
     return statistics
 
