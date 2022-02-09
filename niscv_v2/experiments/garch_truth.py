@@ -35,7 +35,6 @@ def random_walk(target, x0, cov, factor, burn, size, thin):
 
     xs = []
     for s in range(size):
-        print(s)
         for t in range(thin):
             x1 = walk(x0)
             if (target(x1) / target(x0)) >= st.uniform.rvs():
@@ -56,7 +55,7 @@ def experiment(it, D, size):
     cov = np.cov(samples.T, aweights=weights)
     target2 = lambda x: target(x.reshape([1, -1]))[0]
     samples2 = random_walk(target=target2, x0=mean, cov=cov, factor=1.7 / np.sqrt(D + 3),
-                           burn=1000, size=size, thin=10)
+                           burn=500, size=size, thin=5)
     statistics = statistic(samples2)
     return statistics
 
@@ -65,8 +64,8 @@ def run(D):
     os.environ['OMP_NUM_THREADS'] = '1'
     with multiprocessing.Pool(processes=30) as pool:
         begin = dt.now()
-        its = np.arange(1000)
-        R = pool.map(partial(experiment, D=D, size=1000000), its)
+        its = np.arange(300)
+        R = pool.map(partial(experiment, D=D, size=10000), its)
         end = dt.now()
         print((end - begin).seconds)
 
@@ -82,7 +81,7 @@ def main():
         results.append(result)
 
     with open('../data/real/truth', 'wb') as file:
-        pickle.dump(R, file)
+        pickle.dump(results, file)
 
 
 if __name__ == '__main__':
