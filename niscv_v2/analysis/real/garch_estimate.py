@@ -1,5 +1,4 @@
 import numpy as np
-from matplotlib import pyplot as plt
 import pickle
 
 
@@ -13,7 +12,7 @@ def read(num):
 
 
 def main():
-    data = read(6)
+    data = read(7)
     mean = np.mean(data, axis=0)
     nVar = 400000 * np.var(data, axis=0)
     print(mean)
