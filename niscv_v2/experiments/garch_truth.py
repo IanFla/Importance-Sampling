@@ -3,6 +3,7 @@ from niscv_v2.basics.garch import GARCH
 from niscv_v2.basics.qtl import Qtl
 import multiprocessing
 import os
+from functools import partial
 from datetime import datetime as dt
 import pickle
 
@@ -32,32 +33,33 @@ def experiment(D, alpha, size_est, show, size_kn, ratio):
     return qtl.result[0]
 
 
-def run(it):
-    np.random.seed(19971107 + it)
+def run(it, num):
+    np.random.seed(1997 * num + 1107 + it)
     Ds = [1, 2, 5]
     alphas = [0.05, 0.01]
     ratios = [500, 1000, 2000]
     result = []
     for i, D in enumerate(Ds):
         for alpha in alphas:
-            print(it, D, alpha)
+            print(num, it, D, alpha)
             result.append(experiment(D, alpha, size_est=4000000, show=False, size_kn=2000, ratio=ratios[i]))
 
     return result
 
 
-def main():
+def main(num):
     os.environ['OMP_NUM_THREADS'] = '1'
     with multiprocessing.Pool(processes=30) as pool:
         begin = dt.now()
-        its = np.arange(300)
-        R = pool.map(run, its)
+        its = np.arange(1, 31)
+        R = pool.map(partial(run, num=num), its)
         end = dt.now()
         print((end - begin).seconds)
 
-    with open('../data/real/garch_truth', 'wb') as file:
+    with open('../data/real/garch_truth_{}'.format(num), 'wb') as file:
         pickle.dump(R, file)
 
 
 if __name__ == '__main__':
-    main()
+    for n in np.arange(1, 11):
+        main(n)
