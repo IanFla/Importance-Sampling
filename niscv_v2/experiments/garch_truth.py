@@ -42,7 +42,7 @@ def run(it, num):
     for i, D in enumerate(Ds):
         for alpha in alphas:
             print(num, it, D, alpha)
-            result.append(experiment(D, alpha, size_est=4000000, show=False, size_kn=2000, ratio=ratios[i]))
+            result.append(experiment(D, alpha, size_est=1000000, show=False, size_kn=2000, ratio=ratios[i]))
 
     return result
 
@@ -61,5 +61,5 @@ def main(num):
 
 
 if __name__ == '__main__':
-    for n in np.arange(1, 11):
+    for n in np.arange(1, 21):
         main(n)
