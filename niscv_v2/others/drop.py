@@ -140,3 +140,38 @@ def main():
 
     print(np.sum(np.abs(a - c)))
     print(np.mean(b <= 1e-10))
+
+
+
+def random_walk(target, x0, cov, factor, burn, size, thin):
+    walk = lambda x: st.multivariate_normal(mean=x, cov=(factor ** 2) * cov).rvs()
+    for b in range(burn):
+        x1 = walk(x0)
+        if (target(x1) / target(x0)) >= st.uniform.rvs():
+            x0 = np.copy(x1)
+
+    xs = []
+    for s in range(size):
+        for t in range(thin):
+            x1 = walk(x0)
+            if (target(x1) / target(x0)) >= st.uniform.rvs():
+                x0 = np.copy(x1)
+
+        xs.append(x0)
+
+    return np.array(xs)
+
+
+def experiment(it, D, size):
+    print('it:', it, D)
+    target, statistic, proposal = garch_model(D)
+    qtl = Qtl(D + 3, target, statistic, None, proposal, size_est=None, show=False)
+    samples = qtl.ini_rvs(100000)
+    weights = target(samples) / (qtl.ini_pdf(samples) + 1.0 * (qtl.ini_pdf(samples) == 0))
+    mean = np.sum(weights * samples.T, axis=1) / np.sum(weights)
+    cov = np.cov(samples.T, aweights=weights)
+    target2 = lambda x: target(x.reshape([1, -1]))[0]
+    samples2 = random_walk(target=target2, x0=mean, cov=cov, factor=1.7 / np.sqrt(D + 3),
+                           burn=100, size=size, thin=10)
+    statistics = statistic(samples2)
+    return statistics

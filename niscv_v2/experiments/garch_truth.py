@@ -1,11 +1,8 @@
 import numpy as np
 from niscv_v2.basics.garch import GARCH
 from niscv_v2.basics.qtl import Qtl
-import scipy.stats as st
-
 import multiprocessing
 import os
-from functools import partial
 from datetime import datetime as dt
 import pickle
 
@@ -26,62 +23,40 @@ def garch_model(D):
     return target, statistic, proposal
 
 
-def random_walk(target, x0, cov, factor, burn, size, thin):
-    walk = lambda x: st.multivariate_normal(mean=x, cov=(factor ** 2) * cov).rvs()
-    for b in range(burn):
-        x1 = walk(x0)
-        if (target(x1) / target(x0)) >= st.uniform.rvs():
-            x0 = np.copy(x1)
-
-    xs = []
-    for s in range(size):
-        for t in range(thin):
-            x1 = walk(x0)
-            if (target(x1) / target(x0)) >= st.uniform.rvs():
-                x0 = np.copy(x1)
-
-        xs.append(x0)
-
-    return np.array(xs)
-
-
-def experiment(it, D, size):
-    print('it:', it, D)
+def experiment(D, alpha, size_est, show, size_kn, ratio):
     target, statistic, proposal = garch_model(D)
-    qtl = Qtl(D + 3, target, statistic, None, proposal, size_est=None, show=False)
-    samples = qtl.ini_rvs(100000)
-    weights = target(samples) / (qtl.ini_pdf(samples) + 1.0 * (qtl.ini_pdf(samples) == 0))
-    mean = np.sum(weights * samples.T, axis=1) / np.sum(weights)
-    cov = np.cov(samples.T, aweights=weights)
-    target2 = lambda x: target(x.reshape([1, -1]))[0]
-    samples2 = random_walk(target=target2, x0=mean, cov=cov, factor=1.7 / np.sqrt(D + 3),
-                           burn=100, size=size, thin=10)
-    statistics = statistic(samples2)
-    return statistics
+    qtl = Qtl(D + 3, target, statistic, alpha, proposal, size_est=size_est, show=show)
+    qtl.resampling(size_kn, ratio)
+    qtl.density_estimation(mode=2, local=True, gamma=0.3, bdwth=1.2, alpha0=0.1)
+    qtl.nonparametric_estimation(mode=2)
+    return qtl.result[0]
 
 
-def run(D):
+def run(it):
+    np.random.seed(19971107 + it)
+    Ds = [1, 2, 5]
+    alphas = [0.05, 0.01]
+    ratios = [500, 1000, 2000]
+    result = []
+    for i, D in enumerate(Ds):
+        for alpha in alphas:
+            print(it, D, alpha)
+            result.append(experiment(D, alpha, size_est=4000000, show=False, size_kn=2000, ratio=ratios[i]))
+
+    return result
+
+
+def main():
     os.environ['OMP_NUM_THREADS'] = '1'
     with multiprocessing.Pool(processes=30) as pool:
         begin = dt.now()
         its = np.arange(300)
-        R = pool.map(partial(experiment, D=D, size=10000), its)
+        R = pool.map(run, its)
         end = dt.now()
         print((end - begin).seconds)
 
-    return R
-
-
-def main():
-    results = []
-    for D in [1, 2, 5]:
-        R = np.array(run(D)).flatten()
-        result = [np.quantile(R, 0.05), np.quantile(R, 0.01)]
-        print(result)
-        results.append(result)
-
-    with open('../data/real/truth', 'wb') as file:
-        pickle.dump(results, file)
+    with open('../data/real/garch_truth', 'wb') as file:
+        pickle.dump(R, file)
 
 
 if __name__ == '__main__':
