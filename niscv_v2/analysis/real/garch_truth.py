@@ -12,9 +12,11 @@ def read(num):
 
 
 def main():
-    data = read(3)
+    data = read(5)
     mean = np.mean(data, axis=0)
     print(mean)
+    with open('../../data/real/truth', 'wb') as file:
+        pickle.dump(mean, file)
 
 
 if __name__ == '__main__':

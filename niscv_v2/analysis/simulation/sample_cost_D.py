@@ -15,9 +15,9 @@ def draw(dim, ax):
     group = [[1, 2, 3], [1, 2, 3, 5], [1, 2, 3, 6]]
     data = np.array([data[:, gp].sum(axis=1) for gp in group])
     size_ests = [1000, 2000, 3000, 5000, 7000, 10000, 20000, 30000, 50000, 70000, 100000]
-    labels = ['RIS', 'MLE']
-    for i, dat in enumerate(data[1:]):
-        ax.plot(size_ests, dat / data[0], label=labels[i])
+    labels = ['NIS/MIS$^*$/MIS', 'RIS', 'MLE']
+    for i, dat in enumerate(data):
+        ax.plot(size_ests, dat, label=labels[i])
 
 
 def main():
@@ -26,7 +26,9 @@ def main():
     ax = ax.flatten()
     for i, dim in enumerate([4, 6, 8]):
         draw(dim, ax[i])
-        ax[i].legend(loc=1)
+        ax[i].plot([1000, 100000], [0, 0])
+        ax[i].set_title('$d={}$'.format(dim))
+        ax[i].legend(loc=2)
 
     fig.tight_layout()
     fig.show()
