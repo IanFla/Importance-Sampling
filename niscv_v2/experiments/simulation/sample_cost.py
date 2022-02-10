@@ -5,7 +5,7 @@ import pickle
 
 
 def run(it, dim):
-    size_ests = [1000, 1500, 2000, 3000, 4000, 5000, 7000, 10000, 20000, 40000]
+    size_ests = [1000, 2000, 3000, 5000, 7000, 10000, 20000, 30000, 50000, 70000, 100000]
     results = []
     for size_est in size_ests:
         np.random.seed(19971107 + it)
