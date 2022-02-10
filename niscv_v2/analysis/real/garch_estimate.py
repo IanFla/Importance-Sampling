@@ -1,4 +1,5 @@
 import numpy as np
+from matplotlib import pyplot as plt
 import pickle
 
 
@@ -12,15 +13,27 @@ def read(num):
 
 
 def main():
+    plt.style.use('ggplot')
     file = open('../../data/real/truth', 'rb')
     truth = np.array(pickle.load(file)).reshape([1, 6, 1])
-    data = read(7)
+    data = read(8)
     mean = np.mean(data, axis=0)
+    print(mean)
+    estimators = ['NIS', 'MIS$^*$', 'MIS', 'RIS', 'MLE']
+    colors = ['b', 'y', 'g', 'r', 'm']
+    scenarios = ['(1, 0.05)', '(1, 0.01)', '(2, 0.05)', '(2, 0.01)', '(5, 0.05)', '(5, 0.01)']
     nMSE = 400000 * np.mean((data - truth) ** 2, axis=0)
     nVar = 400000 * np.var(data, axis=0)
-    print(mean)
-    print(nMSE[:, 1:] / nMSE[:, 0].reshape([-1, 1]))
-    print(nVar[:, 1:] / nVar[:, 0].reshape([-1, 1]))
+    nMSE = nMSE[:, 1:] / nMSE[:, 0].reshape([-1, 1])
+    nVar = nVar[:, 1:] / nVar[:, 0].reshape([-1, 1])
+    fig, ax = plt.subplots(figsize=[5, 3])
+    for i, est in enumerate(estimators):
+        ax.semilogy(scenarios, nMSE[:, i], c=colors[i], label=est)
+        ax.semilogy(scenarios, nVar[:, i], '.', c=colors[i])
+
+    ax.legend()
+    fig.tight_layout()
+    fig.show()
 
 
 if __name__ == '__main__':
