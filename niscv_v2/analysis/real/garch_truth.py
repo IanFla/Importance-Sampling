@@ -12,8 +12,7 @@ def read(num):
 
 
 def main():
-    data = read(1)
-    print(data.shape)
+    data = read(3)
     mean = np.mean(data, axis=0)
     print(mean)
 
