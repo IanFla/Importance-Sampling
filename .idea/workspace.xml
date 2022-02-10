@@ -5,7 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0e490570-a654-48ca-854e-837d17eec778" name="Changes" comment="nmb">
-      <change beforePath="$PROJECT_DIR$/niscv_v2/experiments/garch_truth.py" beforeDir="false" afterPath="$PROJECT_DIR$/niscv_v2/experiments/garch_truth.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/niscv_v2/data/simulation/kernel_cost_4D" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/niscv_v2/data/simulation/kernel_cost_6D" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/niscv_v2/data/simulation/kernel_cost_8D" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/niscv_v2/data/simulation/sample_cost_4D" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/niscv_v2/experiments/simulation/kernel_cost.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/niscv_v2/experiments/simulation/sample_cost.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/niscv_v2/experiments/garch_estimate.py" beforeDir="false" afterPath="$PROJECT_DIR$/niscv_v2/experiments/garch_estimate.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/niscv_v2/others/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/niscv_v2/others/test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,73 +71,7 @@
       <recent name="$PROJECT_DIR$/niscv_v2/figures" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.garch_estimate (1)">
-    <configuration name="garch_bdwth (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Importance-Sampling" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/niscv_v2/analysis/real" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/niscv_v2/analysis/real/garch_bdwth.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="garch_bdwth" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Importance-Sampling" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/niscv_v2/experiments" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/niscv_v2/experiments/garch_bdwth.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="garch_draw" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Importance-Sampling" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/niscv_v2/experiments" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/niscv_v2/experiments/garch_draw.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Python.sample_cost">
     <configuration name="garch_estimate (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Importance-Sampling" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -174,7 +116,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="garch_truth" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="kernel_cost" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Importance-Sampling" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -182,12 +124,56 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/niscv_v2/nmb" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/niscv_v2/experiments/simulation" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/niscv_v2/experiments/supplement/garch_truth.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/niscv_v2/experiments/simulation/kernel_cost.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="sample_cost" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Importance-Sampling" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/niscv_v2/experiments/simulation" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/niscv_v2/experiments/simulation/sample_cost.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Importance-Sampling" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/niscv_v2/others" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/niscv_v2/others/test.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -198,11 +184,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.sample_cost" />
+        <item itemvalue="Python.kernel_cost" />
+        <item itemvalue="Python.test" />
         <item itemvalue="Python.garch_estimate (1)" />
         <item itemvalue="Python.garch_estimate" />
-        <item itemvalue="Python.garch_bdwth (1)" />
-        <item itemvalue="Python.garch_bdwth" />
-        <item itemvalue="Python.garch_draw" />
       </list>
     </recent_temporary>
   </component>
@@ -224,6 +210,7 @@
       <workItem from="1644454660310" duration="1619000" />
       <workItem from="1644458052593" duration="363000" />
       <workItem from="1644459264909" duration="31000" />
+      <workItem from="1644459468198" duration="2727000" />
     </task>
     <task id="LOCAL-00001" summary="nmb">
       <created>1643084908503</created>
@@ -334,6 +321,7 @@
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Importance_Sampling$test1.coverage" NAME="test1 Coverage Results" MODIFIED="1642996111251" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/analysis/test" />
     <SUITE FILE_PATH="coverage/Importance_Sampling$kernel.coverage" NAME="kernel Coverage Results" MODIFIED="1642910680603" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/basic" />
+    <SUITE FILE_PATH="coverage/Importance_Sampling$computational_cost.coverage" NAME="kernel_cost Coverage Results" MODIFIED="1644461569079" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/experiments/simulation" />
     <SUITE FILE_PATH="coverage/Importance_Sampling$garch__E_.coverage" NAME="garch (E) Coverage Results" MODIFIED="1644330783391" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v1/experiments" />
     <SUITE FILE_PATH="coverage/Importance_Sampling$truth__2_.coverage" NAME="truth (2) Coverage Results" MODIFIED="1644332045224" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2" />
     <SUITE FILE_PATH="coverage/Importance_Sampling$clustering_group_D.coverage" NAME="clustering_group_D Coverage Results" MODIFIED="1644308834786" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/analysis/simulation" />
@@ -357,7 +345,8 @@
     <SUITE FILE_PATH="coverage/Importance_Sampling$kernel_number_D.coverage" NAME="kernel_number_D Coverage Results" MODIFIED="1644061089587" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/analysis/simulation" />
     <SUITE FILE_PATH="coverage/Importance_Sampling$garch_truth__1_.coverage" NAME="truth Coverage Results" MODIFIED="1644332542332" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/experiments" />
     <SUITE FILE_PATH="coverage/Importance_Sampling$leverage.coverage" NAME="leverage Coverage Results" MODIFIED="1643531256413" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/others" />
-    <SUITE FILE_PATH="coverage/Importance_Sampling$test.coverage" NAME="test Coverage Results" MODIFIED="1644072844789" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/others" />
+    <SUITE FILE_PATH="coverage/Importance_Sampling$sample_cost.coverage" NAME="sample_cost Coverage Results" MODIFIED="1644462327351" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/experiments/simulation" />
+    <SUITE FILE_PATH="coverage/Importance_Sampling$test.coverage" NAME="test Coverage Results" MODIFIED="1644459828507" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/others" />
     <SUITE FILE_PATH="coverage/Importance_Sampling$.coverage" NAME=" Coverage Results" MODIFIED="1643024801096" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/analysis/test" />
     <SUITE FILE_PATH="coverage/Importance_Sampling$fun.coverage" NAME="fun Coverage Results" MODIFIED="1642986286165" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/basics" />
     <SUITE FILE_PATH="coverage/Importance_Sampling$qtl.coverage" NAME="qtl Coverage Results" MODIFIED="1644390059362" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/basics" />
