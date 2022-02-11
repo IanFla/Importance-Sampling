@@ -16,7 +16,7 @@ def main():
     plt.style.use('ggplot')
     file = open('../../data/real/truth', 'rb')
     truth = np.array(pickle.load(file)).reshape([1, 6, 1])
-    data = read(8)
+    data = read(24)
     mean = np.mean(data, axis=0)
     print(mean)
     estimators = ['NIS', 'MIS$^*$', 'MIS', 'RIS', 'MLE']
@@ -31,7 +31,7 @@ def main():
         ax.semilogy(scenarios, nMSE[:, i], c=colors[i], label=est)
         ax.semilogy(scenarios, nVar[:, i], '.', c=colors[i])
 
-    ax.legend()
+    ax.legend(loc=2)
     fig.tight_layout()
     fig.show()
 
