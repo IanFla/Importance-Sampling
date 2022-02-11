@@ -3,6 +3,7 @@ from niscv_v2.basics.qtl import Qtl
 import numpy as np
 from datetime import datetime as dt
 import pickle
+import os
 
 
 def experiment(D, alpha, size_est, show, size_kn, ratio):

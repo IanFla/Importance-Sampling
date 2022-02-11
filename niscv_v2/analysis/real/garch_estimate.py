@@ -34,6 +34,7 @@ def main():
     ax.legend(loc=2)
     fig.tight_layout()
     fig.show()
+    print(nMSE[:, 1:] / nMSE[:, :-1])
 
 
 if __name__ == '__main__':
