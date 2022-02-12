@@ -20,7 +20,7 @@ def main():
     file = open('../../data/real/time', 'rb')
     time = pickle.load(file)
 
-    data = read(25)
+    data = read(29)
     mean = np.mean(data, axis=0)
     print(mean)
     estimators = ['NIS', 'MIS$^*$', 'MIS', 'RIS', 'MLE']
