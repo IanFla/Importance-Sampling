@@ -12,6 +12,7 @@ def read():
 
 def main():
     data = read().sum(axis=0)
+    print(data)
     group = [[0], [1, 2, 3], [1, 2, 4], [1, 2, 5], [1, 2, 6, 7], [1, 2, 6, 8]]
     data = np.array([data[:, gp].sum(axis=1) for gp in group])
     labels = ['IIS', 'NIS', 'MIS$^*$', 'MIS', 'RIS', 'MLE']
