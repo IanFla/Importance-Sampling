@@ -53,7 +53,7 @@ def main():
     for it in range(5):
         R.append(run(it))
 
-    with open('../../data/simulation/garch_cost', 'wb') as file:
+    with open('../data/real/garch_cost', 'wb') as file:
         pickle.dump(R, file)
 
 
