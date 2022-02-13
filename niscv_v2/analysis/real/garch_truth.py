@@ -12,7 +12,7 @@ def read(num):
 
 
 def main():
-    data = read(11)
+    data = read(20)
     mean = np.mean(data, axis=0)
     print(mean)
     with open('../../data/real/truth', 'wb') as file:
