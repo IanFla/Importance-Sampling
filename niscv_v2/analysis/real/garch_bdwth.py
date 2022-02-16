@@ -4,7 +4,7 @@ import pickle
 
 
 def read():
-    file = open('../../data/real/garch_bdwth', 'rb')
+    file = open('../../data/real/garch_bdwth2', 'rb')
     data = pickle.load(file)
     return np.array(data)
 
