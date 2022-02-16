@@ -26,7 +26,7 @@ def run(bdwth):
     for i, D in enumerate(Ds):
         for alpha in alphas:
             print(bdwth, D, alpha)
-            result.append(experiment(D=D, alpha=alpha, size_est=100000, show=False,
+            result.append(experiment(D=D, alpha=alpha, size_est=20000, show=False,
                                      size_kn=2000, ratio=ratios[i], bdwth=bdwth))
 
     return result
@@ -41,7 +41,7 @@ def main():
         end = dt.now()
         print((end - begin).seconds)
 
-    with open('../data/real/garch_bdwth', 'wb') as file:
+    with open('../data/real/garch_bdwth2', 'wb') as file:
         pickle.dump(R, file)
 
 
