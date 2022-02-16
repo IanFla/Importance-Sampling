@@ -28,8 +28,9 @@ def draw(dim, ax):
         for j, estimator in enumerate(estimators):
             ax[i].loglog(ratios, nMSEst[i, :, j], '-', c=colors[j], label=estimator)
             ax[i].loglog(ratios, nVarst[i, :, j], '.', c=colors[j])
-            ax[i].loglog(ratios, nMSEsp[i, :, j], '--', c=colors[j])
-            ax[i].loglog(ratios, nVarsp[i, :, j], 'x', c=colors[j])
+            if estimator != 'IIS':
+                ax[i].loglog(ratios, nMSEsp[i, :, j], '--', c=colors[j])
+                ax[i].loglog(ratios, nVarsp[i, :, j], 'x', c=colors[j])
 
         ax[i].set_ylim([0.8 * min(nMSEst[i, :, -1].min(), nMSEsp[i, :, -1].min()),
                         2 * max(nMSEst[i, :, 0].max(), nMSEsp[i, :, 0].max())])
