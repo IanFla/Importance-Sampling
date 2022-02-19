@@ -29,9 +29,9 @@ def main():
     nMSE = 400000 * np.mean((data - truth) ** 2, axis=0)
     nMSE_time = nMSE * time.T
     nVar = 400000 * np.var(data, axis=0)
-    nMSE = nMSE[:, 1:] / nMSE[:, 0].reshape([-1, 1])
     nMSE_time = nMSE_time[:, 1:] / nMSE_time[:, 0].reshape([-1, 1])
-    nVar = nVar[:, 1:] / nVar[:, 0].reshape([-1, 1])
+    nVar = nVar[:, 1:] / nMSE[:, 0].reshape([-1, 1])
+    nMSE = nMSE[:, 1:] / nMSE[:, 0].reshape([-1, 1])
     fig, ax = plt.subplots(1, 2, figsize=[10, 3])
     for i, est in enumerate(estimators):
         ax[0].semilogy(scenarios, nMSE[:, i], c=colors[i], label=est)

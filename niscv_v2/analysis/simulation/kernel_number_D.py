@@ -23,9 +23,9 @@ def draw(dim, ax):
 
     data = read(dim)
     nMSE = 4000 * np.mean((data - 1) ** 2, axis=0)
-    nMSE = nMSE[:, :, 1:] / nMSE[:, :, 0].reshape([12, 10, 1])
     nVar = 4000 * np.var(data, axis=0)
-    nVar = nVar[:, :, 1:] / nVar[:, :, 0].reshape([12, 10, 1])
+    nVar = nVar[:, :, 1:] / nMSE[:, :, 0].reshape([12, 10, 1])
+    nMSE = nMSE[:, :, 1:] / nMSE[:, :, 0].reshape([12, 10, 1])
     for i, setting in enumerate(settings):
         for j, estimator in enumerate(estimators):
             ax[i].loglog(size_kns, nMSE[i, :, j], c=colors[j], label=estimator)

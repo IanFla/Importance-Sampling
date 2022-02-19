@@ -23,13 +23,13 @@ def draw(dim, ax):
     datast = read(dim, 'st')
     datasp = read(dim, 'sp')
     nMSEst = 10000 * np.mean((datast - 1) ** 2, axis=0)
-    nMSEst = nMSEst[:, :, 1:] / nMSEst[:, :, 0].reshape([6, 11, 1])
     nVarst = 10000 * np.var(datast, axis=0)
-    nVarst = nVarst[:, :, 1:] / nVarst[:, :, 0].reshape([6, 11, 1])
+    nVarst = nVarst[:, :, 1:] / nMSEst[:, :, 0].reshape([6, 11, 1])
+    nMSEst = nMSEst[:, :, 1:] / nMSEst[:, :, 0].reshape([6, 11, 1])
     nMSEsp = 10000 * np.mean((datasp - 1) ** 2, axis=0)
-    nMSEsp = nMSEsp[:, :, 1:] / nMSEsp[:, :, 0].reshape([6, 11, 1])
     nVarsp = 10000 * np.var(datasp, axis=0)
-    nVarsp = nVarsp[:, :, 1:] / nVarsp[:, :, 0].reshape([6, 11, 1])
+    nVarsp = nVarsp[:, :, 1:] / nMSEsp[:, :, 0].reshape([6, 11, 1])
+    nMSEsp = nMSEsp[:, :, 1:] / nMSEsp[:, :, 0].reshape([6, 11, 1])
     for i, setting in enumerate(settings):
         for j, estimator in enumerate(estimators):
             ax[i].loglog(ratios, nMSEst[i, :, j], '-', c=colors[j], label=estimator)

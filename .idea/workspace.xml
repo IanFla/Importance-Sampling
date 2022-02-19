@@ -5,23 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0e490570-a654-48ca-854e-837d17eec778" name="Changes" comment="nmb">
-      <change afterPath="$PROJECT_DIR$/niscv_v2/figures/new/cg4D.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/niscv_v2/figures/new/cg6D.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/niscv_v2/figures/new/garch.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/niscv_v2/figures/new/kn4D.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/niscv_v2/figures/new/kn6D.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/niscv_v2/figures/new/kn8D.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/niscv_v2/figures/new/kncost.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/niscv_v2/figures/new/rr4D.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/niscv_v2/figures/new/rr6D.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/niscv_v2/figures/new/sscost.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/niscv_v2/analysis/real/garch_estimate.py" beforeDir="false" afterPath="$PROJECT_DIR$/niscv_v2/analysis/real/garch_estimate.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/niscv_v2/analysis/simulation/clustering_group_D.py" beforeDir="false" afterPath="$PROJECT_DIR$/niscv_v2/analysis/simulation/clustering_group_D.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/niscv_v2/analysis/simulation/kernel_cost_D.py" beforeDir="false" afterPath="$PROJECT_DIR$/niscv_v2/analysis/simulation/kernel_cost_D.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/niscv_v2/analysis/simulation/kernel_number_D.py" beforeDir="false" afterPath="$PROJECT_DIR$/niscv_v2/analysis/simulation/kernel_number_D.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/niscv_v2/analysis/simulation/resampling_ratio_D.py" beforeDir="false" afterPath="$PROJECT_DIR$/niscv_v2/analysis/simulation/resampling_ratio_D.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/niscv_v2/analysis/simulation/sample_cost_D.py" beforeDir="false" afterPath="$PROJECT_DIR$/niscv_v2/analysis/simulation/sample_cost_D.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/niscv_v2/figures/new/cg4D.png" beforeDir="false" afterPath="$PROJECT_DIR$/niscv_v2/figures/new/cg4D.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/niscv_v2/figures/new/cg6D.png" beforeDir="false" afterPath="$PROJECT_DIR$/niscv_v2/figures/new/cg6D.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/niscv_v2/figures/new/garch.png" beforeDir="false" afterPath="$PROJECT_DIR$/niscv_v2/figures/new/garch.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/niscv_v2/figures/new/kn4D.png" beforeDir="false" afterPath="$PROJECT_DIR$/niscv_v2/figures/new/kn4D.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/niscv_v2/figures/new/kn6D.png" beforeDir="false" afterPath="$PROJECT_DIR$/niscv_v2/figures/new/kn6D.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/niscv_v2/figures/new/kn8D.png" beforeDir="false" afterPath="$PROJECT_DIR$/niscv_v2/figures/new/kn8D.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/niscv_v2/figures/new/rr4D.png" beforeDir="false" afterPath="$PROJECT_DIR$/niscv_v2/figures/new/rr4D.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/niscv_v2/figures/new/rr6D.png" beforeDir="false" afterPath="$PROJECT_DIR$/niscv_v2/figures/new/rr6D.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,7 +120,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="kernel_cost_D" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="kernel_number_D" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Importance-Sampling" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -137,7 +133,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/niscv_v2/analysis/simulation/kernel_cost_D.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/niscv_v2/analysis/simulation/kernel_number_D.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -193,10 +189,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.garch_estimate" />
-        <item itemvalue="Python.sample_cost_D" />
-        <item itemvalue="Python.kernel_cost_D" />
         <item itemvalue="Python.clustering_group_D" />
         <item itemvalue="Python.resampling_ratio_D" />
+        <item itemvalue="Python.kernel_number_D" />
+        <item itemvalue="Python.sample_cost_D" />
       </list>
     </recent_temporary>
   </component>
@@ -238,6 +234,7 @@
       <workItem from="1644679083995" duration="78000" />
       <workItem from="1644714300108" duration="281000" />
       <workItem from="1645274137277" duration="5677000" />
+      <workItem from="1645283140175" duration="529000" />
     </task>
     <task id="LOCAL-00001" summary="nmb">
       <created>1643084908503</created>
@@ -352,19 +349,19 @@
     <SUITE FILE_PATH="coverage/Importance_Sampling$garch__E_.coverage" NAME="garch (E) Coverage Results" MODIFIED="1644330783391" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v1/experiments" />
     <SUITE FILE_PATH="coverage/Importance_Sampling$truth__2_.coverage" NAME="truth (2) Coverage Results" MODIFIED="1644332045224" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2" />
     <SUITE FILE_PATH="coverage/Importance_Sampling$garch_cost__1_.coverage" NAME="garch_cost (1) Coverage Results" MODIFIED="1644654849499" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/analysis/real" />
-    <SUITE FILE_PATH="coverage/Importance_Sampling$clustering_group_D.coverage" NAME="clustering_group_D Coverage Results" MODIFIED="1645281365831" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/analysis/simulation" />
+    <SUITE FILE_PATH="coverage/Importance_Sampling$clustering_group_D.coverage" NAME="clustering_group_D Coverage Results" MODIFIED="1645283529176" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/analysis/simulation" />
     <SUITE FILE_PATH="coverage/Importance_Sampling$garch__1_.coverage" NAME="garch (1) Coverage Results" MODIFIED="1644331557915" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/nmb" />
     <SUITE FILE_PATH="coverage/Importance_Sampling$kernel_number.coverage" NAME="kernel_number Coverage Results" MODIFIED="1643966321125" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/experiments/simulation" />
     <SUITE FILE_PATH="coverage/Importance_Sampling$garch_bdwth__1_.coverage" NAME="garch_bdwth (1) Coverage Results" MODIFIED="1644419266527" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/analysis/real" />
     <SUITE FILE_PATH="coverage/Importance_Sampling$garch_estimate__1_.coverage" NAME="garch_estimate (1) Coverage Results" MODIFIED="1644458100428" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/analysis/real" />
-    <SUITE FILE_PATH="coverage/Importance_Sampling$resampling_ratio_D.coverage" NAME="resampling_ratio_D Coverage Results" MODIFIED="1645280012059" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/analysis/simulation" />
+    <SUITE FILE_PATH="coverage/Importance_Sampling$resampling_ratio_D.coverage" NAME="resampling_ratio_D Coverage Results" MODIFIED="1645283456940" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/analysis/simulation" />
     <SUITE FILE_PATH="coverage/Importance_Sampling$nmb.coverage" NAME="nmb Coverage Results" MODIFIED="1643025044893" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/analysis/test" />
     <SUITE FILE_PATH="coverage/Importance_Sampling$kernel_cost_D.coverage" NAME="kernel_cost_D Coverage Results" MODIFIED="1645281962415" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/analysis/simulation" />
     <SUITE FILE_PATH="coverage/Importance_Sampling$ess_ratio.coverage" NAME="ess_ratio Coverage Results" MODIFIED="1644229701651" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/experiments/supplement" />
     <SUITE FILE_PATH="coverage/Importance_Sampling$garch_draw.coverage" NAME="garch_draw Coverage Results" MODIFIED="1644405962871" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/experiments" />
     <SUITE FILE_PATH="coverage/Importance_Sampling$sample_cost_D.coverage" NAME="sample_cost_D Coverage Results" MODIFIED="1645282095904" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/analysis/simulation" />
     <SUITE FILE_PATH="coverage/Importance_Sampling$kde2__1_.coverage" NAME="kde2 (1) Coverage Results" MODIFIED="1642924862158" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/basic" />
-    <SUITE FILE_PATH="coverage/Importance_Sampling$garch_estimate.coverage" NAME="garch_estimate Coverage Results" MODIFIED="1645282311414" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/analysis/real" />
+    <SUITE FILE_PATH="coverage/Importance_Sampling$garch_estimate.coverage" NAME="garch_estimate Coverage Results" MODIFIED="1645283603587" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/analysis/real" />
     <SUITE FILE_PATH="coverage/Importance_Sampling$kde.coverage" NAME="kde Coverage Results" MODIFIED="1643075717245" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/basics" />
     <SUITE FILE_PATH="coverage/Importance_Sampling$kde2.coverage" NAME="kde2 Coverage Results" MODIFIED="1643076527566" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/basics" />
     <SUITE FILE_PATH="coverage/Importance_Sampling$garch_bdwth.coverage" NAME="garch_bdwth Coverage Results" MODIFIED="1644983931441" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/analysis/real" />
@@ -373,7 +370,7 @@
     <SUITE FILE_PATH="coverage/Importance_Sampling$exp.coverage" NAME="exp Coverage Results" MODIFIED="1643710536121" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/basics" />
     <SUITE FILE_PATH="coverage/Importance_Sampling$truth.coverage" NAME="truth Coverage Results" MODIFIED="1644332816240" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/experiments" />
     <SUITE FILE_PATH="coverage/Importance_Sampling$garch_truth__1_.coverage" NAME="truth Coverage Results" MODIFIED="1644332542332" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/experiments" />
-    <SUITE FILE_PATH="coverage/Importance_Sampling$kernel_number_D.coverage" NAME="kernel_number_D Coverage Results" MODIFIED="1645279327720" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/analysis/simulation" />
+    <SUITE FILE_PATH="coverage/Importance_Sampling$kernel_number_D.coverage" NAME="kernel_number_D Coverage Results" MODIFIED="1645283315781" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/analysis/simulation" />
     <SUITE FILE_PATH="coverage/Importance_Sampling$leverage.coverage" NAME="leverage Coverage Results" MODIFIED="1643531256413" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/others" />
     <SUITE FILE_PATH="coverage/Importance_Sampling$sample_cost.coverage" NAME="sample_cost Coverage Results" MODIFIED="1644467853959" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/experiments/simulation" />
     <SUITE FILE_PATH="coverage/Importance_Sampling$garch_cost.coverage" NAME="garch_cost Coverage Results" MODIFIED="1644590897845" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/niscv_v2/experiments" />
