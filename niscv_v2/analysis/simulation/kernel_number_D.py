@@ -17,13 +17,15 @@ def draw(dim, ax):
                 [4, False], [4, True],
                 [-1, False], [-1, True],
                 [-2, False], [-2, True]]
-    estimators = ['IIS', 'NIS', 'MIS$^*$', 'MIS', 'RIS', 'MLE']
-    colors = ['k', 'b', 'y', 'g', 'r', 'm']
+    estimators = ['NIS', 'DNIS', 'DNIS$^*$', 'REG', 'MLE']
+    colors = ['b', 'y', 'g', 'r', 'm']
     size_kns = [50, 100, 150, 200, 250, 300, 350, 400, 450, 500]
 
     data = read(dim)
     nMSE = 4000 * np.mean((data - 1) ** 2, axis=0)
+    nMSE = nMSE[:, :, 1:] / nMSE[:, :, 0].reshape([12, 10, 1])
     nVar = 4000 * np.var(data, axis=0)
+    nVar = nVar[:, :, 1:] / nVar[:, :, 0].reshape([12, 10, 1])
     for i, setting in enumerate(settings):
         for j, estimator in enumerate(estimators):
             ax[i].loglog(size_kns, nMSE[i, :, j], c=colors[j], label=estimator)
@@ -32,13 +34,14 @@ def draw(dim, ax):
         # ax[i].set_xlabel('log(kernel number)')
         # ax[i].set_ylabel('nMSE/nVar')
         ax[i].set_title('$d$={}, $c$={}, sn={}'.format(dim, setting[0], setting[1]))
+        ax[i].grid(which='both')
 
     groups = np.arange(ax.size).reshape([-1, 2])
     for group in groups:
         optimal = nMSE[group, :, :].min(axis=2).min(axis=0)
         for i in group:
             ax[i].loglog(size_kns, optimal, 'c-.', label='Opt')
-            ax[i].set_ylim([0.8 * optimal.min(), 1.3 * nMSE[i, :, 0].max()])
+            ax[i].set_ylim([0.8 * optimal.min(), 1.3])
 
 
 def main(dim):

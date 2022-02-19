@@ -23,7 +23,7 @@ def main():
     data = read(30)
     mean = np.mean(data, axis=0)
     print(mean)
-    estimators = ['NIS', 'MIS$^*$', 'MIS', 'RIS', 'MLE']
+    estimators = ['NIS', 'DNIS', 'DNIS$^*$', 'REG', 'MLE']
     colors = ['b', 'y', 'g', 'r', 'm']
     scenarios = ['(1, 0.05)', '(1, 0.01)', '(2, 0.05)', '(2, 0.01)', '(5, 0.05)', '(5, 0.01)']
     nMSE = 400000 * np.mean((data - truth) ** 2, axis=0)
@@ -40,6 +40,8 @@ def main():
 
     for a in ax:
         a.legend(loc=2)
+        a.grid(axis='x', which='major')
+        a.grid(axis='both', which='both')
 
     fig.tight_layout()
     fig.show()
