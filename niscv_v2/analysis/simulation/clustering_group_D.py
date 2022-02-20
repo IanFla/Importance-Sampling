@@ -17,7 +17,7 @@ def draw(dim, ax):
     # colors = ['k', 'b', 'y', 'g', 'r', 'm']
     estimators = ['NIS', 'DNIS', 'DNIS$^*$', 'REG']
     colors = ['b', 'y', 'g', 'r']
-    clusters = ['none', 'ind', 'km(2)', 'km(3)', 'km(4)', 'km(5)']
+    clusters = ['none', 'natural', 'km(2)', 'km(3)', 'km(4)', 'km(5)']
     refer1 = lambda x: ((1 - st.norm.cdf(x)) / st.norm.cdf(x)) * np.ones(6)
     refer2 = lambda x: 4 * ((1 - st.norm.cdf(x)) ** 2) * np.ones(6)
 
