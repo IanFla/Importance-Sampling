@@ -268,12 +268,12 @@ def main(dim):
 
 if __name__ == '__main__':
     # main(dim=5)
-    np.random.seed(1234)
-    experiment(dim=4, size_est=5000, sn=True, adjust=False, show=True,
-               size_kn=300, ratio=20, bootstrap='mt')
+    # np.random.seed(1234)
+    # experiment(dim=4, size_est=5000, sn=True, adjust=False, show=True,
+    #            size_kn=300, ratio=20, bootstrap='mt')
     np.random.seed(1234)
     experiment(dim=4, size_est=5000, sn=True, adjust=False, show=True,
                size_kn=300, ratio=20, bootstrap='st')
-    np.random.seed(1234)
-    experiment(dim=4, size_est=5000, sn=True, adjust=True, show=True,
-               size_kn=300, ratio=20, bootstrap='sp')
+    # np.random.seed(1234)
+    # experiment(dim=4, size_est=5000, sn=True, adjust=True, show=True,
+    #            size_kn=300, ratio=20, bootstrap='sp')
