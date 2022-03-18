@@ -30,6 +30,10 @@ def main():
         ax[i].plot([50, 500], [0, 0], color='k')
         ax[i].set_title('$d={}$'.format(dim))
         ax[i].legend(loc=2)
+        if dim == 4:
+            ax[i].set_ylabel('Time')
+
+        ax[i].set_xlabel('$m$')
 
     fig.tight_layout()
     fig.show()

@@ -42,6 +42,11 @@ def draw(dim, ax):
                    [0.8 * min(nMSEst[i, :, -1].min(), nMSEsp[i, :, -1].min()), 1.3], 'c-.', label='Ref')
         ax[i].set_title('$d$={}, $c$={}'.format(dim, setting))
         ax[i].grid(which='both')
+        if setting in {1, 3, -1}:
+            ax[i].set_ylabel('Error')
+
+        if setting < 0:
+            ax[i].set_xlabel('$r_\mathrm{SIR}$')
 
 
 def main(dim):

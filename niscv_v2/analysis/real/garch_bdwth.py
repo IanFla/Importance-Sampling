@@ -21,6 +21,10 @@ def main():
         a.semilogy(bdwths, data[:, 2 * i + 1], label=r'$\alpha=0.01$')
         a.set_title('$D={}$'.format(Ds[i]))
         a.legend(loc=1)
+        if i == 0:
+            a.set_ylabel(r'Estimate of $\mathrm{min}_{\mathbf{\beta}}\sigma_{D,\alpha}^2(\mathbf{\beta})$')
+
+        a.set_xlabel('$h$')
 
     fig.tight_layout()
     fig.show()

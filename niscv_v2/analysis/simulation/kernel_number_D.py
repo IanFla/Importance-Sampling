@@ -35,6 +35,11 @@ def draw(dim, ax):
         # ax[i].set_ylabel('nMSE/nVar')
         ax[i].set_title('$d$={}, $c$={}, sn={}'.format(dim, setting[0], setting[1]))
         ax[i].grid(which='both')
+        if (setting[0] in {1, 3, -1}) and (not setting[1]):
+            ax[i].set_ylabel('Error')
+
+        if setting[0] < 0:
+            ax[i].set_xlabel('$m$')
 
     groups = np.arange(ax.size).reshape([-1, 2])
     for group in groups:

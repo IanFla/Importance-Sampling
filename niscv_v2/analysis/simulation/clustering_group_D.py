@@ -38,6 +38,10 @@ def draw(dim, ax):
         ax[i].set_title('$d$={}, $c$={}'.format(dim, setting))
         ax[i].grid(axis='x', which='major')
         ax[i].grid(axis='both', which='both')
+        if setting == -1:
+            ax[i].set_ylabel('Error')
+
+        ax[i].set_xlabel('cluster state')
 
 
 def main(dim):
