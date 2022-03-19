@@ -22,20 +22,26 @@ def main():
 
     data = read(30)
     mean = np.mean(data, axis=0)
-    print(mean)
-    estimators = ['NIS', 'DNIS', 'DNIS$^*$', 'REG', 'MLE']
+    # print(mean)
+    # estimators = ['NIS', 'DNIS', 'DNIS$^*$', 'REG', 'MLE']
+    estimators = ['NIS', 'DNIS---', 'DNIS', 'REG', 'MLE']
     colors = ['b', 'y', 'g', 'r', 'm']
     scenarios = ['(1, 0.05)', '(1, 0.01)', '(2, 0.05)', '(2, 0.01)', '(5, 0.05)', '(5, 0.01)']
     nMSE = 400000 * np.mean((data - truth) ** 2, axis=0)
+    print(np.round(nMSE, 4))
     nMSE_time = nMSE * time.T
+    print(np.round(nMSE_time), 4)
     nVar = 400000 * np.var(data, axis=0)
     nMSE_time = nMSE_time[:, 1:] / nMSE_time[:, 0].reshape([-1, 1])
     nVar = nVar[:, 1:] / nMSE[:, 0].reshape([-1, 1])
     nMSE = nMSE[:, 1:] / nMSE[:, 0].reshape([-1, 1])
     fig, ax = plt.subplots(1, 2, figsize=[10, 3])
     for i, est in enumerate(estimators):
+        if i == 1:
+            continue
+
         ax[0].semilogy(scenarios, nMSE[:, i], c=colors[i], label=est)
-        ax[0].semilogy(scenarios, nVar[:, i], '.', c=colors[i])
+        # ax[0].semilogy(scenarios, nVar[:, i], '.', c=colors[i])
         ax[1].semilogy(scenarios, nMSE_time[:, i], c=colors[i], label=est)
 
     ax[0].set_xlabel(r'$(D,\alpha)$')
@@ -49,7 +55,7 @@ def main():
 
     fig.tight_layout()
     fig.show()
-    print(nMSE[:, 1:] / nMSE[:, :-1])
+    # print(nMSE[:, 1:] / nMSE[:, :-1])
 
 
 if __name__ == '__main__':
