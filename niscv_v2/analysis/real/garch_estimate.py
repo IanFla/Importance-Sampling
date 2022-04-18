@@ -24,7 +24,7 @@ def main():
     mean = np.mean(data, axis=0)
     # print(mean)
     # estimators = ['NIS', 'DNIS', 'DNIS$^*$', 'REG', 'MLE']
-    estimators = ['NIS', 'DNIS---', 'DNIS', 'REG', 'MLE']
+    estimators = ['NIS', 'DNIS---', 'DNIS', 'REG', 'MLE---']
     colors = ['b', 'y', 'g', 'r', 'm']
     scenarios = ['(1, 0.05)', '(1, 0.01)', '(2, 0.05)', '(2, 0.01)', '(5, 0.05)', '(5, 0.01)']
     nMSE = 400000 * np.mean((data - truth) ** 2, axis=0)
@@ -37,7 +37,7 @@ def main():
     nMSE = nMSE[:, 1:] / nMSE[:, 0].reshape([-1, 1])
     fig, ax = plt.subplots(1, 2, figsize=[10, 3])
     for i, est in enumerate(estimators):
-        if i == 1:
+        if i == 1 or i == 4:
             continue
 
         ax[0].semilogy(scenarios, nMSE[:, i], c=colors[i], label=est)
