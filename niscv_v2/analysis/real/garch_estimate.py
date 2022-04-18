@@ -46,8 +46,10 @@ def main():
 
     ax[0].set_xlabel(r'$(D,\alpha)$')
     ax[1].set_xlabel(r'$(D,\alpha)$')
-    ax[0].set_ylabel('Error')
-    ax[1].set_ylabel(r'$\mathrm{Error}\times\mathrm{Time}$')
+    # ax[0].set_ylabel('Error')
+    # ax[1].set_ylabel(r'$\mathrm{Error}\times\mathrm{Time}$')
+    ax[0].set_ylabel('statistical performance')
+    ax[1].set_ylabel('overall performance')
     for a in ax:
         a.legend(loc=2)
         a.grid(axis='x', which='major')
