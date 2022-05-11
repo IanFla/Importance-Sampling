@@ -15,8 +15,8 @@ def draw(dim, ax):
     settings = [-1, -2, -3]
     # estimators = ['IIS', 'NIS', 'MIS$^*$', 'MIS', 'RIS']
     # colors = ['k', 'b', 'y', 'g', 'r', 'm']
-    estimators = ['NIS', 'DNIS', 'DNIS$^*$', 'REG']
-    colors = ['b', 'y', 'g', 'r']
+    estimators = ['NIS', 'DNIS', 'DIS', 'REG']
+    colors = ['y', 'y', 'g', 'r']
     clusters = ['none', 'natural', 'km(2)', 'km(3)', 'km(4)', 'km(5)']
     refer1 = lambda x: ((1 - st.norm.cdf(x)) / st.norm.cdf(x)) * np.ones(6)
     refer2 = lambda x: 4 * ((1 - st.norm.cdf(x)) ** 2) * np.ones(6)
@@ -29,8 +29,9 @@ def draw(dim, ax):
     nMSE = nMSE[:, :, 1:] / nMSE[:, :, 0].reshape([3, 6, 1])
     for i, setting in enumerate(settings):
         for j, estimator in enumerate(estimators):
-            ax[i].semilogy(clusters, nMSE[i, :, j], '-', c=colors[j], label=estimator)
-            ax[i].semilogy(clusters, nVar[i, :, j], '.', c=colors[j])
+            if estimator != 'DNIS':
+                ax[i].semilogy(clusters, nMSE[i, :, j], '-', c=colors[j], label=estimator)
+                ax[i].semilogy(clusters, nVar[i, :, j], '.', c=colors[j])
 
         ax[i].plot(clusters, refer1(setting) / nMSE0[i, :], 'c-.', label='Ref 1')
         ax[i].plot(clusters, refer2(setting) / nMSE0[i, :], 'm-.', label='Ref 2')
@@ -39,9 +40,9 @@ def draw(dim, ax):
         ax[i].grid(axis='x', which='major')
         ax[i].grid(axis='both', which='both')
         if setting == -1:
-            ax[i].set_ylabel('Error')
+            ax[i].set_ylabel('$\mathrm{MSE}_\mathrm{IIS}$ or $\mathrm{Var}_\mathrm{IIS}$')
 
-        ax[i].set_xlabel('cluster state')
+        ax[i].set_xlabel('clustering strategy')
 
 
 def main(dim):

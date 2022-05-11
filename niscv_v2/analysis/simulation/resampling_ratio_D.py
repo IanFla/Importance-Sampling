@@ -14,8 +14,8 @@ def draw(dim, ax):
     settings = [1, 2, 3, 4, -1, -2]
     # estimators = ['IIS', 'NIS', 'MIS$^*$', 'MIS', 'RIS']
     # colors = ['k', 'b', 'y', 'g', 'r']
-    estimators = ['NIS', 'DNIS', 'DNIS$^*$', 'REG']
-    colors = ['b', 'y', 'g', 'r']
+    estimators = ['NIS', 'DNIS', 'DIS', 'REG']
+    colors = ['y', 'y', 'g', 'r']
     ratios = [0.5, 1, 2, 4, 8, 16, 32, 64, 128, 256, 512]
     reference = np.array(pickle.load(open('../../data/simulation/ess_ratio', 'rb')))
     reference = reference[0] if dim == 4 else reference[1]
@@ -32,10 +32,11 @@ def draw(dim, ax):
     nMSEsp = nMSEsp[:, :, 1:] / nMSEsp[:, :, 0].reshape([6, 11, 1])
     for i, setting in enumerate(settings):
         for j, estimator in enumerate(estimators):
-            ax[i].loglog(ratios, nMSEst[i, :, j], '-', c=colors[j], label=estimator)
-            ax[i].loglog(ratios, nVarst[i, :, j], '.', c=colors[j])
-            ax[i].loglog(ratios, nMSEsp[i, :, j], '--', c=colors[j])
-            ax[i].loglog(ratios, nVarsp[i, :, j], 'x', c=colors[j])
+            if estimator != 'DNIS':
+                ax[i].loglog(ratios, nMSEst[i, :, j], '-', c=colors[j], label=estimator)
+                ax[i].loglog(ratios, nVarst[i, :, j], '.', c=colors[j])
+                ax[i].loglog(ratios, nMSEsp[i, :, j], '--', c=colors[j])
+                ax[i].loglog(ratios, nVarsp[i, :, j], 'x', c=colors[j])
 
         ax[i].set_ylim([0.8 * min(nMSEst[i, :, -1].min(), nMSEsp[i, :, -1].min()), 1.3])
         ax[i].plot([reference[i], reference[i]],
@@ -43,7 +44,7 @@ def draw(dim, ax):
         ax[i].set_title('$d$={}, $c$={}'.format(dim, setting))
         ax[i].grid(which='both')
         if setting in {1, 3, -1}:
-            ax[i].set_ylabel('Error')
+            ax[i].set_ylabel('$\mathrm{MSE}_\mathrm{IIS}$ or $\mathrm{Var}_\mathrm{IIS}$')
 
         if setting < 0:
             ax[i].set_xlabel('$r_\mathrm{SIR}$')

@@ -17,8 +17,8 @@ def draw(dim, ax):
                 [4, False], [4, True],
                 [-1, False], [-1, True],
                 [-2, False], [-2, True]]
-    estimators = ['NIS', 'DNIS', 'DNIS$^*$', 'REG', 'MLE']
-    colors = ['b', 'y', 'g', 'r', 'm']
+    estimators = ['NIS', 'DNIS', 'DIS', 'REG', 'MLE']
+    colors = ['y', 'y', 'g', 'r', 'b']
     size_kns = [50, 100, 150, 200, 250, 300, 350, 400, 450, 500]
 
     data = read(dim)
@@ -28,18 +28,19 @@ def draw(dim, ax):
     nMSE = nMSE[:, :, 1:] / nMSE[:, :, 0].reshape([12, 10, 1])
     for i, setting in enumerate(settings):
         for j, estimator in enumerate(estimators):
-            ax[i].loglog(size_kns, nMSE[i, :, j], c=colors[j], label=estimator)
-            ax[i].loglog(size_kns, nVar[i, :, j], '.', c=colors[j])
+            if estimator != 'DNIS':
+                ax[i].loglog(size_kns, nMSE[i, :, j], c=colors[j], label=estimator)
+                ax[i].loglog(size_kns, nVar[i, :, j], '.', c=colors[j])
 
         # ax[i].set_xlabel('log(kernel number)')
         # ax[i].set_ylabel('nMSE/nVar')
         ax[i].set_title('$d$={}, $c$={}, sn={}'.format(dim, setting[0], setting[1]))
         ax[i].grid(which='both')
         if (setting[0] in {1, 3, -1}) and (not setting[1]):
-            ax[i].set_ylabel('Error')
+            ax[i].set_ylabel('$\mathrm{MSE}_\mathrm{IIS}$ or $\mathrm{Var}_\mathrm{IIS}$')
 
         if setting[0] < 0:
-            ax[i].set_xlabel('$m$')
+            ax[i].set_xlabel('$m_0$')
 
     groups = np.arange(ax.size).reshape([-1, 2])
     for group in groups:
