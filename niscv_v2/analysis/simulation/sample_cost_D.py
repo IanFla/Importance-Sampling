@@ -15,8 +15,8 @@ def draw(dim, ax):
     group = [[1, 2, 3], [1, 2, 3, 5], [1, 2, 3, 6]]
     data = np.array([data[:, gp].sum(axis=1) for gp in group])
     size_ests = [1000, 2000, 3000, 5000, 7000, 10000, 20000, 30000, 50000, 70000, 100000]
-    labels = ['NIS/DNIS/DNIS$^*$', 'REG', 'MLE']
-    colors = ['b', 'r', 'm']
+    labels = ['NIS/DIS', 'REG', 'MLE']
+    colors = ['g', 'r', 'b']
     for i, dat in enumerate(data):
         ax.plot(size_ests, dat, label=labels[i], color=colors[i])
 

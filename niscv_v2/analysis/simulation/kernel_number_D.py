@@ -40,7 +40,7 @@ def draw(dim, ax):
             ax[i].set_ylabel('$\mathrm{MSE}_\mathrm{IIS}$ or $\mathrm{Var}_\mathrm{IIS}$')
 
         if setting[0] < 0:
-            ax[i].set_xlabel('$m_0$')
+            ax[i].set_xlabel('$m$')
 
     groups = np.arange(ax.size).reshape([-1, 2])
     for group in groups:
