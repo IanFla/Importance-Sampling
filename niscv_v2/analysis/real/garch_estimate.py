@@ -24,8 +24,8 @@ def main():
     mean = np.mean(data, axis=0)
     # print(mean)
     # estimators = ['NIS', 'DNIS', 'DNIS$^*$', 'REG', 'MLE']
-    estimators = ['NIS', 'DNIS---', 'DNIS', 'REG', 'MLE---']
-    colors = ['b', 'y', 'g', 'r', 'm']
+    estimators = ['NIS', 'DNIS---', 'DIS', 'REG', 'MLE']
+    colors = ['y', 'y', 'g', 'r', 'b']
     scenarios = ['(1, 0.05)', '(1, 0.01)', '(2, 0.05)', '(2, 0.01)', '(5, 0.05)', '(5, 0.01)']
     nMSE = 400000 * np.mean((data - truth) ** 2, axis=0)
     print(np.round(nMSE, 4))
@@ -37,19 +37,17 @@ def main():
     nMSE = nMSE[:, 1:] / nMSE[:, 0].reshape([-1, 1])
     fig, ax = plt.subplots(1, 2, figsize=[10, 3])
     for i, est in enumerate(estimators):
-        if i == 1 or i == 4:
-            continue
-
-        ax[0].semilogy(scenarios, nMSE[:, i], c=colors[i], label=est)
-        # ax[0].semilogy(scenarios, nVar[:, i], '.', c=colors[i])
-        ax[1].semilogy(scenarios, nMSE_time[:, i], c=colors[i], label=est)
+        if est != 'DNIS---':
+            ax[0].semilogy(scenarios, nMSE[:, i], c=colors[i], label=est)
+            ax[0].semilogy(scenarios, nVar[:, i], '.', c=colors[i])
+            ax[1].semilogy(scenarios, nMSE_time[:, i], c=colors[i], label=est)
 
     ax[0].set_xlabel(r'$(D,\alpha)$')
     ax[1].set_xlabel(r'$(D,\alpha)$')
-    # ax[0].set_ylabel('Error')
-    # ax[1].set_ylabel(r'$\mathrm{Error}\times\mathrm{Time}$')
-    ax[0].set_ylabel('statistical performance')
-    ax[1].set_ylabel('overall performance')
+    ax[0].set_ylabel('$\mathrm{MSE}_\mathrm{IIS}$ or $\mathrm{Var}_\mathrm{IIS}$')
+    ax[1].set_ylabel(r'$(\mathrm{MSE}\times\mathrm{Time})_\mathrm{IIS}$')
+    # ax[0].set_ylabel('statistical performance')
+    # ax[1].set_ylabel('overall performance')
     for a in ax:
         a.legend(loc=2)
         a.grid(axis='x', which='major')

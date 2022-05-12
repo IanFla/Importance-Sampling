@@ -17,14 +17,14 @@ def main():
     fig, ax = plt.subplots(1, 3, figsize=[13.5, 3.5])
     ax = ax.flatten()
     for i, a in enumerate(ax):
-        a.semilogy(bdwths, data[:, 2 * i], label=r'$\alpha=0.05$')
-        a.semilogy(bdwths, data[:, 2 * i + 1], label=r'$\alpha=0.01$')
+        a.semilogy(bdwths, data[:, 2 * i] / 20000, label=r'$\alpha=0.05$')
+        a.semilogy(bdwths, data[:, 2 * i + 1] / 20000, label=r'$\alpha=0.01$')
         a.set_title('$D={}$'.format(Ds[i]))
         a.legend(loc=1)
         if i == 0:
-            a.set_ylabel(r'Estimate of $\mathrm{min}_{\mathbf{\beta}}\sigma_{D,\alpha}^2(\mathbf{\beta})$')
+            a.set_ylabel(r'Estimated variance of $\hat{\mu}_{\mathrm{Reg}}^{\mathrm{sn}}$')
 
-        a.set_xlabel('$h$')
+        a.set_xlabel('$h^*$')
 
     fig.tight_layout()
     fig.show()
