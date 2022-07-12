@@ -90,7 +90,7 @@ class Estimation:
 def sim(it, dim):
     print(it)
     np.random.seed(1997 + 1107 * it)
-    M = [100, 200, 400, 800, 1600]
+    M = [100, 200, 400, 800]
     R = [1, 4, 16, 32, 64, 128, 256, 512]
     result = np.zeros([len(M), len(R), 3])
     for i, m in enumerate(M):
