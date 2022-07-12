@@ -29,3 +29,4 @@ if __name__ == '__main__':
     main(0)
     main(1)
     main(2)
+    main(3)
