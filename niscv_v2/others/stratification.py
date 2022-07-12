@@ -90,8 +90,8 @@ class Estimation:
 def sim(it, dim):
     print(it)
     np.random.seed(1997 + 1107 * it)
-    M = [100, 200, 400, 800]
-    R = [1, 4, 16, 32, 64, 128, 256, 512]
+    M = [100, 200, 400, 600]
+    R = [1, 4, 16, 32, 64, 128, 256]
     result = np.zeros([len(M), len(R), 3])
     for i, m in enumerate(M):
         for j, r in enumerate(R):
@@ -106,7 +106,7 @@ def main():
     os.environ['OMP_NUM_THREADS'] = '1'
     with multiprocessing.Pool(processes=60) as pool:
         begin = dt.now()
-        its = np.arange(500)
+        its = np.arange(600)
         R = pool.map(partial(sim, dim=5), its)
         end = dt.now()
         print((end - begin).seconds)
