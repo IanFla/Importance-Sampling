@@ -49,7 +49,7 @@ class Estimation:
         centers = target.rvs(m)
         self.kde = KDE(centers)
         self.n = int(r * m)
-        self.n0 = int(0.1 * self.n)
+        self.n0 = int(0.05 * self.n)
         self.a0 = self.n0 / (self.n0 + self.n)
         self.proposal = lambda x: self.a0 * st.multivariate_normal(mean=np.zeros(centers.shape[1]), cov=4).pdf(x) + \
                                   (1 - self.a0) * self.kde.pdf(x)
@@ -90,8 +90,8 @@ class Estimation:
 def sim(it, dim):
     print(it)
     np.random.seed(1997 + 1107 * it)
-    M = [100, 200, 400]
-    R = [1, 4, 16, 32, 64, 128, 256]
+    M = [100, 200, 400, 800, 1600]
+    R = [1, 4, 16, 32, 64, 128, 256, 512]
     result = np.zeros([len(M), len(R), 3])
     for i, m in enumerate(M):
         for j, r in enumerate(R):
@@ -104,9 +104,9 @@ def sim(it, dim):
 
 def main():
     os.environ['OMP_NUM_THREADS'] = '1'
-    with multiprocessing.Pool(processes=4) as pool:
+    with multiprocessing.Pool(processes=60) as pool:
         begin = dt.now()
-        its = np.arange(400)
+        its = np.arange(500)
         R = pool.map(partial(sim, dim=5), its)
         end = dt.now()
         print((end - begin).seconds)
