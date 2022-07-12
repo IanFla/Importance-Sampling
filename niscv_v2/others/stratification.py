@@ -43,63 +43,59 @@ class KDE:
 
 
 class Estimation:
-    def __init__(self, target, m, r):
+    def __init__(self, dim, m, r):
+        target = st.multivariate_normal(mean=np.zeros(dim))
         self.target = target.pdf
         centers = target.rvs(m)
         self.kde = KDE(centers)
         self.n = int(r * m)
+        self.n0 = int(0.1 * self.n)
+        self.a0 = self.n0 / (self.n0 + self.n)
+        self.proposal = lambda x: self.a0 * st.multivariate_normal(mean=np.zeros(centers.shape[1]), cov=4).pdf(x) + \
+                                  (1 - self.a0) * self.kde.pdf(x)
         self.res = []
 
     def standard(self):
-        samples = self.kde.rvs(self.n)
-        weights = self.target(samples) / self.kde.pdf(samples)
+        samples0 = st.multivariate_normal(mean=np.zeros(self.kde.d), cov=4).rvs(self.n0)
+        samples = np.vstack([self.kde.rvs(self.n), samples0])
+        weights = samples[:, 0] * self.target(samples) / self.proposal(samples)
         self.res.append(np.mean(weights))
 
     def stratified(self):
-        samples = self.kde.rvs(self.n, stratify=True)
-        weights = self.target(samples) / self.kde.pdf(samples)
+        samples0 = st.multivariate_normal(mean=np.zeros(self.kde.d), cov=4).rvs(self.n0)
+        samples = np.vstack([self.kde.rvs(self.n, stratify=True), samples0])
+        weights = samples[:, 0] * self.target(samples) / self.proposal(samples)
         self.res.append(np.mean(weights))
 
-    def post_stratified_old(self):
-        samples = self.kde.rvs(self.n)
-        weights = self.target(samples) / self.kde.pdf(samples)
+    def post_stratified(self):
+        samples0 = st.multivariate_normal(mean=np.zeros(self.kde.d), cov=4).rvs(self.n0)
+        samples = np.vstack([self.kde.rvs(self.n), samples0])
+        weights = samples[:, 0] * self.target(samples) / self.proposal(samples)
         cum_sizes = np.append(0, np.cumsum(self.kde.sizes))
-        means = np.zeros(self.kde.m)
+        means = []
         for j, size in enumerate(self.kde.sizes):
             if size == 0:
                 continue
 
-            means[j] = np.mean(weights[cum_sizes[j]:cum_sizes[j + 1]])
+            means.append(np.mean(weights[cum_sizes[j]:cum_sizes[j + 1]]))
 
-        self.res.append(np.mean(means))
-
-    def post_stratified_new(self):
-        samples = self.kde.rvs(self.n)
-        densities = self.kde.kns(samples)
-        proposal = np.zeros(self.n)
-        for j, size in enumerate(self.kde.sizes):
-            proposal += size * densities[j]
-
-        weights = self.target(samples) / (proposal / self.n)
-        self.res.append(np.mean(weights))
+        self.res.append(self.a0 * np.mean(weights[self.n:]) + (1 - self.a0) * np.mean(means))
 
     def run(self):
         self.standard()
         self.stratified()
-        self.post_stratified_old()
-        self.post_stratified_new()
+        self.post_stratified()
 
 
 def sim(it, dim):
     print(it)
     np.random.seed(1997 + 1107 * it)
-    target = st.multivariate_normal(mean=np.zeros(dim))
-    M = [20, 100, 500]
-    R = [1, 2, 4, 8, 16, 32]
-    result = np.zeros([len(M), len(R), 4])
+    M = [100, 200, 400]
+    R = [1, 4, 16, 32, 64, 128, 256]
+    result = np.zeros([len(M), len(R), 3])
     for i, m in enumerate(M):
         for j, r in enumerate(R):
-            estimator = Estimation(target, m, r)
+            estimator = Estimation(dim, m, r)
             estimator.run()
             result[i, j] = estimator.res
 
@@ -108,14 +104,14 @@ def sim(it, dim):
 
 def main():
     os.environ['OMP_NUM_THREADS'] = '1'
-    with multiprocessing.Pool(processes=3) as pool:
+    with multiprocessing.Pool(processes=4) as pool:
         begin = dt.now()
-        its = np.arange(300)
+        its = np.arange(400)
         R = pool.map(partial(sim, dim=5), its)
         end = dt.now()
         print((end - begin).seconds)
 
-    with open('../../data/test/stratification', 'wb') as file:
+    with open('../data/test/stratification0', 'wb') as file:
         pickle.dump(R, file)
 
 
