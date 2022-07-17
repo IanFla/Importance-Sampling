@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0e490570-a654-48ca-854e-837d17eec778" name="Changes" comment="nmb">
-      <change beforePath="$PROJECT_DIR$/niscv_v2/analysis/test/stratification (A).py" beforeDir="false" afterPath="$PROJECT_DIR$/niscv_v2/analysis/test/stratification (A).py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,6 +33,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "exceleditor.install": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)"
+  }
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/niscv_v2/analysis/test" />
@@ -230,6 +242,7 @@
       <workItem from="1657608931705" duration="123000" />
       <workItem from="1657609219849" duration="2222000" />
       <workItem from="1657614576852" duration="147000" />
+      <workItem from="1658028535924" duration="309000" />
     </task>
     <task id="LOCAL-00001" summary="nmb">
       <created>1643084908503</created>
