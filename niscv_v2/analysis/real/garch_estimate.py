@@ -28,13 +28,14 @@ def main():
     colors = ['y', 'y', 'g', 'r', 'b']
     scenarios = ['(1, 0.05)', '(1, 0.01)', '(2, 0.05)', '(2, 0.01)', '(5, 0.05)', '(5, 0.01)']
     nMSE = 400000 * np.mean((data - truth) ** 2, axis=0)
-    print(np.round(nMSE, 4))
     nMSE_time = nMSE * time.T
-    print(np.round(nMSE_time), 4)
     nVar = 400000 * np.var(data, axis=0)
     nMSE_time = nMSE_time[:, 1:] / nMSE_time[:, 0].reshape([-1, 1])
     nVar = nVar[:, 1:] / nMSE[:, 0].reshape([-1, 1])
     nMSE = nMSE[:, 1:] / nMSE[:, 0].reshape([-1, 1])
+    print(np.round(nMSE[:, [0, 2, 3, 4]], 4))
+    print(np.round(nVar[:, [0, 2, 3, 4]], 4))
+    print(np.round(nMSE_time[:, [0, 2, 3, 4]], 4))
     fig, ax = plt.subplots(1, 2, figsize=[10, 3])
     for i, est in enumerate(estimators):
         if est != 'DNIS---':
